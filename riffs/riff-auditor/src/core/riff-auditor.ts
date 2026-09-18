@@ -407,6 +407,9 @@ export class RiffAuditor {
 		// Package.json scripts issues
 		if (scriptsResult) {
 			const missingRequired: string[] = [];
+			if (rules.requireBuildScript && !scriptsResult.hasBuildScript) {
+				missingRequired.push('build');
+			}
 			if (rules.requireStartScript && !scriptsResult.hasStartScript) {
 				missingRequired.push('start');
 			}
@@ -689,6 +692,7 @@ export class RiffAuditor {
 			tuiUsesInk: tuiResult?.tuiUsesInk ?? false,
 			tuiHasAppShell: tuiResult?.tuiHasAppShell ?? false,
 			// Package.json scripts
+			hasBuildScript: scriptsResult?.hasBuildScript ?? false,
 			hasStartScript: scriptsResult?.hasStartScript ?? false,
 			hasTestScript: scriptsResult?.hasTestScript ?? false,
 			hasTypecheckScript: scriptsResult?.hasTypecheckScript ?? false,

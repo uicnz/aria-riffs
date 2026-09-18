@@ -67,6 +67,7 @@ const RulesSchema = z.object({
 	// Placeholder handling
 	allowGitkeepPlaceholders: z.boolean().default(true),
 	// Script requirements
+	requireBuildScript: z.boolean().default(true),
 	requireStartScript: z.boolean().default(true),
 	requireTestScript: z.boolean().default(true),
 	requireTypecheckScript: z.boolean().default(true),

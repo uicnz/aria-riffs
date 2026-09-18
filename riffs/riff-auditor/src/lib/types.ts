@@ -184,6 +184,7 @@ export interface RiffHealth {
 	tuiUsesInk: boolean;
 	tuiHasAppShell: boolean;
 	// Package.json scripts checks
+	hasBuildScript: boolean;
 	hasStartScript: boolean;
 	hasTestScript: boolean;
 	hasTypecheckScript: boolean;

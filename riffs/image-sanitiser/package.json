@@ -18,6 +18,7 @@
         "config.yaml"
     ],
     "scripts": {
+        "build": "bun ../../scripts/build-riff.ts",
         "start": "bun src/cli.ts",
         "sanitise": "bun src/cli.ts sanitise",
         "sanitise:dry": "bun src/cli.ts sanitise --dry-run",

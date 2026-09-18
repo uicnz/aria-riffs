@@ -9,7 +9,7 @@ To get started, you'll need some API keys until we have this plugged into our Ar
 - <https://platform.claude.com/settings/keys>
 - <https://vercel.com/shaneholloman/~/ai-gateway/api-keys>
 
-The riffs run in a CLI-first, zero-server workspace. Each riff executes directly via `bun` without a compilation step, making it immediately accessible to AI agents and operators. Each riff handles a specific domain: document conversion, semantic search, image processing, organizational data, and enterprise integrations like SharePoint.
+The riffs run in a CLI-first, zero-server workspace. During development, Bun executes each Riff's TypeScript source directly. Every published Riff also carries a developer-built `dist/cli.js` so Aria can wire it without installing dependencies or compiling foreign source. Each Riff handles a specific domain: document conversion, semantic search, image processing, organizational data, and enterprise integrations like SharePoint.
 
 ## Riffs
 
@@ -69,7 +69,7 @@ Riffs integrate with multiple AI providers:
 
 ### Prerequisites
 
-- **Node.js 24+** - Required runtime
+- **Node.js 26+** - Supported external runtime
 - **Bun** - Package manager (preferred over npm/pnpm)
 - **Pandoc** - Required for doc-converter riff
 - **Ollama** - Optional, for local AI models (LLaVA for vision tasks)
@@ -99,6 +99,16 @@ bun riffs/image-transcoder/src/cli.ts process ./images/
 bun riffs/code-auditor/src/cli.ts audit
 ```
 
+### Building Riff Distributions
+
+Riff developers install dependencies and build the distributions that Aria consumes:
+
+```sh
+bun run build
+```
+
+Each package also exposes the same package-local build command. Aria prefers `dist/cli.js`; for a local development Riff whose distribution is absent, Aria's embedded Bun runtime can execute `src/cli.ts` without auto-installing packages. If that package is incomplete or broken, the Aria agent can inspect and repair it as ordinary repository work, refresh discovery, and retry it.
+
 ## Example Workflow
 
 ```mermaid
@@ -122,6 +132,7 @@ flowchart TD
 bun run test        # Run all tests
 bun run typecheck   # Type check all riffs
 bun run check       # Biome lint + format check
+bun run build       # Build every Riff distribution
 bun run quality     # Run all quality checks
 ```
 

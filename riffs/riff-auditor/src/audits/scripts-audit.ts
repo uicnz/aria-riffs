@@ -5,6 +5,7 @@ import { readFileIfExists } from './utils.js';
 
 export interface ScriptsAuditResult {
 	packageJsonExists: boolean;
+	hasBuildScript: boolean;
 	hasStartScript: boolean;
 	hasTestScript: boolean;
 	hasTypecheckScript: boolean;
@@ -12,8 +13,9 @@ export interface ScriptsAuditResult {
 	nonCanonicalScripts: string[];
 }
 
-function canonicalScripts(riff: string): Record<'start' | 'test' | 'typecheck', string> {
+function canonicalScripts(riff: string): Record<'build' | 'start' | 'test' | 'typecheck', string> {
 	return {
+		build: 'bun ../../scripts/build-riff.ts',
 		start: 'bun src/cli.ts',
 		test: `vitest run --coverage --coverage.reportsDirectory=../../coverage/${riff} --coverage.include='**/*.ts' test/`,
 		typecheck: 'tsc --noEmit -p tsconfig.json',
@@ -29,6 +31,7 @@ export function auditScripts(riff: string, repoRoot: string): ScriptsAuditResult
 	if (!content) {
 		return {
 			packageJsonExists: false,
+			hasBuildScript: false,
 			hasStartScript: false,
 			hasTestScript: false,
 			hasTypecheckScript: false,
@@ -43,6 +46,7 @@ export function auditScripts(riff: string, repoRoot: string): ScriptsAuditResult
 	} catch {
 		return {
 			packageJsonExists: true,
+			hasBuildScript: false,
 			hasStartScript: false,
 			hasTestScript: false,
 			hasTypecheckScript: false,
@@ -59,6 +63,7 @@ export function auditScripts(riff: string, repoRoot: string): ScriptsAuditResult
 
 	return {
 		packageJsonExists: true,
+		hasBuildScript: Object.hasOwn(scripts, 'build'),
 		hasStartScript: Object.hasOwn(scripts, 'start'),
 		hasTestScript: Object.hasOwn(scripts, 'test'),
 		hasTypecheckScript: Object.hasOwn(scripts, 'typecheck'),

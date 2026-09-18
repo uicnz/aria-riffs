@@ -9,6 +9,7 @@ export const CANONICAL_RIFF_FILES = [
 	'config.yaml',
 	'package.json',
 	'tsconfig.json',
+	'dist/cli.js',
 	'src/cli.ts',
 	'src/riff-prompt.ts',
 	'src/lib/config.ts',

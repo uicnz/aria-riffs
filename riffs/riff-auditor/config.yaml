@@ -39,6 +39,7 @@ riff-auditor:
         # Placeholder handling
         allowGitkeepPlaceholders: true
         # Script requirements
+        requireBuildScript: true
         requireStartScript: true
         requireTestScript: true
         requireTypecheckScript: true

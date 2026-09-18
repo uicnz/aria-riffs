@@ -10,6 +10,7 @@ function writeRiff(
 	input: { promptName?: string; packageName?: string; packageVersion?: string } = {}
 ): void {
 	const riffRoot = join(root, 'riffs', riff);
+	mkdirSync(join(riffRoot, 'dist'), { recursive: true });
 	mkdirSync(join(riffRoot, 'src', 'lib'), { recursive: true });
 	mkdirSync(join(riffRoot, 'test', 'unit'), { recursive: true });
 	mkdirSync(join(riffRoot, 'test', 'integration'), { recursive: true });
@@ -40,6 +41,7 @@ function writeRiff(
 		})
 	);
 	writeFileSync(join(riffRoot, 'tsconfig.json'), '{}\n');
+	writeFileSync(join(riffRoot, 'dist', 'cli.js'), 'console.log("sample");\n');
 	writeFileSync(join(riffRoot, 'src', 'cli.ts'), 'export function createProgram() {}\n');
 	writeFileSync(
 		join(riffRoot, 'src', 'riff-prompt.ts'),

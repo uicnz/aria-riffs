@@ -25,12 +25,14 @@ afterEach(() => {
 describe('package-local Riff scripts audit', () => {
 	it('accepts the canonical shared scripts', () => {
 		const { root, riff } = writePackage({
+			build: 'bun ../../scripts/build-riff.ts',
 			start: 'bun src/cli.ts',
 			test: "vitest run --coverage --coverage.reportsDirectory=../../coverage/sample-riff --coverage.include='**/*.ts' test/",
 			typecheck: 'tsc --noEmit -p tsconfig.json',
 		});
 
 		expect(auditScripts(riff, root)).toMatchObject({
+			hasBuildScript: true,
 			hasStartScript: true,
 			hasTestScript: true,
 			hasTypecheckScript: true,
@@ -46,10 +48,11 @@ describe('package-local Riff scripts audit', () => {
 		});
 
 		expect(auditScripts(riff, root)).toMatchObject({
+			hasBuildScript: false,
 			hasStartScript: true,
 			hasTestScript: true,
 			hasTypecheckScript: false,
-			missingScripts: ['typecheck'],
+			missingScripts: ['build', 'typecheck'],
 			nonCanonicalScripts: [
 				'start: expected "bun src/cli.ts", got "node src/cli.ts"',
 				'test: expected "vitest run --coverage --coverage.reportsDirectory=../../coverage/sample-riff --coverage.include=\'**/*.ts\' test/", got "vitest run"',
