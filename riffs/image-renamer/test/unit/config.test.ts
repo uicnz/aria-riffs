@@ -171,7 +171,7 @@ describe('image-renamer Config', () => {
 	describe('config file loading', () => {
 		it('given partial images config, when loaded, then merges with defaults', async () => {
 			const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'config-test-'));
-			const tempConfigPath = path.join(tempDir, 'partial-config.yaml');
+			const tempConfigPath = path.join(tempDir, 'config.yaml');
 
 			await fs.writeFile(
 				tempConfigPath,
@@ -199,7 +199,7 @@ image-renamer:
 
 		it('given partial filename config, when loaded, then merges with defaults', async () => {
 			const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'config-test-'));
-			const tempConfigPath = path.join(tempDir, 'partial-config.yaml');
+			const tempConfigPath = path.join(tempDir, 'config.yaml');
 
 			await fs.writeFile(
 				tempConfigPath,
@@ -229,7 +229,7 @@ image-renamer:
 
 		it('given partial llm config with provider, when loaded, then uses that provider with defaults', async () => {
 			const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'config-test-'));
-			const tempConfigPath = path.join(tempDir, 'partial-config.yaml');
+			const tempConfigPath = path.join(tempDir, 'config.yaml');
 
 			await fs.writeFile(
 				tempConfigPath,
@@ -266,7 +266,7 @@ image-renamer:
 
 		it('given invalid YAML config, when loaded, then throws ConfigError', async () => {
 			const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'config-test-'));
-			const tempConfigPath = path.join(tempDir, 'invalid-config.yaml');
+			const tempConfigPath = path.join(tempDir, 'config.yaml');
 
 			await fs.writeFile(tempConfigPath, 'invalid: yaml: content: [');
 
@@ -298,7 +298,7 @@ image-renamer:
 	describe('tilde expansion', () => {
 		it('given config with tilde paths, when loadConfig called, then tildes are expanded to home directory', async () => {
 			const tempDir = await fs.mkdtemp(path.join(os.homedir(), '.aria-test-'));
-			const tempConfigPath = path.join(tempDir, 'tilde-config.yaml');
+			const tempConfigPath = path.join(tempDir, 'config.yaml');
 
 			await fs.writeFile(
 				tempConfigPath,

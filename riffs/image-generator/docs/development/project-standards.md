@@ -9,7 +9,7 @@ This applies to ALL artifacts:
 - **Code** - Classes, functions, variables, types
 - **Documentation** - Files, headers, references
 - **Configuration** - YAML keys, environment variables
-- **Commands** - CLI commands, npm scripts
+- **Commands** - CLI commands, Bun package scripts
 - **Storage** - Log files, databases, exports, directories
 - **Identifiers** - Riff names, module names, schema names
 
@@ -19,12 +19,12 @@ If your riff is named `mindmap-converter`, then semantic parity demands:
 
 ```tree
 riffs/mindmap-converter/              ← Directory
-config/config-mindmap-converter.yaml  ← Config file
+config.yaml  ← Config file
 MINDMAP_*                             ← Env variables
 .aria/logs/mindmap-converter.log            ← Log file
 .aria/db/mindmap/                           ← Database directory
 .aria/exports/mindmap/                      ← Export directory
-mindmap-converter:convert             ← npm script
+convert                               ← Package-local Bun script
 MindmapConverterConfig                ← TypeScript type
 createLogger('mindmap-converter')     ← Logger identifier
 ```
@@ -169,7 +169,7 @@ packages/riff-name/
         "code-auditor:typecheck": "tsc --noEmit -p riffs/code-auditor/tsconfig.json",
 
         // Root typecheck - runs all riffs
-        "typecheck": "bun run doc-indexer:typecheck && bun run code-auditor:typecheck && ..."
+        "typecheck": "bun run --cwd riffs/doc-indexer typecheck && bun run --cwd riffs/code-auditor typecheck && ..."
     }
 }
 ```
@@ -509,14 +509,14 @@ More content after blank line. Also observe the last blank line below
 
 ### Command Naming Convention
 
-- **Riff directory name as prefix** - All scripts must use the riff's directory name as prefix
-- **Pattern: `{riff-name}:{action}`** - Example: `doc-indexer:build`, `linter:verbose`, `code-auditor:test`
-- **NO invented names** - Don't create different command names (like `lint-md` for the `linter` riff)
-- **Consistency across monorepo** - All riffs follow the same naming pattern
+- **Package-local ownership** - Every script belongs to its Riff's `package.json`
+- **Shared scaffold** - Every Riff exposes identical `start`, `test`, and `typecheck` scripts
+- **Business actions** - Additional script names match the corresponding CLI command exactly
+- **Root restraint** - The workspace root exposes repository-wide operations only
 
 ### Documentation Standards for AI Agents
 
-**CRITICAL**: All README files and documentation must prioritize bun commands over npm scripts for AI agent compatibility.
+**CRITICAL**: All README files and documentation must prioritize direct Bun commands over package aliases for agent compatibility.
 
 #### Why bun Commands Are Essential for Agents
 
@@ -527,16 +527,16 @@ AI agents require direct, transparent, and context-independent instructions. Usi
 3. **Discoverable** - Agents can see the actual file structure and location without parsing configuration
 4. **Portable** - Works from any directory with the full path, not dependent on being in repo root
 5. **Transparent** - No hidden logic or indirection, what you see is what executes
-6. **Context-independent** - Doesn't require understanding npm script mappings or package.json structure
+6. **Context-independent** - Doesn't require understanding package script mappings
 
-#### Problems with npm Scripts for Agents
+#### Problems with Package Scripts for Agents
 
-npm scripts hide critical information from agents:
+Package scripts hide critical information from agents:
 
-- `bun run riff-name` - Agent must parse package.json to discover this runs `bun riffs/riff-name/src/cli.ts`
+- `bun run --cwd riffs/riff-name start` - Agent must parse package.json to discover the entrypoint
 - Adds indirection and cognitive overhead
 - Breaks the directness agents need for reliable execution
-- Requires understanding of npm conventions and script resolution
+- Requires understanding package script resolution
 - Creates dependency on being in the correct directory
 - Obscures the actual file being executed
 
@@ -549,24 +549,24 @@ npm scripts hide critical information from agents:
 bun riffs/riff-name/src/cli.ts --help          # Show help
 bun riffs/riff-name/src/cli.ts analyze         # Run analysis
 
-# Alternative - npm scripts (optional)
-bun run riff-name -- --help                    # Show help
-bun run riff-name -- analyze                   # Run analysis
+# Alternative - package-local Bun scripts (optional)
+bun run --cwd riffs/riff-name start -- --help  # Show help
+bun run --cwd riffs/riff-name start -- analyze # Run analysis
 ```
 
-**INCORRECT - npm scripts first:**
+**INCORRECT - package scripts first:**
 
 ```sh
 # Don't document this way
-bun run riff-name -- --help                    # Hides actual execution
+bun run --cwd riffs/riff-name start -- --help  # Hides actual execution
 ```
 
 #### Why This Matters
 
 For agents: "Run `bun riffs/riff-name/src/cli.ts`" is a complete, executable instruction.
-For agents: "Run `bun run riff-name`" requires the agent to first understand npm, then lookup scripts, then figure out what actually executes.
+For agents: "Run `bun run --cwd riffs/riff-name start`" requires the agent to inspect the package script before it knows what executes.
 
-**Every README must document bun commands as the primary method, with npm scripts as optional convenience aliases.**
+**Every README must document direct Bun commands as the primary method, with package-local scripts as optional convenience aliases.**
 
 ## Migration Notes
 

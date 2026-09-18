@@ -10,7 +10,7 @@ Transform `image-generator` from a simple script collection into a production-re
 
 - Basic TypeScript scripts for image generation
 - Four main operations: generate, edit, compose, multi-turn chat
-- Simple npm scripts using tsx
+- Simple package scripts using tsx
 - Types defined in types.ts
 - Basic error handling
 
@@ -38,14 +38,14 @@ Transform `image-generator` from a simple script collection into a production-re
 
 ```tree
 image-generator/                           # Directory name
-config/config-image-generator.yaml         # Config file
+config.yaml         # Config file
 IMAGE_GENERATOR_*                          # Environment variables
 .aria/logs/image-generator.log                   # Log file (daily rotation)
-image-generator:generate                   # npm script
-image-generator:edit                       # npm script
-image-generator:compose                    # npm script
-image-generator:chat                       # npm script
-image-generator:typecheck                  # npm script
+generate                                  # Package-local Bun script
+edit                                      # Package-local Bun script
+compose                                   # Package-local Bun script
+chat                                      # Package-local Bun script
+typecheck                                 # Package-local Bun script
 ImageGeneratorConfig                       # TypeScript config type
 ImageGeneratorLogger                       # Logger class
 createLogger('image-generator')            # Logger identifier
@@ -79,17 +79,19 @@ image-generator/
 image-generator/
 ├── src/
 │   ├── cli.ts                    # Commander.js CLI entry point
-│   ├── config.ts                 # Config loading with Zod validation
-│   ├── logger.ts                 # Pino logger setup and configuration
-│   ├── types.ts                  # All TypeScript types and interfaces
+│   ├── lib/
+│   │   ├── config.ts             # Config loading with Zod validation
+│   │   ├── load-dotenv.ts        # Canonical environment loading
+│   │   ├── logger.ts             # Pino logger setup and configuration
+│   │   ├── schema.ts             # Zod configuration schema
+│   │   └── types.ts              # Shared TypeScript types and interfaces
 │   ├── generate-image.ts         # Image generation core logic (class-based)
 │   ├── edit-image.ts             # Image editing core logic (class-based)
 │   ├── compose-images.ts         # Image composition core logic (class-based)
 │   ├── chat-session.ts           # Multi-turn chat logic (class-based)
 │   ├── handle-files.ts           # File I/O operations
 │   └── utils.ts                  # Utility functions
-├── config/
-│   └── config-image-generator.yaml  # Riff configuration
+├── config.yaml                     # Riff configuration
 ├── .aria/logs/                         # Log output directory (gitignored)
 │   └── .gitkeep
 ├── test/
@@ -106,7 +108,7 @@ image-generator/
 
 #### 1.2 Configuration System
 
-**File: `config/config-image-generator.yaml`**
+**File: `config.yaml`**
 
 ```yaml
 # Image Generator Riff Configuration
@@ -145,7 +147,7 @@ chat:
     history_file: '.gemini-chat-history.json'
 ```
 
-**File: `src/config.ts`**
+**File: `src/lib/config.ts`**
 
 ```typescript
 import { existsSync, readFileSync } from 'node:fs';
@@ -192,7 +194,7 @@ export type ImageGeneratorConfig = z.infer<typeof ConfigSchema>;
 export function loadConfig(configPath?: string): ImageGeneratorConfig {
     const defaultPath = resolve(
         process.cwd(),
-        '.aria/config/config-image-generator.yaml',
+        '.aria/config.yaml',
     );
     const path = configPath || defaultPath;
 
@@ -209,7 +211,7 @@ export function loadConfig(configPath?: string): ImageGeneratorConfig {
 
 #### 1.3 Logging System (Pino)
 
-**File: `src/logger.ts`**
+**File: `src/lib/logger.ts`**
 
 ```typescript
 import path from 'node:path';
@@ -479,11 +481,11 @@ export class GenerateImageCommand {
 ```json
 {
     "scripts": {
-        "image-generator:generate": "bun src/cli.ts generate",
-        "image-generator:edit": "bun src/cli.ts edit",
-        "image-generator:compose": "bun src/cli.ts compose",
-        "image-generator:chat": "bun src/cli.ts chat",
-        "image-generator:typecheck": "tsc --noEmit",
+        "generate": "bun src/cli.ts generate",
+        "edit": "bun src/cli.ts edit",
+        "compose": "bun src/cli.ts compose",
+        "chat": "bun src/cli.ts chat",
+        "typecheck": "tsc --noEmit -p tsconfig.json",
         "test": "vitest",
         "test:run": "vitest run",
         "test:ui": "vitest --ui",
@@ -558,8 +560,7 @@ test/
 │   ├── cli.test.ts             # CLI integration tests
 │   └── end-to-end.test.ts      # Full workflow tests
 └── fixtures/
-    ├── config/
-    │   └── test-config.yaml
+    ├── config.yaml
     └── images/
         ├── test-input.png
         └── test-reference.png
@@ -594,9 +595,9 @@ Production-ready image generation riff using Google's Gemini API, designed for t
 
 [bun command examples]
 
-### npm Scripts (Alternative)
+### Package-local Bun Scripts (Alternative)
 
-[npm script examples]
+[package script examples]
 
 ## Configuration
 

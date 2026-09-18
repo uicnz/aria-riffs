@@ -23,7 +23,7 @@ bun install
 
 ## Configuration
 
-Configuration is loaded from `config/config-image-generator.yaml` (root level). Default settings:
+Configuration is loaded from `config.yaml` (root level). Default settings:
 
 - **Model:** gemini-3.1-flash-image
 - **Aspect Ratio:** 16:9
@@ -31,7 +31,7 @@ Configuration is loaded from `config/config-image-generator.yaml` (root level). 
 - **Output Directory:** .aria/exports/image-generator
 - **Log Level:** INFO
 
-See `config/config-image-generator.yaml` for all available options.
+See `config.yaml` for all available options.
 
 ## Environment Variables
 
@@ -46,32 +46,32 @@ All commands are run from the **repository root** using bun scripts.
 ### Generate an Image
 
 ```sh
-bun run image-generator:generate "A serene mountain landscape at dawn" output.png
+bun run --cwd riffs/image-generator generate "A serene mountain landscape at dawn" output.png
 ```
 
 ### Edit an Image
 
 ```sh
-bun run image-generator:edit input.png "Add dramatic sunset lighting" output.png
+bun run --cwd riffs/image-generator edit input.png "Add dramatic sunset lighting" output.png
 ```
 
 ### Compose Multiple Images
 
 ```sh
-bun run image-generator:compose "Combine these primitives into a cinematic composition" output.png img1.png img2.png img3.png
+bun run --cwd riffs/image-generator compose "Combine these primitives into a cinematic composition" output.png img1.png img2.png img3.png
 ```
 
 ### Interactive Chat Session
 
 ```sh
-bun run image-generator:chat
+bun run --cwd riffs/image-generator chat
 ```
 
 ### Show Help
 
 ```sh
-bun run image-generator -- --help
-bun run image-generator:generate -- --help
+bun run --cwd riffs/image-generator start -- --help
+bun run --cwd riffs/image-generator generate -- --help
 ```
 
 ## Commands
@@ -81,7 +81,7 @@ bun run image-generator:generate -- --help
 Generate an image from a text prompt.
 
 ```sh
-bun run image-generator:generate <prompt> <output> [options]
+bun run --cwd riffs/image-generator generate <prompt> <output> [options]
 ```
 
 **Options:**
@@ -93,7 +93,7 @@ bun run image-generator:generate <prompt> <output> [options]
 **Example:**
 
 ```sh
-bun run image-generator:generate "Abstract geometric art with vibrant colors" art.png -- --aspect 1:1 --size 4K
+bun run --cwd riffs/image-generator generate "Abstract geometric art with vibrant colors" art.png -- --aspect 1:1 --size 4K
 ```
 
 ### edit
@@ -101,7 +101,7 @@ bun run image-generator:generate "Abstract geometric art with vibrant colors" ar
 Edit an existing image using AI.
 
 ```sh
-bun run image-generator:edit <input> <instruction> <output> [options]
+bun run --cwd riffs/image-generator edit <input> <instruction> <output> [options]
 ```
 
 **Options:**
@@ -113,7 +113,7 @@ bun run image-generator:edit <input> <instruction> <output> [options]
 **Example:**
 
 ```sh
-bun run image-generator:edit landscape.png "Add a rainbow in the sky" landscape-rainbow.png
+bun run --cwd riffs/image-generator edit landscape.png "Add a rainbow in the sky" landscape-rainbow.png
 ```
 
 ### compose
@@ -121,7 +121,7 @@ bun run image-generator:edit landscape.png "Add a rainbow in the sky" landscape-
 Compose multiple images into a new image (up to 14 images).
 
 ```sh
-bun run image-generator:compose <instruction> <output> <image1> [image2...] [options]
+bun run --cwd riffs/image-generator compose <instruction> <output> <image1> [image2...] [options]
 ```
 
 **Options:**
@@ -133,7 +133,7 @@ bun run image-generator:compose <instruction> <output> <image1> [image2...] [opt
 **Example:**
 
 ```sh
-bun run image-generator:compose "Create a triptych from these photos" triptych.png photo1.png photo2.png photo3.png
+bun run --cwd riffs/image-generator compose "Create a triptych from these photos" triptych.png photo1.png photo2.png photo3.png
 ```
 
 ### chat
@@ -141,7 +141,7 @@ bun run image-generator:compose "Create a triptych from these photos" triptych.p
 Start an interactive image generation chat session.
 
 ```sh
-bun run image-generator:chat [options]
+bun run --cwd riffs/image-generator chat [options]
 ```
 
 **Options:**
@@ -159,14 +159,14 @@ bun run image-generator:chat [options]
 **Example:**
 
 ```sh
-bun run image-generator:chat -- --output-dir .aria/exports/my-images
+bun run --cwd riffs/image-generator chat -- --output-dir .aria/exports/my-images
 ```
 
 ## File Locations
 
 Following Aria monorepo conventions:
 
-- **Configuration:** `config/config-image-generator.yaml` (root)
+- **Configuration:** `config.yaml` (root)
 - **Logs:** `.aria/logs/image-generator.log` (root, with daily rotation)
 - **Outputs:** `.aria/exports/image-generator/` (root, generated images)
 - **Source Code:** `riffs/image-generator/src/`
@@ -186,7 +186,7 @@ Structured logs are written to `.aria/logs/image-generator.log` (root level) wit
 **Example:**
 
 ```sh
-bun run image-generator:generate "Test prompt" test.png -- --verbose
+bun run --cwd riffs/image-generator generate "Test prompt" test.png -- --verbose
 ```
 
 ## Development
@@ -198,7 +198,7 @@ bun run image-generator:generate "Test prompt" test.png -- --verbose
 bun run typecheck
 
 # Check only image-generator
-bun run image-generator:typecheck
+bun run --cwd riffs/image-generator typecheck
 ```
 
 ### Linting
@@ -224,7 +224,7 @@ bun run check:write
 bun run test
 
 # Run image-generator tests only
-bun run image-generator:test
+bun run --cwd riffs/image-generator test
 ```
 
 ### Quality Checks
@@ -290,9 +290,9 @@ riffs/image-generator/
 Following Aria platform standards, all artifacts use consistent naming:
 
 - **Riff:** `image-generator`
-- **Config:** `config-image-generator.yaml`
+- **Config:** `config.yaml`
 - **Logs:** `image-generator.log`
-- **Scripts:** `image-generator:generate`, `image-generator:edit`, etc.
+- **Package-local scripts:** `generate`, `edit`, `compose`, and `chat`
 - **Types:** `ImageGeneratorConfig`
 - **Logger base:** `{ riff: 'image-generator' }`
 

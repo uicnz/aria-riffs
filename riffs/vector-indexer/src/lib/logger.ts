@@ -5,7 +5,6 @@
 import path from 'node:path';
 import type { Level, Logger, LoggerOptions as PinoLoggerOptions, StreamEntry } from 'pino';
 import pino from 'pino';
-import type { LoggingConfig } from '../lib/types.js';
 
 /**
  * Logger configuration options
@@ -50,17 +49,4 @@ export function createLogger(options: LoggerOptions): Logger {
 	}
 
 	return pino(loggerOptions, pino.multistream(streams));
-}
-
-/**
- * Create logger from config
- */
-export function createLoggerFromConfig(config: LoggingConfig): Logger {
-	return createLogger({
-		level: config.level,
-		verbose: config.verbose,
-		file: config.file,
-		maxFileSizeMb: config.maxFileSizeMb,
-		maxFiles: config.maxFiles,
-	});
 }

@@ -23,7 +23,7 @@ describe('Config - Unit Tests', () => {
 	});
 
 	it('given partial config file with only quality, when loadConfig called, then merges with defaults', () => {
-		const partialConfigPath = path.resolve(__dirname, '../fixtures/partial-config.yaml');
+		const partialConfigPath = path.resolve(__dirname, '../fixtures/partial/config.yaml');
 		const config = loadConfig(partialConfigPath);
 
 		expect(config).toBeDefined();
@@ -33,7 +33,7 @@ describe('Config - Unit Tests', () => {
 	});
 
 	it('given partial config file with only max_file_size, when loadConfig called, then merges with defaults', () => {
-		const partialConfigPath = path.resolve(__dirname, '../fixtures/partial-max-size-config.yaml');
+		const partialConfigPath = path.resolve(__dirname, '../fixtures/partial-max-size/config.yaml');
 		const config = loadConfig(partialConfigPath);
 
 		expect(config).toBeDefined();
@@ -43,7 +43,7 @@ describe('Config - Unit Tests', () => {
 	});
 
 	it('given config with output_dir, when loadConfig called, then returns output_dir from config', () => {
-		const configPath = path.resolve(__dirname, '../fixtures/output-dir-config.yaml');
+		const configPath = path.resolve(__dirname, '../fixtures/output-dir/config.yaml');
 		const config = loadConfig(configPath);
 
 		expect(config).toBeDefined();
@@ -70,7 +70,7 @@ describe('Config - Unit Tests', () => {
 	describe('tilde expansion', () => {
 		it('given config with tilde paths, when loadConfig called, then tildes are expanded to home directory', async () => {
 			const tempDir = await fs.mkdtemp(path.join(homedir(), '.aria-test-'));
-			const tempConfigPath = path.join(tempDir, 'tilde-config.yaml');
+			const tempConfigPath = path.join(tempDir, 'config.yaml');
 			await fs.writeFile(
 				tempConfigPath,
 				`

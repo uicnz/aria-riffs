@@ -6,6 +6,7 @@ import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 import { Command } from 'commander';
 import type { Logger } from 'pino';
+import packageManifest from '../package.json' with { type: 'json' };
 import { DocIndexer } from './core/indexer.js';
 import { SearchService } from './core/search.js';
 import { GraphExporter, validateGraph } from './graph/exporter.js';
@@ -75,10 +76,7 @@ function initSilentLogger(config: DocIndexerConfig): Logger {
  */
 function createProgram(): Command {
 	const program = new Command();
-	program
-		.name('doc-indexer')
-		.description('Aria doc-indexer - Document indexing, knowledge graph, and interactive visualization')
-		.version('2.0.0');
+	program.name('doc-indexer').description(packageManifest.description).version(packageManifest.version);
 
 	// Index command
 	program

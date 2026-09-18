@@ -2,7 +2,7 @@
  * Structure audits - checks for required directories and empty directories
  */
 
-import { readdirSync } from 'node:fs';
+import { existsSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { isDirectory } from './utils.js';
 
@@ -15,6 +15,8 @@ export interface StructureAuditOptions {
 }
 
 export interface StructureAuditResult {
+	// Root documentation
+	readmeExists: boolean;
 	// Test directories
 	testUnitDirExists: boolean;
 	testUnitDirHasFiles: boolean;
@@ -108,6 +110,7 @@ export function auditStructure(
 	const riffDir = resolve(repoRoot, 'riffs', riff);
 	const srcDir = resolve(riffDir, 'src');
 	const testDir = resolve(riffDir, 'test');
+	const readmeExists = existsSync(resolve(riffDir, 'README.md'));
 
 	// Test directories
 	const testUnitDir = resolve(testDir, 'unit');
@@ -139,6 +142,7 @@ export function auditStructure(
 	const emptyDirectories = findEmptyDirectories(riffDir);
 
 	return {
+		readmeExists,
 		testUnitDirExists,
 		testUnitDirHasFiles,
 		testIntegrationDirExists,

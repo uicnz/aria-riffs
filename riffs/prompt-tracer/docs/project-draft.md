@@ -127,7 +127,7 @@ riffs/prompt-tracer/src/
 
 ### Configuration Files
 
-- `config/config-prompt-tracer.yaml` - Runtime configuration
+- `config.yaml` - Runtime configuration
 - `.aria/db/prompt-tracer/prompt-tracer.jsonl` - Consolidated trace database
 - `.aria/logs/prompt-tracer.log` - Operational logs
 - `output/prompt-tracer/` - Markdown output directory
@@ -156,12 +156,12 @@ bun riffs/prompt-tracer/src/cli.ts --separate-trace
 bun riffs/prompt-tracer/src/cli.ts -v
 ```
 
-### npm Scripts
+### Package-local Bun Scripts
 
 ```bash
-bun run prompt-tracer                    # System Claude
-bun run prompt-tracer -- 2.0.0          # Specific version
-bun run prompt-tracer -- --separate-trace
+bun run --cwd riffs/prompt-tracer start                    # System Claude
+bun run --cwd riffs/prompt-tracer start -- 2.0.0          # Specific version
+bun run --cwd riffs/prompt-tracer start -- --separate-trace
 ```
 
 ## Configuration Example

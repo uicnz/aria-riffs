@@ -7,6 +7,7 @@
 import { fileURLToPath } from 'node:url';
 import { Command } from 'commander';
 import type { Logger } from 'pino';
+import packageManifest from '../package.json' with { type: 'json' };
 import { compareDirectories } from './core/compare-dirs.js';
 import { loadConfig } from './lib/config.js';
 import { createLogger } from './lib/logger.js';
@@ -41,8 +42,8 @@ function createProgram(): Command {
 
 	program
 		.name('dir-differ')
-		.description('Aria Dir Differ - Compare two directories with colorful output')
-		.version('1.0.0')
+		.description(packageManifest.description)
+		.version(packageManifest.version)
 		.arguments('<dir1> <dir2>')
 		.option('-e, --exclude <pattern>', 'Exclude files matching pattern', collectExcludes, [])
 		.option('-c, --content', 'Show content differences for changed files')
@@ -79,14 +80,6 @@ function createProgram(): Command {
 
 /* c8 ignore start */
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-	const program = createProgram();
-
-	// Validate arguments
-	if (process.argv.length < 4) {
-		process.stderr.write('Error: You must specify two directories to compare\n');
-		program.help();
-	}
-
-	program.parse();
+	createProgram().parse();
 }
 /* c8 ignore stop */

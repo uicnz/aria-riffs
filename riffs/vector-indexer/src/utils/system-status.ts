@@ -6,6 +6,7 @@
 import { statSync } from 'node:fs';
 import { resolve } from 'node:path';
 import type { Logger } from 'pino';
+import { configPath } from '../lib/config.js';
 import type { VectorIndexerConfig } from '../lib/types.js';
 
 export interface ServiceStatus {
@@ -238,7 +239,7 @@ export class SystemStatus {
 			collections,
 			models: this.getModels(),
 			storage: this.getStorage(),
-			configPath: '.aria/config/config-vector-indexer.yaml',
+			configPath,
 		};
 	}
 

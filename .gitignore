@@ -149,7 +149,7 @@ output/
 # Aria artifacts (generated data)
 # .aria/db/
 # .aria/exports/
-.aria/logs/
+**/.aria/logs/
 .aria/.riff-auditor-session
 
 # Keep configs tracked

@@ -36,7 +36,7 @@ bun riffs/commit-formatter/src/cli.ts automatic
 bun riffs/commit-formatter/src/cli.ts automatic --count 100
 
 # Alternative
-bun run commit-formatter:automatic -- --dry-run
+bun run --cwd riffs/commit-formatter automatic -- --dry-run
 ```
 
 ### Assisted Mode (Human-in-the-Loop - For Active Repos)
@@ -60,7 +60,7 @@ bun riffs/commit-formatter/src/cli.ts assisted
 bun riffs/commit-formatter/src/cli.ts assisted --count 50
 
 # Alternative
-bun run commit-formatter:assisted
+bun run --cwd riffs/commit-formatter assisted
 ```
 
 **Interactive prompts**:
@@ -89,7 +89,7 @@ Best when you want to review suggestions without making any changes to your repo
 bun riffs/commit-formatter/src/cli.ts advisory --count 50
 
 # Alternative
-bun run commit-formatter:advisory -- --count 50
+bun run --cwd riffs/commit-formatter advisory -- --count 50
 
 # Review the generated markdown file
 # commit-reformat-report-YYYY-MM-DD.md
@@ -130,11 +130,11 @@ cp .env.example .env
 ANTHROPIC_API_KEY=your-anthropic-api-key-here
 ```
 
-**Important**: Use `.env` for sensitive credentials only. All other settings (provider, model, temperature, etc.) should be configured in `config/config-commit-formatter.yaml`.
+**Important**: Use `.env` for sensitive credentials only. All other settings (provider, model, temperature, etc.) should be configured in `config.yaml`.
 
 ### Config File
 
-The riff reads defaults from `config/config-commit-formatter.yaml`:
+The riff reads defaults from `config.yaml`:
 
 - **Provider selection**: Choose between Anthropic, Gemini, or OpenAI
 - **Model settings**: Model name, temperature, max tokens per provider
@@ -154,7 +154,7 @@ All config values can be overridden by environment variables.
 
 ### Switching Providers
 
-**Recommended**: Edit the config file `config/config-commit-formatter.yaml`:
+**Recommended**: Edit the config file `config.yaml`:
 
 ```yaml
 llm:
@@ -172,7 +172,7 @@ GOOGLE_API_KEY=your-key-here
 
 ```sh
 export LLM_PROVIDER=gemini
-bun run commit-formatter:check
+bun run --cwd riffs/commit-formatter check
 ```
 
 ## Conventional Commits Format
@@ -294,14 +294,14 @@ bun riffs/commit-formatter/src/cli.ts assisted --dry-run
 
 ```sh
 bun riffs/commit-formatter/src/cli.ts check
-bun run commit-formatter:check
+bun run --cwd riffs/commit-formatter check
 ```
 
 ### Preview Single Commit
 
 ```sh
 bun riffs/commit-formatter/src/cli.ts preview <commit-hash>
-bun run commit-formatter:preview <commit-hash>
+bun run --cwd riffs/commit-formatter preview <commit-hash>
 ```
 
 ### Legacy Format Command
@@ -310,7 +310,7 @@ Backwards compatible with v1.0:
 
 ```sh
 bun riffs/commit-formatter/src/cli.ts format --count 10 --dry-run
-bun run commit-formatter:format -- --count 10 --dry-run
+bun run --cwd riffs/commit-formatter format -- --count 10 --dry-run
 ```
 
 ## Workflow Examples
@@ -319,10 +319,10 @@ bun run commit-formatter:format -- --count 10 --dry-run
 
 ```sh
 # 1. Dry run to preview
-bun run commit-formatter:automatic -- --dry-run
+bun run --cwd riffs/commit-formatter automatic -- --dry-run
 
 # 2. Apply changes
-bun run commit-formatter:automatic
+bun run --cwd riffs/commit-formatter automatic
 
 # 3. Verify
 git log --oneline
@@ -338,7 +338,7 @@ git push --force-with-lease origin main
 
 ```sh
 # Use assisted mode for careful review with immediate application
-bun run commit-formatter:assisted
+bun run --cwd riffs/commit-formatter assisted
 
 # Follow prompts to approve/skip each commit
 # Approved changes are applied immediately
@@ -351,15 +351,15 @@ git log --oneline
 
 ```sh
 # 1. Generate suggestions
-bun run commit-formatter:advisory -- --count 30
+bun run --cwd riffs/commit-formatter advisory -- --count 30
 
 # 2. Review markdown file
 # commit-reformat-report-2025-11-03.md
 
 # 3. To apply changes, use automatic or assisted mode
-bun run commit-formatter:automatic
+bun run --cwd riffs/commit-formatter automatic
 # OR
-bun run commit-formatter:assisted
+bun run --cwd riffs/commit-formatter assisted
 ```
 
 ## Important Notes
@@ -444,7 +444,7 @@ git reset --hard origin/main
 ## Type Checking
 
 ```sh
-bun run commit-formatter:typecheck
+bun run --cwd riffs/commit-formatter typecheck
 ```
 
 ## Troubleshooting
@@ -455,7 +455,7 @@ Commit or stash your changes before running non-dry-run operations:
 
 ```sh
 git stash
-bun run commit-formatter:automatic
+bun run --cwd riffs/commit-formatter automatic
 git stash pop
 ```
 
@@ -468,7 +468,7 @@ Check your API key:
 ANTHROPIC_API_KEY=sk-ant-...
 
 # Test connection
-bun run commit-formatter:check
+bun run --cwd riffs/commit-formatter check
 ```
 
 ### Rebase Failed

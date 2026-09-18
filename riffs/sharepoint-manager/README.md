@@ -1,4 +1,4 @@
-# Aria SharePoint Riff
+# Aria SharePoint Manager Riff
 
 Multi-Strategy Link Extractor with Database and AppleScript Methods
 
@@ -49,7 +49,7 @@ Tries database first for speed, automatically falls back to AppleScript if neede
 
 ## Installation
 
-This riff is part of the Aria monorepo and is not published as a standalone package. For AI agents and direct execution, use bun commands. For convenience, npm scripts are also available.
+This riff is part of the Aria monorepo and is not published as a standalone package. For AI agents and direct execution, use bun commands. For convenience, Bun scripts are also available.
 
 ## Status
 
@@ -67,32 +67,32 @@ Production-ready. Both extraction methods fully functional and tested.
 
 - macOS with OneDrive installed
 - Visual Studio Code with Accessibility permissions
-- Run `bun riffs/sharepoint/src/cli.ts setup` to configure permissions
+- Run `bun riffs/sharepoint-manager/src/cli.ts setup` to configure permissions
 
 ## Configuration
 
 ### Config File
 
-The riff respects a YAML config file at `config/config-sharepoint-manager.yaml`:
+The riff respects a YAML config file at `config.yaml`:
 
 ```yaml
 sharepoint:
     paths:
-        syncFolder: '/path/to/OneDrive/folder'
-        outputCsv: '.aria/db/sharepoint/sharepoint.csv'
-        outputSqlite: '.aria/db/sharepoint/sharepoint.db'
+        syncFolder: "/path/to/OneDrive/folder"
+        outputCsv: ".aria/db/sharepoint/sharepoint.csv"
+        outputSqlite: ".aria/db/sharepoint/sharepoint.db"
 
     links:
-        sharePointBase: 'https://yourcompany.sharepoint.com/my'
+        sharePointBase: "https://yourcompany.sharepoint.com/my"
         extractionDelay: 1500
 
     database:
-        oneDriveDbPath: '~/Library/Containers/com.microsoft.OneDrive-mac/Data/Library/Application Support/OneDrive/settings/Business1/SyncEngineDatabase.db'
-        sharePointWebBasePath: 'personal/your_email_company/Documents/YourFolder'
-        method: 'auto' # Options: 'auto', 'database', 'applescript'
+        oneDriveDbPath: "~/Library/Containers/com.microsoft.OneDrive-mac/Data/Library/Application Support/OneDrive/settings/Business1/SyncEngineDatabase.db"
+        sharePointWebBasePath: "personal/your_email_company/Documents/YourFolder"
+        method: "auto" # Options: 'auto', 'database', 'applescript'
 
     output:
-        format: 'both' # Options: 'csv', 'sqlite', or 'both'
+        format: "both" # Options: 'csv', 'sqlite', or 'both'
         saveInterval: 10
 
     processing:
@@ -105,7 +105,7 @@ sharepoint:
 Configuration follows standard CLI behavior with three levels:
 
 1. **Defaults** (lowest priority) - Hardcoded defaults in config.ts
-2. **Config file** - Values from config-sharepoint-manager.yaml
+2. **Config file** - Values from config.yaml
 3. **CLI arguments** (highest priority) - Override everything
 
 Example - CLI overrides config file:
@@ -113,7 +113,7 @@ Example - CLI overrides config file:
 ```sh
 # Config file says outputFormat: 'csv'
 # This command overrides to use sqlite only:
-bun riffs/sharepoint/src/cli.ts init --output-format sqlite
+bun riffs/sharepoint-manager/src/cli.ts init --output-format sqlite
 ```
 
 ### Storage Options
@@ -136,13 +136,13 @@ SQLite offers:
 Set up accessibility permissions for VS Code:
 
 ```sh
-bun riffs/sharepoint/src/cli.ts setup
+bun riffs/sharepoint-manager/src/cli.ts setup
 ```
 
 Create initial storage with all files (takes seconds):
 
 ```sh
-bun riffs/sharepoint/src/cli.ts init
+bun riffs/sharepoint-manager/src/cli.ts init
 ```
 
 ## Usage
@@ -152,39 +152,39 @@ bun riffs/sharepoint/src/cli.ts init
 Check current status and progress:
 
 ```sh
-bun riffs/sharepoint/src/cli.ts status
+bun riffs/sharepoint-manager/src/cli.ts status
 ```
 
 Process all pending files (database method - instant):
 
 ```sh
-bun riffs/sharepoint/src/cli.ts process --method database
+bun riffs/sharepoint-manager/src/cli.ts process --method database
 ```
 
 Process with automatic fallback (database first, AppleScript if needed):
 
 ```sh
-bun riffs/sharepoint/src/cli.ts process --method auto
+bun riffs/sharepoint-manager/src/cli.ts process --method auto
 ```
 
 Process with AppleScript only (slow but reliable):
 
 ```sh
-bun riffs/sharepoint/src/cli.ts process --method applescript
+bun riffs/sharepoint-manager/src/cli.ts process --method applescript
 ```
 
 Process specific batch sizes:
 
 ```sh
-bun riffs/sharepoint/src/cli.ts process --method database --batch 10
-bun riffs/sharepoint/src/cli.ts process --method database --batch 100
-bun riffs/sharepoint/src/cli.ts process --method auto --batch 500
+bun riffs/sharepoint-manager/src/cli.ts process --method database --batch 10
+bun riffs/sharepoint-manager/src/cli.ts process --method database --batch 100
+bun riffs/sharepoint-manager/src/cli.ts process --method auto --batch 500
 ```
 
 Retry failed files with auto fallback:
 
 ```sh
-bun riffs/sharepoint/src/cli.ts retry-failed --method auto
+bun riffs/sharepoint-manager/src/cli.ts retry-failed --method auto
 ```
 
 ### CLI Options
@@ -192,7 +192,7 @@ bun riffs/sharepoint/src/cli.ts retry-failed --method auto
 All config values can be overridden via CLI:
 
 ```sh
-bun riffs/sharepoint/src/cli.ts [command] [options]
+bun riffs/sharepoint-manager/src/cli.ts [command] [options]
 
 Global Options:
   -c, --config <path>          Path to config file
@@ -214,37 +214,37 @@ Process Command Options:
 Example with custom config:
 
 ```sh
-bun riffs/sharepoint/src/cli.ts init --config /path/to/custom-config.yaml
+bun riffs/sharepoint-manager/src/cli.ts init --config /path/to/custom-config.yaml
 ```
 
 Example with CLI overrides:
 
 ```sh
-bun riffs/sharepoint/src/cli.ts process --method database \
+bun riffs/sharepoint-manager/src/cli.ts process --method database \
   --output-format sqlite \
   --batch 100 \
   --save-interval 25
 ```
 
-## Quick Reference: npm Scripts
+## Quick Reference: Bun Scripts
 
-For convenience, these commands are also available as npm scripts:
+For convenience, these commands are also available as Bun scripts:
 
-| bun Command                                                            | npm Script Equivalent                    |
-| ---------------------------------------------------------------------- | ---------------------------------------- |
-| `bun riffs/sharepoint/src/cli.ts setup`                                | `bun run sharepoint:setup`               |
-| `bun riffs/sharepoint/src/cli.ts init`                                 | `bun run sharepoint:init`                |
-| `bun riffs/sharepoint/src/cli.ts status`                               | `bun run sharepoint:status`              |
-| `bun riffs/sharepoint/src/cli.ts process --method database`            | `bun run sharepoint:process`             |
-| `bun riffs/sharepoint/src/cli.ts process --method database --batch 50` | `bun run sharepoint:process:batch`       |
-| `bun riffs/sharepoint/src/cli.ts process --method auto`                | `bun run sharepoint:process:auto`        |
-| `bun riffs/sharepoint/src/cli.ts process --method applescript`         | `bun run sharepoint:process:applescript` |
-| `bun riffs/sharepoint/src/cli.ts retry-failed --method auto`           | `bun run sharepoint:retry`               |
-| `tsc --noEmit -p riffs/sharepoint/tsconfig.json`                       | `bun run sharepoint:typecheck`           |
+| bun Command                                                                    | Bun Script Equivalent                                        |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------ |
+| `bun riffs/sharepoint-manager/src/cli.ts setup`                                | `bun run --cwd riffs/sharepoint-manager setup`               |
+| `bun riffs/sharepoint-manager/src/cli.ts init`                                 | `bun run --cwd riffs/sharepoint-manager init`                |
+| `bun riffs/sharepoint-manager/src/cli.ts status`                               | `bun run --cwd riffs/sharepoint-manager status`              |
+| `bun riffs/sharepoint-manager/src/cli.ts process --method database`            | `bun run --cwd riffs/sharepoint-manager process`             |
+| `bun riffs/sharepoint-manager/src/cli.ts process --method database --batch 50` | `bun run --cwd riffs/sharepoint-manager process:batch`       |
+| `bun riffs/sharepoint-manager/src/cli.ts process --method auto`                | `bun run --cwd riffs/sharepoint-manager process:auto`        |
+| `bun riffs/sharepoint-manager/src/cli.ts process --method applescript`         | `bun run --cwd riffs/sharepoint-manager process:applescript` |
+| `bun riffs/sharepoint-manager/src/cli.ts retry-failed --method auto`           | `bun run --cwd riffs/sharepoint-manager retry`               |
+| `tsc --noEmit -p riffs/sharepoint-manager/tsconfig.json`                       | `bun run --cwd riffs/sharepoint-manager typecheck`           |
 
 For AI agents: Use bun commands for explicit control over extraction method.
 
-For humans: npm scripts provide convenient defaults (database method for speed).
+For humans: Bun scripts provide convenient defaults (database method for speed).
 
 ## Special Character Support
 
@@ -265,32 +265,32 @@ Using bun commands:
 
 ```sh
 # Process all files with database method (instant)
-bun riffs/sharepoint/src/cli.ts process --method database
+bun riffs/sharepoint-manager/src/cli.ts process --method database
 
 # Process with automatic fallback
-bun riffs/sharepoint/src/cli.ts process --method auto
+bun riffs/sharepoint-manager/src/cli.ts process --method auto
 
 # Process specific batch with database method
-bun riffs/sharepoint/src/cli.ts process --method database --batch 100
+bun riffs/sharepoint-manager/src/cli.ts process --method database --batch 100
 
 # Retry failed files with fallback
-bun riffs/sharepoint/src/cli.ts retry-failed --method auto
+bun riffs/sharepoint-manager/src/cli.ts retry-failed --method auto
 ```
 
-Using npm scripts:
+Using Bun scripts:
 
 ```sh
 # Process all files with database method
-bun run sharepoint:process
+bun run --cwd riffs/sharepoint-manager process
 
 # Process batch with database method
-bun run sharepoint:process:batch
+bun run --cwd riffs/sharepoint-manager process:batch
 
 # Process with automatic fallback
-bun run sharepoint:process:auto
+bun run --cwd riffs/sharepoint-manager process:auto
 
 # Retry failed files
-bun run sharepoint:retry
+bun run --cwd riffs/sharepoint-manager retry
 ```
 
 ## How It Works
@@ -399,7 +399,7 @@ Common file types in SharePoint:
 ## Project Structure
 
 ```tree
-riffs/sharepoint/
+riffs/sharepoint-manager/
 ├── README.md                    # Documentation
 ├── tsconfig.json                # TypeScript configuration
 ├── src/                         # Source code (3-layer architecture)
@@ -423,7 +423,7 @@ riffs/sharepoint/
     └── plans/                   # Implementation plans
 
 config/
-└── config-sharepoint-manager.yaml       # User configuration
+└── config.yaml       # User configuration
 
 .aria/db/sharepoint/
 ├── sharepoint.csv               # CSV storage (if enabled)
@@ -460,14 +460,14 @@ Logs are written to `.aria/logs/sharepoint.log` by default (JSON format via Pino
 
 ### Configuration
 
-Configure logging in `config/config-sharepoint-manager.yaml`:
+Configure logging in `config.yaml`:
 
 ```yaml
 sharepoint:
     logging:
-        level: 'info' # trace, debug, info, warn, error, fatal
+        level: "info" # trace, debug, info, warn, error, fatal
         verbose: false # Enable console output
-        file: '.aria/logs/sharepoint.log'
+        file: ".aria/logs/sharepoint.log"
         max_file_size_mb: 10
         max_files: 7
 ```
@@ -485,9 +485,9 @@ Override config with environment variables:
 Use `-v` for real-time console output (useful for debugging):
 
 ```sh
-bun riffs/sharepoint/src/cli.ts status -v
-bun riffs/sharepoint/src/cli.ts process -v
-bun riffs/sharepoint/src/cli.ts init -v
+bun riffs/sharepoint-manager/src/cli.ts status -v
+bun riffs/sharepoint-manager/src/cli.ts process -v
+bun riffs/sharepoint-manager/src/cli.ts init -v
 ```
 
 ## Future Development

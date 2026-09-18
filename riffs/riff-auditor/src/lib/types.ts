@@ -30,18 +30,34 @@ export type ValidationStatus = 'ok' | 'error' | 'warning' | 'skipped';
 export interface RiffHealth {
 	riff: string;
 	// Canonical wiring contract
+	wiringMissingCanonicalFiles: string[];
 	wiringConfigExists: boolean;
 	wiringPackageExists: boolean;
+	wiringPackageJsonValid: boolean;
 	wiringCliExists: boolean;
-	wiringPromptExists: boolean;
 	wiringMetadataName: string | null;
 	wiringMetadataNameMatchesRiff: boolean;
+	wiringMetadataDescription: string | null;
 	wiringPackageName: string | null;
 	wiringPackageNameMatchesRiff: boolean;
+	wiringPackageDescription: string | null;
+	wiringMetadataDescriptionMatchesPackage: boolean;
+	wiringPackageKeysMatchCanonical: boolean;
+	wiringPackageVersion: string | null;
+	wiringPackageVersionMatchesWorkspace: boolean;
+	wiringPackageTypeMatchesCanonical: boolean;
+	wiringPackageMainMatchesCanonical: boolean;
 	wiringBinNameMatchesRiff: boolean;
-	wiringPromptExportsRiffPrompt: boolean;
-	wiringPromptName: string | null;
-	wiringPromptNameMatchesRiff: boolean;
+	wiringBinPathMatchesCanonical: boolean;
+	wiringPackageFilesMatchCanonical: boolean;
+	promptPath: string;
+	promptExists: boolean;
+	promptLoads: boolean;
+	promptMatchesCanonicalSchema: boolean;
+	promptValidationIssues: string[];
+	promptName: string | null;
+	promptNameMatchesRiff: boolean;
+	promptExamplesUsePlaceholder: boolean;
 	// Config file checks
 	configPath?: string;
 	configExists: boolean;
@@ -139,7 +155,14 @@ export interface RiffHealth {
 	cliHasExecutionGuard: boolean;
 	cliProgramNameMatchesRiff: boolean;
 	cliProgramName: string | null;
+	cliImportsPackageManifest: boolean;
+	cliUsesPackageDescription: boolean;
+	cliUsesPackageVersion: boolean;
+	cliHelpRenders: boolean;
+	cliHelpExitCode: number;
+	cliHelpOutput: string;
 	// Structure checks
+	readmeExists: boolean;
 	testUnitDirExists: boolean;
 	testUnitDirHasFiles: boolean;
 	testIntegrationDirExists: boolean;
@@ -161,10 +184,11 @@ export interface RiffHealth {
 	tuiUsesInk: boolean;
 	tuiHasAppShell: boolean;
 	// Package.json scripts checks
-	hasRiffScript: boolean;
-	hasRiffTestScript: boolean;
-	hasRiffTypecheckScript: boolean;
+	hasStartScript: boolean;
+	hasTestScript: boolean;
+	hasTypecheckScript: boolean;
 	missingScripts: string[];
+	nonCanonicalScripts: string[];
 	// Package dependency checks
 	packageManager: string | null;
 	packageManagerMatchesCanonical: boolean;
@@ -204,6 +228,7 @@ export interface RiffHealth {
 	hasConfigIntegrationTest: boolean;
 	hasTildeExpansionTest: boolean;
 	fragileAssertions: string[];
+	nonCanonicalFixtureConfigPaths: string[];
 	// Validation results
 	validationStatus: ValidationStatus;
 	validationIssues: ValidationIssue[];

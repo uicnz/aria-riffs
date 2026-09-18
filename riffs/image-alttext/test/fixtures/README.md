@@ -29,13 +29,13 @@ The tests should verify that the modular TypeScript architecture correctly:
 
 ```sh
 # Test the CLI with the test data
-bun run dev process test/image-alttext-test/image-alttext-test-cases.md --verbose
+bun riffs/image-alttext/src/cli.ts process riffs/image-alttext/test/fixtures/image-alttext-test-cases.md --verbose
 
 # Test in dry-run mode
-bun run dev process test/image-alttext-test/image-alttext-test-cases.md --dry-run
+bun riffs/image-alttext/src/cli.ts process riffs/image-alttext/test/fixtures/image-alttext-test-cases.md --dry-run
 
 # Analyze without changes
-bun run dev analyze test/image-alttext-test/image-alttext-test-cases.md
+bun riffs/image-alttext/src/cli.ts analyze riffs/image-alttext/test/fixtures/image-alttext-test-cases.md
 ```
 
 ## Test Cases in image-alttext-test-cases.md

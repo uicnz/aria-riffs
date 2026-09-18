@@ -88,16 +88,16 @@ bun riffs/code-auditor/src/cli.ts status
 
 For convenience, these commands are also available as bun scripts:
 
-| bun Command                                            | bun Script Equivalent                   |
-| ------------------------------------------------------ | --------------------------------------- |
-| `bun riffs/code-auditor/src/cli.ts audit`              | `bun run code-auditor:audit`            |
-| `bun riffs/code-auditor/src/cli.ts audit --json`       | `bun run code-auditor:audit:json`       |
-| `bun riffs/code-auditor/src/cli.ts update`             | `bun run code-auditor:update`           |
-| `bun riffs/code-auditor/src/cli.ts update --dry-run`   | `bun run code-auditor:update:dry`       |
-| `bun riffs/code-auditor/src/cli.ts update --selective` | `bun run code-auditor:update:selective` |
-| `bun riffs/code-auditor/src/cli.ts update --dev-only`  | `bun run code-auditor:update:dev`       |
-| `tsc --noEmit -p riffs/code-auditor/tsconfig.json`     | `bun run code-auditor:typecheck`        |
-| `bun test/code-auditor-test/run-tests.ts`              | `bun run code-auditor:test`             |
+| bun Command                                            | bun Script Equivalent                               |
+| ------------------------------------------------------ | --------------------------------------------------- |
+| `bun riffs/code-auditor/src/cli.ts audit`              | `bun run --cwd riffs/code-auditor audit`            |
+| `bun riffs/code-auditor/src/cli.ts audit --json`       | `bun run --cwd riffs/code-auditor audit:json`       |
+| `bun riffs/code-auditor/src/cli.ts update`             | `bun run --cwd riffs/code-auditor update`           |
+| `bun riffs/code-auditor/src/cli.ts update --dry-run`   | `bun run --cwd riffs/code-auditor update:dry`       |
+| `bun riffs/code-auditor/src/cli.ts update --selective` | `bun run --cwd riffs/code-auditor update:selective` |
+| `bun riffs/code-auditor/src/cli.ts update --dev-only`  | `bun run --cwd riffs/code-auditor update:dev`       |
+| `tsc --noEmit -p riffs/code-auditor/tsconfig.json`     | `bun run --cwd riffs/code-auditor typecheck`        |
+| `bun run --cwd riffs/code-auditor test`                | `bun run --cwd riffs/code-auditor test`             |
 
 **For AI agents:** Use bun commands for immediate execution without compilation delays.
 **For humans:** Choose your preference - bun commands are more explicit, bun scripts are shorter.
@@ -216,7 +216,7 @@ src/
 Run the comprehensive test suite:
 
 ```sh
-bun test/code-auditor-test/run-tests.ts
+bun run --cwd riffs/code-auditor test
 ```
 
 The riff includes test mode support with environment variables:
@@ -228,7 +228,7 @@ export CODE_AUDITOR_MOCK_BUN_LIST="mock-project@1.0.0"
 export CODE_AUDITOR_MOCK_BUN_OUTDATED="chalk 5.2.0 5.3.0 5.3.0"
 
 # Run tests
-bun test/code-auditor-test/run-tests.ts
+bun run --cwd riffs/code-auditor test
 ```
 
 ## Configuration

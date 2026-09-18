@@ -8,7 +8,7 @@ import { loadConfig } from '../../src/lib/config.js';
 describe('Config Integration', () => {
 	describe('YAML file loading', () => {
 		it('given actual config file, when loadConfig called, then returns correct config values', () => {
-			// Given: Actual config-riff-auditor.yaml in config directory
+			// Given: Actual config.yaml at the Riff root
 			// When: Loading config
 			const config = loadConfig();
 

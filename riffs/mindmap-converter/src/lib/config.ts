@@ -101,15 +101,6 @@ export const XML_PARSER_OPTIONS = {
  */
 export const OUTPUT_EXTENSION = '.md';
 
-/**
- * Riff metadata
- */
-export const RIFF_INFO = {
-	name: 'mindmap-converter',
-	version: '1.0.0',
-	description: 'Convert OPML and FreeMind mindmap files to Markdown',
-} as const;
-
 // =============================================================================
 // ENVIRONMENT OVERRIDES
 // =============================================================================

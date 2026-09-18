@@ -1,4 +1,4 @@
-# Aria Image Meta Riff
+# Aria Image Metadata Riff
 
 Agent managed image metadata embedding riff that uses Ollama LLaVA models to
 generate descriptions and embed them as XMP metadata into images with SQLite
@@ -57,7 +57,7 @@ exifriff -xmp -b riffs/image-metadata/images/File-02-12-2024-12-32-25-AM.png
 ### Type Checking
 
 ```sh
-bun run image-metadata:typecheck
+bun run --cwd riffs/image-metadata typecheck
 # Or directly:
 tsc --noEmit -p riffs/image-metadata/tsconfig.json       # Type check source files only
 
@@ -67,7 +67,7 @@ tsc --noEmit -p riffs/image-metadata/tsconfig.json       # Type check source fil
 ### Testing
 
 ```sh
-bun run image-metadata:test
+bun run --cwd riffs/image-metadata test
 # Or directly with vitest:
 vitest run --coverage --coverage.reportsDirectory=coverage/image-metadata test/image-metadata/
 # Coverage report: coverage/image-metadata/index.html
@@ -75,7 +75,7 @@ vitest run --coverage --coverage.reportsDirectory=coverage/image-metadata test/i
 
 ## Configuration
 
-Configuration file: `config/meta-config.yaml`
+Configuration file: `config.yaml`
 
 All settings support environment variable overrides (e.g., `IMAGE_METADATA_OLLAMA_ENDPOINT`,
 `IMAGE_METADATA_OLLAMA_MODEL`).

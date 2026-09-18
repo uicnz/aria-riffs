@@ -2,6 +2,7 @@
  * CLI pattern audits - checks cli.ts structure and patterns
  */
 
+import { spawnSync } from 'node:child_process';
 import { resolve } from 'node:path';
 import { readFileIfExists } from './utils.js';
 
@@ -17,6 +18,15 @@ export interface CliAuditResult {
 	cliHasExecutionGuard: boolean;
 	cliProgramNameMatchesRiff: boolean;
 	cliProgramName: string | null;
+	cliImportsPackageManifest: boolean;
+	cliUsesPackageDescription: boolean;
+	cliUsesPackageVersion: boolean;
+}
+
+export interface CliHelpAuditResult {
+	cliHelpRenders: boolean;
+	cliHelpExitCode: number;
+	cliHelpOutput: string;
 }
 
 // =============================================================================
@@ -86,6 +96,9 @@ export function auditCli(riff: string, repoRoot: string): CliAuditResult {
 			cliHasExecutionGuard: false,
 			cliProgramNameMatchesRiff: false,
 			cliProgramName: null,
+			cliImportsPackageManifest: false,
+			cliUsesPackageDescription: false,
+			cliUsesPackageVersion: false,
 		};
 	}
 
@@ -99,5 +112,32 @@ export function auditCli(riff: string, repoRoot: string): CliAuditResult {
 		cliHasExecutionGuard: checkCliHasExecutionGuard(cliContent),
 		cliProgramNameMatchesRiff: programName === riff,
 		cliProgramName: programName,
+		cliImportsPackageManifest:
+			/import\s+packageManifest\s+from\s+['"]\.\.\/package\.json['"]\s+with\s+\{\s*type:\s*['"]json['"]\s*\}/u.test(
+				cliContent
+			),
+		cliUsesPackageDescription: /\.description\(\s*packageManifest\.description\s*\)/u.test(cliContent),
+		cliUsesPackageVersion: /\.version\(\s*packageManifest\.version\s*\)/u.test(cliContent),
+	};
+}
+
+/**
+ * Execute the public help path so startup work cannot intercept --help.
+ */
+export function auditCliHelp(riff: string, repoRoot: string): CliHelpAuditResult {
+	const cliPath = resolve(repoRoot, 'riffs', riff, 'src', 'cli.ts');
+	const helpProcess = spawnSync(process.execPath, [cliPath, '--help'], {
+		cwd: resolve(repoRoot, 'riffs', riff),
+		encoding: 'utf8',
+	});
+	const stdout = helpProcess.stdout;
+	const stderr = helpProcess.stderr;
+	const output = [stdout, stderr].filter(Boolean).join('\n').trim();
+	const exitCode = helpProcess.status ?? -1;
+
+	return {
+		cliHelpRenders: exitCode === 0 && output.startsWith(`Usage: ${riff}`) && !/^Error:/mu.test(output),
+		cliHelpExitCode: exitCode,
+		cliHelpOutput: output,
 	};
 }

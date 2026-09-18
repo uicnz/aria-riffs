@@ -10,6 +10,7 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Command } from 'commander';
+import packageManifest from '../package.json' with { type: 'json' };
 import { type ExtendedConfig, runDecompose } from './core/run-decompose.js';
 import { CONFIG_PATHS, loadConfig } from './lib/config.js';
 import { createLogger } from './lib/logger.js';
@@ -20,10 +21,7 @@ import { createLogger } from './lib/logger.js';
 function createProgram(): Command {
 	const program = new Command();
 
-	program
-		.name('doc-decomposer')
-		.description('Decompose RFP documents into individual request/response pairs')
-		.version('1.0.0');
+	program.name('doc-decomposer').description(packageManifest.description).version(packageManifest.version);
 
 	// Default decompose command (runs when called with positional args or flags)
 	program

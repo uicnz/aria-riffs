@@ -8,6 +8,7 @@ import type { Logger } from 'pino';
 
 import {
 	auditCli,
+	auditCliHelp,
 	auditConfig,
 	auditConfigLoader,
 	auditConfigTest,
@@ -15,6 +16,7 @@ import {
 	auditEnv,
 	auditLogger,
 	auditPaths,
+	auditPrompt,
 	auditRiffWiring,
 	auditSchema,
 	auditScripts,
@@ -22,6 +24,7 @@ import {
 	auditStructure,
 	auditTsconfig,
 	auditTui,
+	findRiffRepoRoot,
 	listRiffDirs,
 	validateConfig,
 } from '../audits/index.js';
@@ -41,7 +44,7 @@ export class RiffAuditor {
 	constructor(config: RiffAuditorRiffConfig, logger: Logger, repoRoot?: string) {
 		this.config = config;
 		this.logger = logger;
-		this.repoRoot = repoRoot ?? process.cwd();
+		this.repoRoot = repoRoot ?? findRiffRepoRoot(process.cwd(), config.paths.input.riffs);
 	}
 
 	/**
@@ -52,6 +55,7 @@ export class RiffAuditor {
 
 		const { audits, rules } = this.config;
 		const wiringResult = auditRiffWiring(riff, this.repoRoot);
+		const promptResult = await auditPrompt(riff, this.repoRoot);
 
 		// Run audits based on config
 		const configResult = audits.config ? auditConfig(riff, this.repoRoot) : null;
@@ -59,6 +63,7 @@ export class RiffAuditor {
 			? auditSchema(riff, this.repoRoot, configResult?.justifiedPeerSections ?? [])
 			: null;
 		const cliResult = audits.cli ? auditCli(riff, this.repoRoot) : null;
+		const cliHelpResult = audits.cli ? auditCliHelp(riff, this.repoRoot) : null;
 		const envResult = audits.env ? auditEnv(riff, this.repoRoot) : null;
 		const loggerResult = audits.logger ? auditLogger(riff, this.repoRoot) : null;
 		const sourceResult = audits.source ? auditSource(riff, this.repoRoot) : null;
@@ -68,11 +73,7 @@ export class RiffAuditor {
 				})
 			: null;
 		const tuiResult = audits.tui ? auditTui(riff, this.repoRoot) : null;
-		const scriptsResult = audits.scripts
-			? auditScripts(riff, this.repoRoot, {
-					packageJsonPath: this.config.paths.input.package,
-				})
-			: null;
+		const scriptsResult = audits.scripts ? auditScripts(riff, this.repoRoot) : null;
 		const tsconfigResult = audits.tsconfig ? auditTsconfig(riff, this.repoRoot) : null;
 		const pathsResult = audits.paths ? auditPaths(riff, this.repoRoot) : null;
 		const validationResult = audits.validation ? await validateConfig(riff, this.repoRoot) : null;
@@ -83,24 +84,59 @@ export class RiffAuditor {
 		// Collect issues
 		const issues: string[] = [];
 
-		if (!wiringResult.configExists) issues.push('Riff wiring is missing config.yaml');
-		if (!wiringResult.packageExists) issues.push('Riff wiring is missing package.json');
-		if (!wiringResult.cliExists) issues.push('Riff wiring is missing src/cli.ts');
-		if (!wiringResult.promptExists) issues.push('Riff wiring is missing src/riff-prompt.ts');
+		if (wiringResult.missingCanonicalFiles.length > 0) {
+			issues.push(`Missing canonical Riff files: ${wiringResult.missingCanonicalFiles.join(', ')}`);
+		}
+		if (wiringResult.packageExists && !wiringResult.packageJsonValid) {
+			issues.push('package.json must contain valid JSON');
+		}
 		if (wiringResult.configExists && !wiringResult.metadataNameMatchesRiff) {
 			issues.push(`aria-riff.name must equal "${riff}"`);
 		}
 		if (wiringResult.packageExists && !wiringResult.packageNameMatchesRiff) {
 			issues.push(`package name must equal "@aria/${riff}"`);
 		}
+		if (
+			wiringResult.configExists &&
+			wiringResult.packageJsonValid &&
+			!wiringResult.metadataDescriptionMatchesPackage
+		) {
+			issues.push('aria-riff.description must equal package description');
+		}
+		if (wiringResult.packageJsonValid && !wiringResult.packageKeysMatchCanonical) {
+			issues.push('package.json keys must match the canonical Riff package scaffold');
+		}
+		if (wiringResult.packageJsonValid && !wiringResult.packageVersionMatchesWorkspace) {
+			issues.push('package version must match the workspace version');
+		}
+		if (wiringResult.packageJsonValid && !wiringResult.packageTypeMatchesCanonical) {
+			issues.push('package type must equal "module"');
+		}
+		if (wiringResult.packageJsonValid && !wiringResult.packageMainMatchesCanonical) {
+			issues.push('package main must equal "dist/cli.js"');
+		}
 		if (wiringResult.packageExists && !wiringResult.binNameMatchesRiff) {
-			issues.push(`package binary must expose "${riff}"`);
+			issues.push(`package binary must expose only "${riff}"`);
 		}
-		if (wiringResult.promptExists && !wiringResult.promptExportsRiffPrompt) {
-			issues.push('src/riff-prompt.ts must export riffPrompt');
+		if (wiringResult.packageJsonValid && !wiringResult.binPathMatchesCanonical) {
+			issues.push(`package binary "${riff}" must equal "dist/cli.js"`);
 		}
-		if (wiringResult.promptExists && !wiringResult.promptNameMatchesRiff) {
+		if (wiringResult.packageJsonValid && !wiringResult.packageFilesMatchCanonical) {
+			issues.push('package files must equal: dist/, src/, config.yaml');
+		}
+		if (promptResult.promptExists && !promptResult.promptLoads) {
+			issues.push('src/riff-prompt.ts must export a loadable riffPrompt');
+		}
+		if (promptResult.promptLoads && !promptResult.promptMatchesCanonicalSchema) {
+			issues.push(
+				`riffPrompt must match the canonical schema: ${promptResult.promptValidationIssues.join('; ')}`
+			);
+		}
+		if (promptResult.promptMatchesCanonicalSchema && !promptResult.promptNameMatchesRiff) {
 			issues.push(`riffPrompt.name must equal "${riff}"`);
+		}
+		if (promptResult.promptMatchesCanonicalSchema && !promptResult.promptExamplesUsePlaceholder) {
+			issues.push('Every riffPrompt example command must use the $RIFF invocation placeholder');
 		}
 
 		// Config issues
@@ -284,10 +320,27 @@ export class RiffAuditor {
 					`CLI program.name() mismatch: expected "${riff}", got "${cliResult.cliProgramName ?? '(none)'}"`
 				);
 			}
+			if (cliResult.cliExists && !cliResult.cliImportsPackageManifest) {
+				issues.push('CLI must import its package manifest as packageManifest');
+			}
+			if (cliResult.cliExists && !cliResult.cliUsesPackageDescription) {
+				issues.push('CLI description must use packageManifest.description');
+			}
+			if (cliResult.cliExists && !cliResult.cliUsesPackageVersion) {
+				issues.push('CLI version must use packageManifest.version');
+			}
+			if (cliHelpResult && !cliHelpResult.cliHelpRenders) {
+				issues.push(
+					`CLI --help must exit successfully and begin with "Usage: ${riff}" (exit ${cliHelpResult.cliHelpExitCode})`
+				);
+			}
 		}
 
 		// Structure issues
 		if (structureResult) {
+			if (!structureResult.readmeExists) {
+				issues.push('Missing README.md');
+			}
 			if (rules.requireCore) {
 				if (!structureResult.coreDirExists) {
 					issues.push('Missing src/core/ directory');
@@ -354,17 +407,20 @@ export class RiffAuditor {
 		// Package.json scripts issues
 		if (scriptsResult) {
 			const missingRequired: string[] = [];
-			if (rules.requireRiffScript && !scriptsResult.hasRiffScript) {
-				missingRequired.push(scriptsResult.riffScriptName);
+			if (rules.requireStartScript && !scriptsResult.hasStartScript) {
+				missingRequired.push('start');
 			}
-			if (rules.requireTestScript && !scriptsResult.hasRiffTestScript) {
-				missingRequired.push(scriptsResult.riffTestScriptName);
+			if (rules.requireTestScript && !scriptsResult.hasTestScript) {
+				missingRequired.push('test');
 			}
-			if (rules.requireTypecheckScript && !scriptsResult.hasRiffTypecheckScript) {
-				missingRequired.push(scriptsResult.riffTypecheckScriptName);
+			if (rules.requireTypecheckScript && !scriptsResult.hasTypecheckScript) {
+				missingRequired.push('typecheck');
 			}
 			if (missingRequired.length > 0) {
-				issues.push(`Missing package.json scripts: ${missingRequired.join(', ')}`);
+				issues.push(`Missing package-local scripts: ${missingRequired.join(', ')}`);
+			}
+			if (scriptsResult.nonCanonicalScripts.length > 0) {
+				issues.push(`Non-canonical package-local scripts: ${scriptsResult.nonCanonicalScripts.join('; ')}`);
 			}
 		}
 
@@ -466,6 +522,11 @@ export class RiffAuditor {
 			for (const assertion of configTestResult.fragileAssertions) {
 				issues.push(`Fragile assertion: ${assertion}`);
 			}
+			if (configTestResult.nonCanonicalFixtureConfigPaths.length > 0) {
+				issues.push(
+					`Fixture YAML configs must be named config.yaml: ${configTestResult.nonCanonicalFixtureConfigPaths.join(', ')}`
+				);
+			}
 		}
 
 		// Validation issues (only add if validation actually ran, not if skipped)
@@ -480,18 +541,34 @@ export class RiffAuditor {
 
 		return {
 			riff,
+			wiringMissingCanonicalFiles: wiringResult.missingCanonicalFiles,
 			wiringConfigExists: wiringResult.configExists,
 			wiringPackageExists: wiringResult.packageExists,
+			wiringPackageJsonValid: wiringResult.packageJsonValid,
 			wiringCliExists: wiringResult.cliExists,
-			wiringPromptExists: wiringResult.promptExists,
 			wiringMetadataName: wiringResult.metadataName,
 			wiringMetadataNameMatchesRiff: wiringResult.metadataNameMatchesRiff,
+			wiringMetadataDescription: wiringResult.metadataDescription,
 			wiringPackageName: wiringResult.packageName,
 			wiringPackageNameMatchesRiff: wiringResult.packageNameMatchesRiff,
+			wiringPackageDescription: wiringResult.packageDescription,
+			wiringMetadataDescriptionMatchesPackage: wiringResult.metadataDescriptionMatchesPackage,
+			wiringPackageKeysMatchCanonical: wiringResult.packageKeysMatchCanonical,
+			wiringPackageVersion: wiringResult.packageVersion,
+			wiringPackageVersionMatchesWorkspace: wiringResult.packageVersionMatchesWorkspace,
+			wiringPackageTypeMatchesCanonical: wiringResult.packageTypeMatchesCanonical,
+			wiringPackageMainMatchesCanonical: wiringResult.packageMainMatchesCanonical,
 			wiringBinNameMatchesRiff: wiringResult.binNameMatchesRiff,
-			wiringPromptExportsRiffPrompt: wiringResult.promptExportsRiffPrompt,
-			wiringPromptName: wiringResult.promptName,
-			wiringPromptNameMatchesRiff: wiringResult.promptNameMatchesRiff,
+			wiringBinPathMatchesCanonical: wiringResult.binPathMatchesCanonical,
+			wiringPackageFilesMatchCanonical: wiringResult.packageFilesMatchCanonical,
+			promptPath: promptResult.promptPath,
+			promptExists: promptResult.promptExists,
+			promptLoads: promptResult.promptLoads,
+			promptMatchesCanonicalSchema: promptResult.promptMatchesCanonicalSchema,
+			promptValidationIssues: promptResult.promptValidationIssues,
+			promptName: promptResult.promptName,
+			promptNameMatchesRiff: promptResult.promptNameMatchesRiff,
+			promptExamplesUsePlaceholder: promptResult.promptExamplesUsePlaceholder,
 			// Config
 			configPath: configResult?.configPath,
 			configExists: configResult?.configExists ?? false,
@@ -583,7 +660,14 @@ export class RiffAuditor {
 			cliHasExecutionGuard: cliResult?.cliHasExecutionGuard ?? false,
 			cliProgramNameMatchesRiff: cliResult?.cliProgramNameMatchesRiff ?? false,
 			cliProgramName: cliResult?.cliProgramName ?? null,
+			cliImportsPackageManifest: cliResult?.cliImportsPackageManifest ?? false,
+			cliUsesPackageDescription: cliResult?.cliUsesPackageDescription ?? false,
+			cliUsesPackageVersion: cliResult?.cliUsesPackageVersion ?? false,
+			cliHelpRenders: cliHelpResult?.cliHelpRenders ?? false,
+			cliHelpExitCode: cliHelpResult?.cliHelpExitCode ?? -1,
+			cliHelpOutput: cliHelpResult?.cliHelpOutput ?? '',
 			// Structure
+			readmeExists: structureResult?.readmeExists ?? false,
 			testUnitDirExists: structureResult?.testUnitDirExists ?? false,
 			testUnitDirHasFiles: structureResult?.testUnitDirHasFiles ?? false,
 			testIntegrationDirExists: structureResult?.testIntegrationDirExists ?? false,
@@ -605,10 +689,11 @@ export class RiffAuditor {
 			tuiUsesInk: tuiResult?.tuiUsesInk ?? false,
 			tuiHasAppShell: tuiResult?.tuiHasAppShell ?? false,
 			// Package.json scripts
-			hasRiffScript: scriptsResult?.hasRiffScript ?? false,
-			hasRiffTestScript: scriptsResult?.hasRiffTestScript ?? false,
-			hasRiffTypecheckScript: scriptsResult?.hasRiffTypecheckScript ?? false,
+			hasStartScript: scriptsResult?.hasStartScript ?? false,
+			hasTestScript: scriptsResult?.hasTestScript ?? false,
+			hasTypecheckScript: scriptsResult?.hasTypecheckScript ?? false,
 			missingScripts: scriptsResult?.missingScripts ?? [],
+			nonCanonicalScripts: scriptsResult?.nonCanonicalScripts ?? [],
 			// Package dependencies
 			packageManager: dependencyResult?.packageManager ?? null,
 			packageManagerMatchesCanonical: dependencyResult?.packageManagerMatchesCanonical ?? false,
@@ -648,6 +733,7 @@ export class RiffAuditor {
 			hasConfigIntegrationTest: configTestResult?.hasConfigIntegrationTest ?? false,
 			hasTildeExpansionTest: configTestResult?.hasTildeExpansionTest ?? false,
 			fragileAssertions: configTestResult?.fragileAssertions ?? [],
+			nonCanonicalFixtureConfigPaths: configTestResult?.nonCanonicalFixtureConfigPaths ?? [],
 			// Validation
 			validationStatus: (validationResult?.validationStatus as ValidationStatus) ?? 'skipped',
 			validationIssues: validationResult?.validationIssues ?? [],
@@ -661,7 +747,7 @@ export class RiffAuditor {
 	 * Run health check on all riffs and return summary.
 	 */
 	async runHealthCheck(): Promise<HealthSummary> {
-		const riffsDir = this.config.paths.input.riffs;
+		const riffsDir = resolve(this.repoRoot, this.config.paths.input.riffs);
 
 		const riffs = listRiffDirs(riffsDir);
 

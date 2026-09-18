@@ -8,6 +8,7 @@ import * as path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Command } from 'commander';
 import type { Logger } from 'pino';
+import packageManifest from '../package.json' with { type: 'json' };
 import { ImageMetadata } from './core/create-metadata.js';
 import { DescriptionGenerator } from './core/description-generator.js';
 import { DatabaseManager } from './db/database.js';
@@ -53,8 +54,8 @@ function createProgram(): Command {
 
 	program
 		.name('image-metadata')
-		.description('Agent managed XMP metadata embedding for images using Ollama LLaVA')
-		.version('2.1.0')
+		.description(packageManifest.description)
+		.version(packageManifest.version)
 		.option('-v, --verbose', 'Enable verbose (debug) logging')
 		.hook('preAction', thisCommand => {
 			const opts = thisCommand.opts();

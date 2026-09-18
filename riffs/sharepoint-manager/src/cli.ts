@@ -7,6 +7,7 @@
 
 import { fileURLToPath } from 'node:url';
 import { Command } from 'commander';
+import packageManifest from '../package.json' with { type: 'json' };
 import { SharepointManager } from './core/process-links.js';
 import { setupPermissions } from './extractors/extract-applescript.js';
 import { loadConfig } from './lib/config.js';
@@ -55,8 +56,8 @@ function createProgram(): Command {
 
 	program
 		.name('sharepoint-manager')
-		.description('SharePoint Manager - Manage SharePoint file tracking and URL extraction')
-		.version('2.0.0')
+		.description(packageManifest.description)
+		.version(packageManifest.version)
 		.option('-c, --config <path>', 'Path to config file')
 		.option('-v, --verbose', 'Enable verbose logging output')
 		.option('--sync-folder <path>', 'OneDrive sync folder path')

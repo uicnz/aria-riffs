@@ -17,6 +17,19 @@
         "src/",
         "config.yaml"
     ],
+    "scripts": {
+        "start": "bun src/cli.ts",
+        "setup": "bun src/cli.ts setup",
+        "init": "bun src/cli.ts init",
+        "status": "bun src/cli.ts status",
+        "process": "bun src/cli.ts process --method database",
+        "process:batch": "bun src/cli.ts process --method database --batch 50",
+        "process:auto": "bun src/cli.ts process --method auto",
+        "process:applescript": "bun src/cli.ts process --method applescript",
+        "retry": "bun src/cli.ts retry-failed --method auto",
+        "typecheck": "tsc --noEmit -p tsconfig.json",
+        "test": "vitest run --coverage --coverage.reportsDirectory=../../coverage/sharepoint-manager --coverage.include='**/*.ts' test/"
+    },
     "dependencies": {
         "commander": "^15.0.0",
         "csv-parser": "^3.2.1",

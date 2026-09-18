@@ -130,7 +130,7 @@ Perform hybrid semantic and lexical searches across indexed documents.
 bun riffs/doc-indexer/src/cli.ts search <query> [options]
 ```
 
-**Database Path:** By default, doc-indexer uses the database path from `config/config-doc-indexer.yaml`. You can override this in two ways:
+**Database Path:** By default, doc-indexer uses the database path from `config.yaml`. You can override this in two ways:
 
 - Use `-f <path>` to specify a different database file directly
 - Use `-c <path>` to specify a different config file
@@ -222,7 +222,7 @@ bun riffs/doc-indexer/src/cli.ts tui [options]
 
 ## Configuration
 
-doc-indexer supports configuration through YAML files following monorepo conventions. The config file is located at `config/config-doc-indexer.yaml`:
+doc-indexer supports configuration through YAML files following monorepo conventions. The config file is located at `config.yaml`:
 
 ```yaml
 doc-indexer:
@@ -283,7 +283,7 @@ doc-indexer:
 **Configuration Precedence:**
 
 1. Defaults (lowest priority) - Hardcoded in cli.ts
-2. Config file - Values from config/config-doc-indexer.yaml
+2. Config file - Values from config.yaml
 3. CLI arguments (highest priority) - Override everything
 
 ### Configuration Options
@@ -799,7 +799,7 @@ Logs are written to `.aria/logs/doc-indexer.log` by default (JSON format via Pin
 
 ### Configuration
 
-Configure logging in `config/config-doc-indexer.yaml`:
+Configure logging in `config.yaml`:
 
 ```yaml
 doc-indexer:

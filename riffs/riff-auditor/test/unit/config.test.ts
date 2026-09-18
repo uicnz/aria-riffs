@@ -26,7 +26,7 @@ describe('riff-auditor Config', () => {
 
 			try {
 				const { loadConfig } = await import('../../src/lib/config.js');
-				const emptyConfigPath = path.join(tempDir, 'empty-config.yaml');
+				const emptyConfigPath = path.join(tempDir, 'config.yaml');
 				await fs.writeFile(emptyConfigPath, '');
 
 				const config = loadConfig(emptyConfigPath);
@@ -48,7 +48,7 @@ describe('riff-auditor Config', () => {
 	describe('partial merge', () => {
 		it('given partial config, when loaded, then merges with schema defaults', async () => {
 			const tempDir = await fs.mkdtemp(path.join(homedir(), '.aria-test-'));
-			const tempConfigPath = path.join(tempDir, 'partial-config.yaml');
+			const tempConfigPath = path.join(tempDir, 'config.yaml');
 
 			await fs.writeFile(
 				tempConfigPath,
@@ -117,7 +117,7 @@ riff-auditor:
 
 		it('given invalid YAML config, when loaded, then throws ConfigError', async () => {
 			const tempDir = await fs.mkdtemp(path.join(homedir(), '.aria-test-'));
-			const tempConfigPath = path.join(tempDir, 'invalid-config.yaml');
+			const tempConfigPath = path.join(tempDir, 'config.yaml');
 
 			await fs.writeFile(tempConfigPath, 'invalid: yaml: content: [');
 
@@ -133,7 +133,7 @@ riff-auditor:
 	describe('tilde expansion', () => {
 		it('given config with tilde paths, when loadConfig called, then tildes are expanded to home directory', async () => {
 			const tempDir = await fs.mkdtemp(path.join(homedir(), '.aria-test-'));
-			const tempConfigPath = path.join(tempDir, 'tilde-config.yaml');
+			const tempConfigPath = path.join(tempDir, 'config.yaml');
 
 			await fs.writeFile(
 				tempConfigPath,

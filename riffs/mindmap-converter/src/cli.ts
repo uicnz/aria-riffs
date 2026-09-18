@@ -8,6 +8,7 @@ import * as path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Command } from 'commander';
 import type { Logger } from 'pino';
+import packageManifest from '../package.json' with { type: 'json' };
 import { convertToBullets } from './converters/convert-bullets.js';
 import { convertToHeaders } from './converters/convert-headers.js';
 import { convertToLegal } from './converters/convert-legal.js';
@@ -19,7 +20,7 @@ import { parseMindMap } from './core/parse-mm.js';
 import { parseOpml } from './core/parse-opml.js';
 import { processBatch, processMindmap, scanDirectory } from './core/process-batch.js';
 import { DatabaseManager } from './db/database.js';
-import { loadConfig, RIFF_INFO } from './lib/config.js';
+import { loadConfig } from './lib/config.js';
 import { createLogger } from './lib/logger.js';
 import type { ConversionOptions, MindmapConverterConfig, MindmapRecord, OutputFormat } from './lib/types.js';
 import { detectFormat, generateOutputPath, getFileStats, readFile, writeFile } from './utils/utils.js';
@@ -36,8 +37,8 @@ function createProgram(): Command {
 
 	program
 		.name('mindmap-converter')
-		.description(RIFF_INFO.description)
-		.version(RIFF_INFO.version)
+		.description(packageManifest.description)
+		.version(packageManifest.version)
 		.option('-c, --config <path>', 'Path to configuration file')
 		.hook('preAction', thisCommand => {
 			// Load config before any command runs

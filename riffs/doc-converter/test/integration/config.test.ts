@@ -25,7 +25,7 @@ describe('Config Integration', () => {
 
 		it('given loaded config, when checked for tilde paths, then no unexpanded tildes remain', async () => {
 			const tempDir = await fs.mkdtemp(path.join(homedir(), '.aria-test-'));
-			const tempConfigPath = path.join(tempDir, 'tilde-config.yaml');
+			const tempConfigPath = path.join(tempDir, 'config.yaml');
 			await fs.writeFile(
 				tempConfigPath,
 				`

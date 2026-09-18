@@ -87,7 +87,7 @@ Log files contain newline-delimited JSON for machine consumption:
 
 ### Configuration
 
-Logging is configured in `config/config-hr-policy.yaml`:
+Logging is configured in `config.yaml`:
 
 ```yaml
 logging:
@@ -123,7 +123,7 @@ Logs are compatible with observability platforms like LangSmith and LangFuse:
 
 ## Configuration
 
-See `config/config-hr-policy.yaml` for all configuration options including:
+See `config.yaml` for all configuration options including:
 
 - Paths: database, output directories
 - Embedding: model, dimensions, character limits

@@ -10,6 +10,7 @@ import { fileURLToPath } from 'node:url';
 import { Command } from 'commander';
 import * as fsExtra from 'fs-extra';
 import type { Logger } from 'pino';
+import packageManifest from '../package.json' with { type: 'json' };
 import { FilenameGenerator } from './core/filename-generator.js';
 import { ImageRenamer } from './core/rename-images.js';
 import { ImageWatcher } from './core/watch-files.js';
@@ -63,10 +64,7 @@ function createProgram(): ProgramWithDatabaseManager {
 		this.databaseManager = dbManager;
 	};
 
-	program
-		.name('image-renamer')
-		.description('Agent managed image filename generator using LLM vision models')
-		.version('2.1.0');
+	program.name('image-renamer').description(packageManifest.description).version(packageManifest.version);
 
 	program
 		.command('rename <path>')

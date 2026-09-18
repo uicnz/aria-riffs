@@ -65,11 +65,15 @@ export function listRiffDirs(riffsDir: string): string[] {
 		.sort();
 }
 
-export function listConfigRiffNames(configDir: string): string[] {
-	return readdirSync(configDir)
-		.filter(file => file.startsWith('config-') && file.endsWith('.yaml'))
-		.map(file => file.replace(/^config-/, '').replace(/\.yaml$/, ''))
-		.sort();
+/** Find the nearest ancestor that owns the configured Riff collection. */
+export function findRiffRepoRoot(startDir: string, riffsPath = 'riffs'): string {
+	let current = resolve(startDir);
+	for (;;) {
+		if (isDirectory(resolve(current, riffsPath))) return current;
+		const parent = resolve(current, '..');
+		if (parent === current) return resolve(startDir);
+		current = parent;
+	}
 }
 
 // =============================================================================

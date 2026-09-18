@@ -123,7 +123,7 @@ Before declaring a riff "integration-ready":
 
 - Logs: `.aria/logs/` (root)
 - Outputs: `.aria/exports/image-generator/` (root)
-- Config: `config/config-image-generator.yaml` (root)
+- Config: `config.yaml` (root)
 
 ### Test Fixtures
 

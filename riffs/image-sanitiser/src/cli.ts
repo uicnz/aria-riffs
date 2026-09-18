@@ -10,6 +10,7 @@ import { fileURLToPath } from 'node:url';
 import { Command } from 'commander';
 import * as fsExtra from 'fs-extra';
 import type { Logger } from 'pino';
+import packageManifest from '../package.json' with { type: 'json' };
 import { ImageFormatDetector } from './core/detect-format.js';
 import { ImageSanitiser } from './core/sanitise-images.js';
 import { DatabaseManager } from './db/database.js';
@@ -64,10 +65,7 @@ function createProgram(): ProgramWithDatabaseManager {
 	const databaseManager = new DatabaseManager(config);
 	program.setDatabaseManager(databaseManager);
 
-	program
-		.name('image-sanitiser')
-		.description('Detect correct image file types and fix extensions using content analysis')
-		.version('2.1.0');
+	program.name('image-sanitiser').description(packageManifest.description).version(packageManifest.version);
 
 	program
 		.command('sanitise <path>')

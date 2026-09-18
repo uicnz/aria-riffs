@@ -1,9 +1,8 @@
 #!/usr/bin/env bun
 import fs from 'node:fs';
-import path from 'node:path';
 import { RULES } from '../rules/index.js';
 import { parseMarkdownlintRules } from '../utils/parse-rules.js';
-import { loadConfig } from './config.js';
+import { configPath, loadConfig } from './config.js';
 import { createLogger } from './logger.js';
 
 /**
@@ -80,7 +79,6 @@ function generateConfigYaml(): string {
 
 // Generate and write config if run directly
 if (import.meta.url === `file://${process.argv[1]}`) {
-	const configPath = path.resolve(process.cwd(), '.aria/config/config-doc-converter.yaml');
 	const config = loadConfig();
 	const logger = createLogger({
 		level: config.logging.level,

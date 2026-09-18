@@ -127,12 +127,12 @@ bun run quality     # Run all quality checks
 
 ### Riff-Specific Commands
 
-Each riff has its own scripts following the pattern `bun run <riff>:<command>`:
+Each Riff owns its scripts in its package manifest. Run them from that Riff's package directory:
 
 ```sh
-bun run doc-indexer:test
-bun run code-auditor:audit
-bun run image-transcoder:typecheck
+bun run --cwd riffs/doc-indexer test
+bun run --cwd riffs/code-auditor audit
+bun run --cwd riffs/image-transcoder typecheck
 ```
 
 Use the root scripts above as the canonical development entrypoints for this repository.

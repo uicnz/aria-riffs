@@ -9,10 +9,7 @@ import { ImageGeneratorConfigSchema } from '../../src/lib/schema.js';
 describe('Configuration System', () => {
 	describe('loadConfig', () => {
 		it('given test config file, when loadConfig called, then returns parsed config', () => {
-			const testConfigPath = resolve(
-				process.cwd(),
-				'riffs/image-generator/test/fixtures/config/test-config.yaml'
-			);
+			const testConfigPath = resolve(process.cwd(), 'riffs/image-generator/test/fixtures/config.yaml');
 			const config = loadConfig(testConfigPath);
 			const riff = config['image-generator'];
 
@@ -93,7 +90,7 @@ describe('Configuration System', () => {
 	describe('tilde expansion', () => {
 		it('given config with tilde paths, when loadConfig called, then tildes are expanded to home directory', async () => {
 			const tempDir = await fs.mkdtemp(path.join(homedir(), '.aria-test-'));
-			const tempConfigPath = path.join(tempDir, 'tilde-config.yaml');
+			const tempConfigPath = path.join(tempDir, 'config.yaml');
 			await fs.writeFile(
 				tempConfigPath,
 				`

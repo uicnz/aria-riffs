@@ -8,7 +8,7 @@ Aria DirDiffer provides a visual comparison of two directories, highlighting dif
 
 ## Installation
 
-This riff is part of the Aria monorepo and is not published as a standalone package. For AI agents and direct execution, use bun commands. For convenience, npm scripts are also available.
+This riff is part of the Aria monorepo and is not published as a standalone package. For AI agents and direct execution, use bun commands. For convenience, Bun scripts are also available.
 
 ## Usage
 
@@ -46,20 +46,20 @@ Disable colored output:
 bun riffs/dir-differ/src/cli.ts <dir1> <dir2> --no-color
 ```
 
-## Quick Reference: npm Scripts
+## Quick Reference: Bun Scripts
 
-For convenience, these commands are also available as npm scripts:
+For convenience, these commands are also available as Bun scripts:
 
-| bun Command                                                    | npm Script Equivalent                |
-| -------------------------------------------------------------- | ------------------------------------ |
-| `bun riffs/dir-differ/src/cli.ts <dir1> <dir2>`                | `bun run diff <dir1> <dir2>`         |
-| `bun riffs/dir-differ/src/cli.ts <dir1> <dir2> --content`      | `bun run diff:content <dir1> <dir2>` |
-| `bun riffs/dir-differ/src/cli.ts <dir1> <dir2> --summary-only` | `bun run diff:summary <dir1> <dir2>` |
-| `tsc --noEmit -p riffs/dir-differ/tsconfig.json`               | `bun run dir-differ:typecheck`       |
-| `bun test/dir-differ-test/test-integration.ts`                 | `bun run dir-differ:test`            |
+| bun Command                                                    | Bun Script Equivalent                      |
+| -------------------------------------------------------------- | ------------------------------------------ |
+| `bun riffs/dir-differ/src/cli.ts <dir1> <dir2>`                | `bun run diff <dir1> <dir2>`               |
+| `bun riffs/dir-differ/src/cli.ts <dir1> <dir2> --content`      | `bun run diff:content <dir1> <dir2>`       |
+| `bun riffs/dir-differ/src/cli.ts <dir1> <dir2> --summary-only` | `bun run diff:summary <dir1> <dir2>`       |
+| `tsc --noEmit -p riffs/dir-differ/tsconfig.json`               | `bun run --cwd riffs/dir-differ typecheck` |
+| `bun run --cwd riffs/dir-differ test`                          | `bun run --cwd riffs/dir-differ test`      |
 
 **For AI agents:** Use bun commands for immediate execution without compilation delays.
-**For humans:** Choose your preference - bun commands are more explicit, npm scripts are shorter.
+**For humans:** Choose your preference - bun commands are more explicit, Bun scripts are shorter.
 
 ### Options
 
@@ -75,13 +75,13 @@ The riff uses Pino for structured logging. Logs are written to file by default, 
 
 ### Configuration
 
-Logging is configured via `config/config-dir-differ.yaml`:
+Logging is configured via `config.yaml`:
 
 ```yaml
 logging:
-    level: 'INFO'
+    level: "INFO"
     verbose: false
-    file: '.aria/logs/dir-differ.log'
+    file: ".aria/logs/dir-differ.log"
     max_file_size_mb: 10
     max_files: 7
 ```
@@ -162,19 +162,19 @@ Test the riff using the provided test directories:
 Using bun (recommended for AI agents):
 
 ```sh
-bun riffs/dir-differ/src/cli.ts test/dir-differ-test/dir1 test/dir-differ-test/dir2
+bun riffs/dir-differ/src/cli.ts riffs/dir-differ/test/fixtures/nested riffs/dir-differ/test/fixtures/dir2
 ```
 
-Using npm scripts:
+Using Bun scripts:
 
 ```sh
-bun run diff test/dir-differ-test/dir1 test/dir-differ-test/dir2
+bun run --cwd riffs/dir-differ start riffs/dir-differ/test/fixtures/nested riffs/dir-differ/test/fixtures/dir2
 ```
 
 Run the automated test suite:
 
 ```sh
-bun test/dir-differ-test/test-integration.ts
+bun run --cwd riffs/dir-differ test
 ```
 
 The test directories contain various scenarios:

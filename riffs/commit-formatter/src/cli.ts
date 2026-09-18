@@ -9,6 +9,7 @@
 import { fileURLToPath } from 'node:url';
 import { Command } from 'commander';
 import type { Logger } from 'pino';
+import packageManifest from '../package.json' with { type: 'json' };
 import { autoStash, autoUnstash } from './core/backup-utils.js';
 import { getCommitInfo, getCommits, isGitRepo } from './core/git-utils.js';
 import { CommitMessageGenerator } from './core/message-generator.js';
@@ -19,8 +20,6 @@ import { AdvisoryMode } from './modes/advisory-mode.js';
 import { AssistedMode } from './modes/assisted-mode.js';
 import { AutomaticMode } from './modes/automatic-mode.js';
 import { TargetMode } from './modes/target-mode.js';
-
-const VERSION = '2.0.0';
 
 /**
  * Create and configure the CLI program
@@ -46,10 +45,7 @@ function createProgram(): Command {
 		});
 	});
 
-	program
-		.name('commit-formatter')
-		.description('Reformat commit messages to conventional commit format using AI')
-		.version(VERSION);
+	program.name('commit-formatter').description(packageManifest.description).version(packageManifest.version);
 
 	// Automatic mode - for old/archived repos
 	program
@@ -64,7 +60,10 @@ function createProgram(): Command {
 		.option('--author-email <email>', 'Rewrite all commits to this author email')
 		.action(async options => {
 			try {
-				logger.info({ version: VERSION, command: 'automatic' }, `Commit Message Formatter v${VERSION}`);
+				logger.info(
+					{ version: packageManifest.version, command: 'automatic' },
+					`Commit Message Formatter v${packageManifest.version}`
+				);
 
 				if (!isGitRepo()) {
 					logger.error('Error: Not a git repository');
@@ -129,7 +128,10 @@ function createProgram(): Command {
 		.option('--author-email <email>', 'Rewrite all commits to this author email')
 		.action(async options => {
 			try {
-				logger.info({ version: VERSION, command: 'assisted' }, `Commit Message Formatter v${VERSION}`);
+				logger.info(
+					{ version: packageManifest.version, command: 'assisted' },
+					`Commit Message Formatter v${packageManifest.version}`
+				);
 
 				if (!isGitRepo()) {
 					logger.error('Error: Not a git repository');
@@ -188,7 +190,10 @@ function createProgram(): Command {
 		.option('--no-skip-conventional', 'Include commits that already follow conventional format')
 		.action(async options => {
 			try {
-				logger.info({ version: VERSION, command: 'advisory' }, `Commit Message Formatter v${VERSION}`);
+				logger.info(
+					{ version: packageManifest.version, command: 'advisory' },
+					`Commit Message Formatter v${packageManifest.version}`
+				);
 
 				if (!isGitRepo()) {
 					logger.error('Error: Not a git repository');
@@ -229,7 +234,10 @@ function createProgram(): Command {
 		.option('--author-email <email>', 'Rewrite commit author email')
 		.action(async (hash, options) => {
 			try {
-				logger.info({ version: VERSION, command: 'target' }, `Commit Message Formatter v${VERSION}`);
+				logger.info(
+					{ version: packageManifest.version, command: 'target' },
+					`Commit Message Formatter v${packageManifest.version}`
+				);
 
 				if (!isGitRepo()) {
 					logger.error('Error: Not a git repository');
@@ -277,7 +285,10 @@ function createProgram(): Command {
 		.option('--dry-run', 'Show suggestions without applying changes (always on for legacy mode)')
 		.action(async options => {
 			try {
-				logger.info({ version: VERSION, command: 'format' }, `Commit Message Formatter v${VERSION}`);
+				logger.info(
+					{ version: packageManifest.version, command: 'format' },
+					`Commit Message Formatter v${packageManifest.version}`
+				);
 				logger.warn('Note: This is the legacy preview mode');
 				logger.warn('Use automatic/assisted/advisory for the new workflow');
 
@@ -395,7 +406,7 @@ function createProgram(): Command {
 		});
 
 	program.action(async () => {
-		logger.info({ version: VERSION }, `Commit Message Formatter v${VERSION}`);
+		logger.info({ version: packageManifest.version }, `Commit Message Formatter v${packageManifest.version}`);
 		program.help();
 	});
 

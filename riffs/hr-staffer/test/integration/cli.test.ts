@@ -13,7 +13,7 @@ describe('generateOrgChart integration', () => {
 	let testDbDir: string;
 	let logger: Logger;
 	const fixturePath = path.resolve('./riffs/hr-staffer/test/fixtures');
-	const testConfigPath = path.resolve('./riffs/hr-staffer/test/fixtures/config-test.yaml');
+	const testConfigPath = path.resolve('./riffs/hr-staffer/test/fixtures/config.yaml');
 
 	beforeEach(() => {
 		// Use unique directories per test to avoid parallel test interference

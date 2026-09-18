@@ -3,6 +3,7 @@
 import { fileURLToPath } from 'node:url';
 import { Command } from 'commander';
 import type { Logger } from 'pino';
+import packageManifest from '../package.json' with { type: 'json' };
 import { ChatSessionCommand } from './core/chat-session.js';
 import { ComposeImagesCommand } from './core/compose-images.js';
 import { EditImageCommand } from './core/edit-image.js';
@@ -24,8 +25,8 @@ function createProgram(): Command {
 
 	program
 		.name('image-generator')
-		.description('Image Generator Riff - ARIA Platform')
-		.version('1.0.0')
+		.description(packageManifest.description)
+		.version(packageManifest.version)
 		.option('-c, --config <path>', 'Path to configuration file')
 		.option('-v, --verbose', 'Enable verbose logging')
 		.option('--log-level <level>', 'Set log level (TRACE, DEBUG, INFO, WARN, ERROR)')

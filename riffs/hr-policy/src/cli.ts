@@ -3,6 +3,7 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Command } from 'commander';
+import packageManifest from '../package.json' with { type: 'json' };
 import { processDirectory, processDocument } from './core/decompose-docs.js';
 import { type DocIndexerConfig, DocIndexerImpl } from './core/indexer.js';
 import { SearchServiceImpl } from './core/search.js';
@@ -366,7 +367,7 @@ async function actionSearch(query: string, opts: SearchOptions): Promise<void> {
 
 function createProgram(): Command {
 	const program = new Command();
-	program.name('hr-policy').description('Aria hr-policy - Document indexing and semantic search').version('2.0.0');
+	program.name('hr-policy').description(packageManifest.description).version(packageManifest.version);
 
 	// Index command
 	program

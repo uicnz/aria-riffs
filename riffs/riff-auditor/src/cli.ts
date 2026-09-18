@@ -7,6 +7,7 @@
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 import { Command } from 'commander';
+import packageManifest from '../package.json' with { type: 'json' };
 import { RiffAuditor } from './core/riff-auditor.js';
 import { loadConfig } from './lib/config.js';
 import { createLogger } from './lib/logger.js';
@@ -25,10 +26,7 @@ export function shouldFailStrictCheck(result: Pick<RiffHealth, 'status'>): boole
  */
 function createProgram(): Command {
 	const program = new Command();
-	program
-		.name('riff-auditor')
-		.description('Aria riff-auditor - Comprehensive health checker for all riffs')
-		.version('1.0.0');
+	program.name('riff-auditor').description(packageManifest.description).version(packageManifest.version);
 
 	// Default audit command (runs full audit)
 	program
@@ -119,12 +117,12 @@ function createProgram(): Command {
 		.option('--json', 'Output JSON to stdout')
 		.action(async opts => {
 			const config = loadConfig(opts.config);
-			const { listRiffDirs } = await import('./audits/utils.js');
+			const { findRiffRepoRoot, listRiffDirs } = await import('./audits/utils.js');
 			const { resolve } = await import('node:path');
 			const { existsSync } = await import('node:fs');
 
-			const repoRoot = process.cwd();
-			const riffsDir = resolve(repoRoot, 'riffs');
+			const repoRoot = findRiffRepoRoot(process.cwd(), config['riff-auditor'].paths.input.riffs);
+			const riffsDir = resolve(repoRoot, config['riff-auditor'].paths.input.riffs);
 			const logger = createLogger({
 				level: config.logging.level,
 				verbose: config.logging.verbose,

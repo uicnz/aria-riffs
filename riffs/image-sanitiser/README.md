@@ -56,7 +56,7 @@ bun riffs/image-sanitiser/src/cli.ts detect ./image.jpg               # Detect s
 ### Type Checking
 
 ```sh
-bun run image-sanitiser:typecheck
+bun run --cwd riffs/image-sanitiser typecheck
 # Or directly:
 tsc --noEmit -p riffs/image-sanitiser/tsconfig.json  # Type check source files only
 
@@ -66,7 +66,7 @@ tsc --noEmit -p riffs/image-sanitiser/tsconfig.json  # Type check source files o
 ### Testing
 
 ```sh
-bun run image-sanitiser:test
+bun run --cwd riffs/image-sanitiser test
 # Or directly with vitest:
 vitest run --coverage --coverage.reportsDirectory=coverage/image-sanitiser test/image-sanitiser/
 # Coverage report: coverage/image-sanitiser/index.html
@@ -74,7 +74,7 @@ vitest run --coverage --coverage.reportsDirectory=coverage/image-sanitiser test/
 
 ## Configuration
 
-Configuration file: `config/sanitiser-config.yaml`
+Configuration file: `config.yaml`
 
 All settings support environment variable overrides (e.g., `USE_EXIF_DATA`).
 

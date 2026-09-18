@@ -15,7 +15,9 @@ export const riffPrompt = {
 	],
 	pipeline: [
 		'Discover all riff directories under riffs/',
-		'For each riff, run enabled audit categories (config, schema, cli, env, logger, source, structure, tui, scripts, dependencies, tsconfig, paths, validation)',
+		'For each riff, enforce canonical wiring and prompt contracts, then run enabled audit categories (config, schema, cli, env, logger, source, structure, tui, scripts, dependencies, tsconfig, paths, validation)',
+		'Wiring audit: verify the canonical files, package identity, package shape, binary, version, and metadata description parity',
+		'Prompt audit: validate the exact Aria Riff prompt schema, Riff name, and $RIFF invocation placeholder',
 		'Config audit: verify config.yaml has riff wrapper, aria-riff metadata, logging peer, camelCase keys',
 		'Schema audit: verify schema.ts has riff wrapper, LoggingConfigSchema, proper defaults, no .strict() on root',
 		'CLI audit: verify createProgram() factory function, execution guard, no module-level instantiation',

@@ -8,11 +8,12 @@
 import { fileURLToPath } from 'node:url';
 import { Command } from 'commander';
 import type { Logger } from 'pino';
+import packageManifest from '../package.json' with { type: 'json' };
 import { Indexer } from './core/indexer.js';
 import { ServiceManager } from './core/manage-services.js';
 import { Searcher } from './core/searcher.js';
 import { loadConfig } from './lib/config.js';
-import { createLoggerFromConfig } from './lib/logger.js';
+import { createLogger } from './lib/logger.js';
 import type { ChunkingStrategyName } from './lib/types.js';
 import { QdrantProvider } from './providers/qdrant.js';
 import { getAvailableStrategies, getStrategiesByDomain } from './strategies/index.js';
@@ -28,13 +29,19 @@ function createProgram(): Command {
 
 	program
 		.name('vector-indexer')
-		.description('Semantic vector indexing and search riff')
-		.version('1.0.0')
+		.description(packageManifest.description)
+		.version(packageManifest.version)
 		.hook('preAction', async thisCommand => {
 			// Initialize logger before any command runs
 			const configPath = thisCommand.opts().config;
 			const config = loadConfig(configPath);
-			logger = createLoggerFromConfig(config.logging);
+			logger = createLogger({
+				level: config.logging.level,
+				verbose: config.logging.verbose,
+				file: config.logging.file,
+				maxFileSizeMb: config.logging.maxFileSizeMb,
+				maxFiles: config.logging.maxFiles,
+			});
 
 			// Skip service startup for shutdown command
 			if (thisCommand.name() === 'shutdown') {

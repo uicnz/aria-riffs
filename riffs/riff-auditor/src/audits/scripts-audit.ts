@@ -1,92 +1,68 @@
-/**
- * Scripts audits - checks for required npm scripts in package.json
- */
+/** Package-local script audit for the canonical Riff scaffold. */
 
 import { resolve } from 'node:path';
 import { readFileIfExists } from './utils.js';
 
-// =============================================================================
-// TYPES
-// =============================================================================
-
-export interface ScriptsAuditOptions {
-	packageJsonPath: string;
-}
-
 export interface ScriptsAuditResult {
 	packageJsonExists: boolean;
-	hasRiffScript: boolean;
-	hasRiffTestScript: boolean;
-	hasRiffTypecheckScript: boolean;
-	riffScriptName: string;
-	riffTestScriptName: string;
-	riffTypecheckScriptName: string;
+	hasStartScript: boolean;
+	hasTestScript: boolean;
+	hasTypecheckScript: boolean;
 	missingScripts: string[];
+	nonCanonicalScripts: string[];
 }
 
-// =============================================================================
-// MAIN AUDIT FUNCTION
-// =============================================================================
+function canonicalScripts(riff: string): Record<'start' | 'test' | 'typecheck', string> {
+	return {
+		start: 'bun src/cli.ts',
+		test: `vitest run --coverage --coverage.reportsDirectory=../../coverage/${riff} --coverage.include='**/*.ts' test/`,
+		typecheck: 'tsc --noEmit -p tsconfig.json',
+	};
+}
 
-export function auditScripts(
-	riff: string,
-	repoRoot: string,
-	options: ScriptsAuditOptions = { packageJsonPath: 'package.json' }
-): ScriptsAuditResult {
-	const packageJsonPath = resolve(repoRoot, options.packageJsonPath);
+export function auditScripts(riff: string, repoRoot: string): ScriptsAuditResult {
+	const packageJsonPath = resolve(repoRoot, 'riffs', riff, 'package.json');
 	const content = readFileIfExists(packageJsonPath);
-
-	const riffScriptName = riff;
-	const riffTestScriptName = `${riff}:test`;
-	const riffTypecheckScriptName = `${riff}:typecheck`;
+	const expected = canonicalScripts(riff);
+	const requiredNames = Object.keys(expected) as Array<keyof typeof expected>;
 
 	if (!content) {
 		return {
 			packageJsonExists: false,
-			hasRiffScript: false,
-			hasRiffTestScript: false,
-			hasRiffTypecheckScript: false,
-			riffScriptName,
-			riffTestScriptName,
-			riffTypecheckScriptName,
-			missingScripts: [riffScriptName, riffTestScriptName, riffTypecheckScriptName],
+			hasStartScript: false,
+			hasTestScript: false,
+			hasTypecheckScript: false,
+			missingScripts: requiredNames,
+			nonCanonicalScripts: [],
 		};
 	}
 
 	let packageJson: { scripts?: Record<string, string> };
 	try {
-		packageJson = JSON.parse(content);
+		packageJson = JSON.parse(content) as { scripts?: Record<string, string> };
 	} catch {
 		return {
 			packageJsonExists: true,
-			hasRiffScript: false,
-			hasRiffTestScript: false,
-			hasRiffTypecheckScript: false,
-			riffScriptName,
-			riffTestScriptName,
-			riffTypecheckScriptName,
-			missingScripts: [riffScriptName, riffTestScriptName, riffTypecheckScriptName],
+			hasStartScript: false,
+			hasTestScript: false,
+			hasTypecheckScript: false,
+			missingScripts: requiredNames,
+			nonCanonicalScripts: [],
 		};
 	}
 
 	const scripts = packageJson.scripts ?? {};
-	const hasRiffScript = Object.hasOwn(scripts, riffScriptName);
-	const hasRiffTestScript = Object.hasOwn(scripts, riffTestScriptName);
-	const hasRiffTypecheckScript = Object.hasOwn(scripts, riffTypecheckScriptName);
-
-	const missingScripts: string[] = [];
-	if (!hasRiffScript) missingScripts.push(riffScriptName);
-	if (!hasRiffTestScript) missingScripts.push(riffTestScriptName);
-	if (!hasRiffTypecheckScript) missingScripts.push(riffTypecheckScriptName);
+	const missingScripts = requiredNames.filter(name => !Object.hasOwn(scripts, name));
+	const nonCanonicalScripts = requiredNames
+		.filter(name => Object.hasOwn(scripts, name) && scripts[name] !== expected[name])
+		.map(name => `${name}: expected "${expected[name]}", got "${scripts[name]}"`);
 
 	return {
 		packageJsonExists: true,
-		hasRiffScript,
-		hasRiffTestScript,
-		hasRiffTypecheckScript,
-		riffScriptName,
-		riffTestScriptName,
-		riffTypecheckScriptName,
+		hasStartScript: Object.hasOwn(scripts, 'start'),
+		hasTestScript: Object.hasOwn(scripts, 'test'),
+		hasTypecheckScript: Object.hasOwn(scripts, 'typecheck'),
 		missingScripts,
+		nonCanonicalScripts,
 	};
 }

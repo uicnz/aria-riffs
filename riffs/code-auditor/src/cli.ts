@@ -8,6 +8,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Command } from 'commander';
 import type { Logger } from 'pino';
+import packageManifest from '../package.json' with { type: 'json' };
 import { performAudit } from './core/audit-deps.js';
 import { checkBunAvailable, getBunVersion } from './core/bun-cmd.js';
 import { performUpdate, validateUpdateOptions } from './core/update-deps.js';
@@ -202,10 +203,7 @@ async function handleStatusCommand(logger: Logger): Promise<void> {
 function createProgram(): Command {
 	const program = new Command();
 
-	program
-		.name('code-auditor')
-		.description('Aria Code Auditor - Advanced dependency audit and update riff with rollback capability')
-		.version('1.0.0');
+	program.name('code-auditor').description(packageManifest.description).version(packageManifest.version);
 
 	/**
 	 * Audit command - analyze dependencies

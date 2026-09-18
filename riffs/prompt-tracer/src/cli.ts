@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url';
 import { Command } from 'commander';
 import type { Logger } from 'pino';
 import { parse } from 'shell-quote';
+import packageManifest from '../package.json' with { type: 'json' };
 import { patchCliVersionCheck } from './core/cli-patcher.js';
 import { extractSystemPrompt, findAndExtractUserMessage } from './core/content-extractor.js';
 import { parseJsonl } from './core/jsonl-parser.js';
@@ -128,8 +129,8 @@ function createProgram(): Command {
 
 	program
 		.name('prompt-tracer')
-		.description('Extract and analyze system prompts and riffs from upstream CLI versions')
-		.version('1.0.0')
+		.description(packageManifest.description)
+		.version(packageManifest.version)
 		.argument('[version]', 'Upstream CLI version to extract (e.g., 2.0.0) - uses the system install if omitted')
 		.option('--latest', 'Extract all versions from specified version to latest')
 		.option('--binary-path <path>', 'Use a custom upstream CLI binary instead of npm or system discovery')

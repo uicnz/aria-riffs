@@ -1,4 +1,4 @@
-# Aria Hr Staffer Riff
+# Aria HR Staffer Riff
 
 A TypeScript utility for generating organizational charts from staff directory data in multiple formats.
 
@@ -17,7 +17,7 @@ A TypeScript utility for generating organizational charts from staff directory d
 
 ## Installation
 
-This riff is part of the Aria monorepo and is not published as a standalone package. For AI agents and direct execution, use bun commands. For convenience, npm scripts are also available.
+This riff is part of the Aria monorepo and is not published as a standalone package. For AI agents and direct execution, use bun commands. For convenience, Bun scripts are also available.
 
 ```sh
 bun install
@@ -25,7 +25,7 @@ bun install
 
 ## Configuration
 
-The riff requires a configuration file at `config/config-hr-staffer.yaml`. See `riffs/hr-staffer/config-hr-staffer.example.yaml` for a template.
+The Riff uses `config.yaml`. See `riffs/hr-staffer/fixtures/config.yaml` for an example configuration.
 
 **Key configuration sections:**
 
@@ -64,12 +64,12 @@ bun riffs/hr-staffer/src/cli.ts --help
 
 ### Convenience Scripts (npm)
 
-Alternatively, use npm scripts:
+Alternatively, use Bun scripts:
 
 ```sh
-bun run hr-staffer
-bun run hr-staffer path/to/your-file.csv
-bun run hr-staffer -- --help
+bun run --cwd riffs/hr-staffer start
+bun run --cwd riffs/hr-staffer start path/to/your-file.csv
+bun run --cwd riffs/hr-staffer start -- --help
 ```
 
 ### CLI Options
@@ -77,7 +77,7 @@ bun run hr-staffer -- --help
 ```sh
 Options:
   -V, --version             Output the version number
-  -c, --config <path>       Path to config file (default: config/config-hr-staffer.yaml)
+  -c, --config <path>       Path to config file (default: config.yaml)
   -o, --output <directory>  Output directory for generated files (overrides config)
   --text-only               Generate only text output
   --markdown-only           Generate only markdown output
@@ -138,7 +138,7 @@ The riff stores employee data in a SQLite database (using libsql) for efficient 
 
 ### Database Configuration
 
-Enable database storage in `config/config-hr-staffer.yaml`:
+Enable database storage in `config.yaml`:
 
 ```yaml
 hr-staffer:

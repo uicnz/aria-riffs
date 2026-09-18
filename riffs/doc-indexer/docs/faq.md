@@ -32,7 +32,7 @@ This is a **schema-first approach** where the riff knows exactly what to hunt fo
 
 **A:** The schema is predetermined in three locations within the source code - there is **no external schema configuration file**:
 
-#### 1. Type Definition (`src/types.ts`)
+#### 1. Type Definition (`src/lib/types.ts`)
 
 The `RfpDocMetadata` interface (lines 11-35) defines all possible fields that doc-indexer recognizes.
 

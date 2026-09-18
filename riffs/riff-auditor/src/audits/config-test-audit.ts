@@ -5,7 +5,8 @@
  * and that config tests follow the canonical pattern with tilde expansion verification.
  */
 
-import { resolve } from 'node:path';
+import { type Dirent, readdirSync } from 'node:fs';
+import { relative, resolve } from 'node:path';
 import { readFileIfExists } from './utils.js';
 
 // =============================================================================
@@ -27,6 +28,8 @@ export interface ConfigTestAuditResult {
 	hasTildeExpansionTest: boolean;
 	/** Config test files with fragile exact YAML value assertions */
 	fragileAssertions: string[];
+	/** Checked-in YAML fixture configs whose basename is not config.yaml */
+	nonCanonicalFixtureConfigPaths: string[];
 }
 
 // =============================================================================
@@ -76,12 +79,42 @@ function findFragileAssertions(content: string, filePath: string): string[] {
 	return results;
 }
 
+function findNonCanonicalFixtureConfigPaths(riffDir: string): string[] {
+	const nonCanonicalPaths: string[] = [];
+
+	function visit(directory: string): void {
+		let entries: Dirent[];
+		try {
+			entries = readdirSync(directory, { withFileTypes: true });
+		} catch {
+			return;
+		}
+
+		for (const entry of entries) {
+			const entryPath = resolve(directory, entry.name);
+			if (entry.isDirectory()) {
+				visit(entryPath);
+				continue;
+			}
+			if (!entry.isFile() || !/\.ya?ml$/u.test(entry.name) || entry.name === 'config.yaml') {
+				continue;
+			}
+			nonCanonicalPaths.push(relative(riffDir, entryPath));
+		}
+	}
+
+	visit(resolve(riffDir, 'fixtures'));
+	visit(resolve(riffDir, 'test', 'fixtures'));
+	return nonCanonicalPaths.sort();
+}
+
 // =============================================================================
 // MAIN AUDIT FUNCTION
 // =============================================================================
 
 export function auditConfigTest(riff: string, repoRoot: string): ConfigTestAuditResult {
 	const configPath = resolve(repoRoot, 'riffs', riff, 'src', 'lib', 'config.ts');
+	const riffDir = resolve(repoRoot, 'riffs', riff);
 	const unitTestPath = resolve(repoRoot, 'riffs', riff, 'test', 'unit', 'config.test.ts');
 	const integrationTestPath = resolve(repoRoot, 'riffs', riff, 'test', 'integration', 'config.test.ts');
 
@@ -117,5 +150,6 @@ export function auditConfigTest(riff: string, repoRoot: string): ConfigTestAudit
 		hasConfigIntegrationTest,
 		hasTildeExpansionTest,
 		fragileAssertions,
+		nonCanonicalFixtureConfigPaths: findNonCanonicalFixtureConfigPaths(riffDir),
 	};
 }

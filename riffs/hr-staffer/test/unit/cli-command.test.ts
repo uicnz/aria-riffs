@@ -1,5 +1,6 @@
 import { Command } from 'commander';
 import { describe, expect, it, vi } from 'vitest';
+import packageManifest from '../../package.json' with { type: 'json' };
 import { createProgram } from '../../src/cli.js';
 
 describe('cli - command structure', () => {
@@ -15,12 +16,12 @@ describe('cli - command structure', () => {
 
 	it('given program, when created, then has correct version', () => {
 		const program = createProgram();
-		expect(program.version()).toBe('1.0.0');
+		expect(program.version()).toBe(packageManifest.version);
 	});
 
 	it('given program, when created, then has correct description', () => {
 		const program = createProgram();
-		expect(program.description()).toContain('Generate organizational charts');
+		expect(program.description()).toBe(packageManifest.description);
 	});
 
 	it('given program, when created, then generate command has csv-file argument', () => {

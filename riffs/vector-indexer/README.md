@@ -46,7 +46,7 @@ ollama pull dengcao/Qwen3-Reranker-8B:Q5_K_M  # High accuracy - ~6GB (optional)
 # Install llama.cpp
 brew install llama.cpp
 
-# Configure model paths in config/config-vector-indexer.yaml
+# Configure model paths in config.yaml
 # Point to Ollama's GGUF files or download models separately
 # See docs/plans/plan-llama-cpp-setup-macos.md for details
 ```
@@ -74,8 +74,8 @@ bun riffs/vector-indexer/src/cli/cli.ts index <directory> --collection <name>
 # Example
 bun riffs/vector-indexer/src/cli/cli.ts index .aria/exports/markdown --collection legislation
 
-# Alternative - npm script (optional)
-bun run vector-indexer:index -- <directory> --collection <name>
+# Alternative - package-local Bun script (optional)
+bun run --cwd riffs/vector-indexer index -- <directory> --collection <name>
 ```
 
 ### Search
@@ -152,7 +152,7 @@ bun riffs/vector-indexer/src/cli/cli.ts check --all
 
 ## Configuration
 
-Configuration file: `config/config-vector-indexer.yaml`
+Configuration file: `config.yaml`
 
 Key configurable settings:
 
@@ -207,13 +207,13 @@ src/
 ### Type Checking
 
 ```sh
-bun run vector-indexer:typecheck
+bun run --cwd riffs/vector-indexer typecheck
 ```
 
 ### Testing
 
 ```sh
-bun run vector-indexer:test
+bun run --cwd riffs/vector-indexer test
 ```
 
 ### Linting

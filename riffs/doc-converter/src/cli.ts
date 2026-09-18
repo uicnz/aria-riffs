@@ -4,6 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Command } from 'commander';
 import type { Logger } from 'pino';
+import packageManifest from '../package.json' with { type: 'json' };
 import { buildOptions, loadConfig } from './lib/config.js';
 import { createLogger } from './lib/logger.js';
 import type { DocType, ProcessOptions } from './lib/types.js';
@@ -30,7 +31,7 @@ function initLogger(config: ReturnType<typeof loadConfig>, verbose: boolean): Lo
 function createProgram(): Command {
 	const program = new Command();
 
-	program.name('doc-converter').description('Convert Office documents to Markdown').version('1.0.0');
+	program.name('doc-converter').description(packageManifest.description).version(packageManifest.version);
 
 	program
 		.argument('[input]', 'Input file or directory')

@@ -4,7 +4,7 @@
  * Returns Float32Array for compatibility with hr-staffer database storage.
  *
  * API keys can be set via:
- * - Config file (config-hr-staffer.yaml)
+ * - Config file (config.yaml)
  * - Environment variables: OPENAI_API_KEY, GOOGLE_API_KEY
  */
 

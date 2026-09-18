@@ -88,13 +88,13 @@ The `--clean-first` option runs the DOCX file through Pandoc's normalization pro
 
 This is useful for documents with accumulated formatting cruft, complex styling from multiple editors, or malformed internal structures that cause conversion issues. The cleaned DOCX is saved as `{filename}_cleaned.docx` and used for the rest of the pipeline.
 
-## Quick Reference: npm Scripts
+## Quick Reference: Bun Scripts
 
-| bun Command                                           | npm Script Equivalent             |
-| ----------------------------------------------------- | --------------------------------- |
-| `bun riffs/doc-converter/src/cli.ts <input> <output>` | Direct bun only                   |
-| `bun riffs/doc-converter/src/generate-config.ts`      | `bun run doc-converter:config`    |
-| `tsc --noEmit -p riffs/doc-converter/tsconfig.json`   | `bun run doc-converter:typecheck` |
+| bun Command                                           | Bun Script Equivalent                         |
+| ----------------------------------------------------- | --------------------------------------------- |
+| `bun riffs/doc-converter/src/cli.ts <input> <output>` | Direct bun only                               |
+| `bun riffs/doc-converter/src/lib/generate-config.ts`  | `bun run --cwd riffs/doc-converter config`    |
+| `tsc --noEmit -p riffs/doc-converter/tsconfig.json`   | `bun run --cwd riffs/doc-converter typecheck` |
 
 ## CLI Options
 
@@ -210,12 +210,12 @@ markdownlintRules:
         # ... 50+ markdownlint rule toggles
 ```
 
-Location: `config/config-converter.yaml` or `config/config-converter.json`
+Location: `config.yaml`
 
 Generate default config with all rules documented:
 
 ```sh
-bun run doc-converter:config
+bun run --cwd riffs/doc-converter config
 ```
 
 ### Configuration Sections
@@ -240,9 +240,9 @@ Location: `riffs/doc-converter/`
 Key files:
 
 - `src/cli.ts` - Commander.js CLI interface
-- `src/types.ts` - TypeScript interfaces
-- `src/config.ts` - Configuration management
-- `src/schema.ts` - Zod validation schemas
+- `src/lib/types.ts` - TypeScript interfaces
+- `src/lib/config.ts` - Configuration management
+- `src/lib/schema.ts` - Zod validation schemas
 - `src/processors/docx/process-docx.ts` - Main orchestration
 - `src/processors/docx/convert-docx.ts` - Pandoc wrappers
 - `src/processors/docx/clean-docx.ts` - Clean-first implementation
@@ -304,7 +304,7 @@ choco install pandoc
 Type checking only:
 
 ```sh
-bun run doc-converter:typecheck
+bun run --cwd riffs/doc-converter typecheck
 ```
 
 No test suite currently exists.

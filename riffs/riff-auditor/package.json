@@ -17,6 +17,14 @@
         "src/",
         "config.yaml"
     ],
+    "scripts": {
+        "start": "bun src/cli.ts",
+        "audit": "bun src/cli.ts audit",
+        "check": "bun src/cli.ts check",
+        "list": "bun src/cli.ts list",
+        "typecheck": "tsc --noEmit -p tsconfig.json",
+        "test": "vitest run --coverage --coverage.reportsDirectory=../../coverage/riff-auditor --coverage.include='**/*.ts' test/"
+    },
     "dependencies": {
         "commander": "^15.0.0",
         "dotenv": "^18.0.0",

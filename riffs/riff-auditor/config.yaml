@@ -8,7 +8,6 @@ riff-auditor:
     paths:
         input:
             riffs: riffs
-            package: package.json
         output:
             dir: "~/.aria/audits"
             filename: riff-auditor.json
@@ -40,7 +39,7 @@ riff-auditor:
         # Placeholder handling
         allowGitkeepPlaceholders: true
         # Script requirements
-        requireRiffScript: true
+        requireStartScript: true
         requireTestScript: true
         requireTypecheckScript: true
         # TUI requirements

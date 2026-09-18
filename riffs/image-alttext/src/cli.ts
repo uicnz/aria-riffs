@@ -7,6 +7,7 @@
 import { fileURLToPath } from 'node:url';
 import { Command } from 'commander';
 import type { Logger } from 'pino';
+import packageManifest from '../package.json' with { type: 'json' };
 import { processMarkdownFile } from './core/process-md.js';
 import { type ImageAlttextConfig, loadConfig } from './lib/config.js';
 import { createLogger } from './lib/logger.js';
@@ -35,8 +36,8 @@ function createProgram(): Command {
 
 	program
 		.name('image-alttext')
-		.description('Aria Image Alttext - Process markdown files to add alt text from figure captions')
-		.version('1.0.0')
+		.description(packageManifest.description)
+		.version(packageManifest.version)
 		.hook('preAction', () => {
 			config = loadConfig();
 		});

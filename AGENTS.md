@@ -16,4 +16,4 @@
 
 - This repository is greenfield. Use hard cutovers with no compatibility aliases, duplicate fields, fallback vocabulary, or dual-shape support.
 - Preserve each Riff's business behavior when changing taxonomy or wiring.
-- Validate repository-wide changes with the root Bun scripts and `bun run riff-auditor:audit --strict`.
+- Validate repository-wide changes with the root Bun scripts and `bun riffs/riff-auditor/src/cli.ts audit --strict`.

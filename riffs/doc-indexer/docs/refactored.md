@@ -256,7 +256,7 @@ IDENTIFIER: 'Identifier', // Unique ID for document (e.g., BR43, REQ-001, FUNC-1
 TYPE: 'Type', // Document type category (e.g., Business, Security, Functional)
 ```
 
-### 8. Configuration File (config/config-doc-indexer.yaml)
+### 8. Configuration File (config.yaml)
 
 **Added complete RFP configuration section:**
 
@@ -375,7 +375,7 @@ No changes required if you're already using Cello/Inland Revenue configuration. 
 
 ### New Projects
 
-1. Copy `config/config-doc-indexer.yaml`
+1. Copy `config.yaml`
 2. Update `paths.defaultIndexDir` to your document location
 3. Choose one of:
     - **Option A:** Omit `rfp` section for general document indexing
@@ -405,7 +405,7 @@ No changes required if you're already using Cello/Inland Revenue configuration. 
 All changes verified with:
 
 ```bash
-bun run doc-indexer:typecheck  # TypeScript compilation passes
+bun run --cwd riffs/doc-indexer typecheck  # TypeScript compilation passes
 ```
 
 Zero type errors, complete backward compatibility maintained.

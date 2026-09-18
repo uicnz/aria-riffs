@@ -19,7 +19,6 @@ const AriaRiffMetadataSchema = z
 
 const PathInputSchema = z.object({
 	riffs: z.string().default('riffs'),
-	package: z.string().default('package.json'),
 });
 
 const PathOutputSchema = z.object({
@@ -68,7 +67,7 @@ const RulesSchema = z.object({
 	// Placeholder handling
 	allowGitkeepPlaceholders: z.boolean().default(true),
 	// Script requirements
-	requireRiffScript: z.boolean().default(true),
+	requireStartScript: z.boolean().default(true),
 	requireTestScript: z.boolean().default(true),
 	requireTypecheckScript: z.boolean().default(true),
 	// TUI requirements

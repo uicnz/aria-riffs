@@ -53,7 +53,7 @@ bun riffs/image-transcoder/src/cli.ts process ./images/ -o ./output/
 ### Type Checking
 
 ```sh
-bun run image-transcoder:typecheck
+bun run --cwd riffs/image-transcoder typecheck
 # Or directly:
 tsc --noEmit -p riffs/image-transcoder/tsconfig.json
 ```
@@ -61,7 +61,7 @@ tsc --noEmit -p riffs/image-transcoder/tsconfig.json
 ### Testing
 
 ```sh
-bun run image-transcoder:test
+bun run --cwd riffs/image-transcoder test
 # Or directly with vitest:
 vitest run --coverage --coverage.reportsDirectory=coverage/image-transcoder test/image-transcoder/
 # Coverage report: coverage/image-transcoder/index.html
@@ -70,7 +70,7 @@ vitest run --coverage --coverage.reportsDirectory=coverage/image-transcoder test
 ### Linting
 
 ```sh
-bun run image-transcoder:lint
+bun run --cwd riffs/image-transcoder lint
 # Or directly:
 eslint riffs/image-transcoder test/image-transcoder
 ```
@@ -78,14 +78,14 @@ eslint riffs/image-transcoder test/image-transcoder
 ### Formatting
 
 ```sh
-bun run image-transcoder:format
+bunx biome format --write riffs/image-transcoder
 # Or check formatting:
-npx prettier --check "riffs/image-transcoder/**/*.ts" "test/image-transcoder/**/*.ts"
+bunx prettier --check "riffs/image-transcoder/**/*.ts" "test/image-transcoder/**/*.ts"
 ```
 
 ## Configuration
 
-Configuration file: `config/config-image-transcoder.yaml` (optional)
+Configuration file: `config.yaml` (optional)
 
 ### Default Configuration
 
@@ -106,7 +106,7 @@ logging:
 
 1. **Environment variables** - Direct `process.env` values
 2. **Aria environment files** - Loaded with process, project `.aria/.env`, then user `~/.aria/.env` precedence
-3. **YAML config file** - Loaded from `config/config-image-transcoder.yaml`
+3. **YAML config file** - Loaded from `config.yaml`
 4. **Default values** - Hardcoded sensible defaults (5MB, quality 85)
 
 ### Environment Variable Overrides

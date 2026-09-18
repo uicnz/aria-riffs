@@ -1,5 +1,5 @@
 # Hr Staffer Configuration Example
-# Copy this file to config-hr-staffer.yaml and customize for your organization
+# Copy this file to config.yaml and customize it for your organization
 
 hr-staffer:
     # Centralized path configuration

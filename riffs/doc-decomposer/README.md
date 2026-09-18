@@ -15,7 +15,7 @@ Decomposes large RFP documents into individual request/response pairs, organized
 
 ## Installation
 
-This riff is part of the Aria monorepo and is not published as a standalone package. For AI agents and direct execution, use bun commands. For convenience, npm scripts are also available.
+This riff is part of the Aria monorepo and is not published as a standalone package. For AI agents and direct execution, use bun commands. For convenience, Bun scripts are also available.
 
 ## Usage
 
@@ -38,27 +38,27 @@ bun riffs/doc-decomposer/src/cli.ts \
     --output ~/git/_sources/_uicnz/aria/.aria/exports/cello/clients/inland-revenue-department/response/rfp-responses-decomposed
 ```
 
-Using npm scripts:
+Using Bun scripts:
 
 ```sh
-bun run doc-decomposer:dev -- \
+bun run --cwd riffs/doc-decomposer start -- \
   --metadata ~/git/_sources/_uicnz/aria/.aria/exports/cello/clients/inland-revenue-department/response/rfp-responses-original/rfp-request-response-pairs-tagged.md \
   --rfp ~/git/_sources/_uicnz/aria/.aria/exports/cello/clients/inland-revenue-department/response/rfp-responses-original/rfp-wifi-and-internet-rfp-appendix-a-response-form.md \
   --output ~/git/_sources/_uicnz/aria/.aria/exports/cello/clients/inland-revenue-department/response/rfp-responses-decomposed
 ```
 
-## Quick Reference: npm Scripts
+## Quick Reference: Bun Scripts
 
-For convenience, these commands are also available as npm scripts:
+For convenience, these commands are also available as Bun scripts:
 
-| bun Command                                          | npm Script Equivalent                    |
-| ---------------------------------------------------- | ---------------------------------------- |
-| `bun riffs/doc-decomposer/src/cli.ts <options>`      | `bun run doc-decomposer:dev <options>`   |
-| `bun riffs/doc-decomposer/src/cli.ts <options>`      | `bun run doc-decomposer:start <options>` |
-| `tsc --noEmit -p riffs/doc-decomposer/tsconfig.json` | `bun run doc-decomposer:typecheck`       |
+| bun Command                                          | Bun Script Equivalent                                |
+| ---------------------------------------------------- | ---------------------------------------------------- |
+| `bun riffs/doc-decomposer/src/cli.ts <options>`      | `bun run --cwd riffs/doc-decomposer start <options>` |
+| `bun riffs/doc-decomposer/src/cli.ts <options>`      | `bun run --cwd riffs/doc-decomposer start <options>` |
+| `tsc --noEmit -p riffs/doc-decomposer/tsconfig.json` | `bun run --cwd riffs/doc-decomposer typecheck`       |
 
 **For AI agents:** Use bun commands for immediate execution without compilation delays.
-**For humans:** Choose your preference - bun commands are more explicit, npm scripts are shorter.
+**For humans:** Choose your preference - bun commands are more explicit, Bun scripts are shorter.
 
 ## Input Files
 
@@ -133,13 +133,13 @@ Logs are written to `.aria/logs/doc-decomposer.log` by default (JSON format via 
 
 ### Configuration
 
-Configure logging via `config/config-doc-decomposer.yaml`:
+Configure logging via `config.yaml`:
 
 ```yaml
 logging:
-    level: 'info' # trace, debug, info, warn, error, fatal
+    level: "info" # trace, debug, info, warn, error, fatal
     verbose: false # Enable console output
-    file: '.aria/logs/doc-decomposer.log'
+    file: ".aria/logs/doc-decomposer.log"
     max_file_size_mb: 10
     max_files: 7
 ```

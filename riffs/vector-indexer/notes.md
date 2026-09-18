@@ -216,8 +216,8 @@ For new users: Overwhelming
 
 #### Recommendation
 
-- Provide `config-simple.yaml` (minimal, sensible defaults)
-- Provide `config-advanced.yaml` (all options documented)
+- Provide `simple/config.yaml` (minimal, sensible defaults)
+- Provide `advanced/config.yaml` (all options documented)
 - Auto-generate config with `setup` command
 
 ## Practical Usage Concerns
@@ -686,10 +686,10 @@ try {
 
 #### 8. Configuration Profiles
 
-- `config-simple.yaml` - Minimal, sensible defaults
-- `config-advanced.yaml` - All options with docs
-- `config-ollama.yaml` - Pure Ollama (no llama.cpp)
-- `config-llamacpp.yaml` - Pure llama.cpp (current)
+- `simple/config.yaml` - Minimal, sensible defaults
+- `advanced/config.yaml` - All options with docs
+- `ollama/config.yaml` - Pure Ollama (no llama.cpp)
+- `llama-cpp/config.yaml` - Pure llama.cpp (current)
 
 ### Long Term (Future Plans)
 

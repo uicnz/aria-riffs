@@ -68,11 +68,11 @@ bun riffs/mindmap-converter/src/cli.ts convert input.opml \
   --verbose
 ```
 
-Alternative - npm scripts (optional):
+Alternative - Bun scripts (optional):
 
 ```bash
-bun run mindmap-converter:convert -- input.opml
-bun run mindmap-converter:convert -- input.opml output.md
+bun run --cwd riffs/mindmap-converter convert -- input.opml
+bun run --cwd riffs/mindmap-converter convert -- input.opml output.md
 ```
 
 ### Validate Command
@@ -101,13 +101,13 @@ bun riffs/mindmap-converter/src/cli.ts validate input.mm
 
 The riff uses a YAML configuration file for default settings. Configuration can be customized via:
 
-1. **YAML file**: `config/config-mindmap-converter.yaml`
+1. **YAML file**: `config.yaml`
 2. **Environment variables**: Override config values with `MINDMAP_*` variables
 3. **CLI options**: Command-line flags override both config and env variables
 
 ### Configuration File
 
-Location: `config/config-mindmap-converter.yaml`
+Location: `config.yaml`
 
 ```yaml
 # Conversion settings
@@ -164,7 +164,7 @@ export MINDMAP_VERBOSE=true
 Specify a custom configuration file:
 
 ```bash
-npx bun riffs/mindmap-converter/src/cli.ts --config /path/to/custom-config.yaml convert input.opml
+bun riffs/mindmap-converter/src/cli.ts --config /path/to/custom-config.yaml convert input.opml
 ```
 
 ### Configuration Validation
@@ -199,7 +199,7 @@ The riff supports four log levels following industry standards:
 
 ### Configuration
 
-Configure logging in `config/config-mindmap-converter.yaml`:
+Configure logging in `config.yaml`:
 
 ```yaml
 logging:
@@ -315,17 +315,17 @@ Export mindmaps to JSONL file:
 
 ```bash
 # Export to master file (appends by default)
-npx bun riffs/mindmap-converter/src/cli.ts export-jsonl sources/mindmaps
+bun riffs/mindmap-converter/src/cli.ts export-jsonl sources/mindmaps
 
 # Export to custom file
-npx bun riffs/mindmap-converter/src/cli.ts export-jsonl sources/mindmaps \
+bun riffs/mindmap-converter/src/cli.ts export-jsonl sources/mindmaps \
   --output custom.jsonl
 
 # Overwrite instead of append
-npx bun riffs/mindmap-converter/src/cli.ts export-jsonl sources/mindmaps --no-append
+bun riffs/mindmap-converter/src/cli.ts export-jsonl sources/mindmaps --no-append
 
 # Verbose mode
-npx bun riffs/mindmap-converter/src/cli.ts export-jsonl sources/mindmaps --verbose
+bun riffs/mindmap-converter/src/cli.ts export-jsonl sources/mindmaps --verbose
 ```
 
 ### Search JSONL
@@ -334,10 +334,10 @@ Search exported mindmaps:
 
 ```bash
 # Search by title or content
-npx bun riffs/mindmap-converter/src/cli.ts jsonl-search "Logging"
+bun riffs/mindmap-converter/src/cli.ts jsonl-search "Logging"
 
 # Search in custom file
-npx bun riffs/mindmap-converter/src/cli.ts jsonl-search "RFP" \
+bun riffs/mindmap-converter/src/cli.ts jsonl-search "RFP" \
   --file custom.jsonl
 ```
 
@@ -367,7 +367,7 @@ sed -n '1p' .aria/exports/mindmap/mindmaps.jsonl | jq '.'
 
 ### Configuration
 
-Configure JSONL export in `config/config-mindmap-converter.yaml`:
+Configure JSONL export in `config.yaml`:
 
 ```yaml
 jsonl:
@@ -414,29 +414,29 @@ The riff can store mindmap records in an SQLite database for querying and batch 
 
 ```bash
 # Export mindmaps to database (no markdown files created)
-npx bun riffs/mindmap-converter/src/cli.ts export sources/mindmaps
+bun riffs/mindmap-converter/src/cli.ts export sources/mindmaps
 
 # Batch convert and save to database
-npx bun riffs/mindmap-converter/src/cli.ts batch sources/mindmaps .aria/exports/mindmap
+bun riffs/mindmap-converter/src/cli.ts batch sources/mindmaps .aria/exports/mindmap
 ```
 
 **Query database:**
 
 ```bash
 # Show database statistics
-npx bun riffs/mindmap-converter/src/cli.ts db-stats
+bun riffs/mindmap-converter/src/cli.ts db-stats
 
 # List all records
-npx bun riffs/mindmap-converter/src/cli.ts db-list
+bun riffs/mindmap-converter/src/cli.ts db-list
 
 # Filter by status
-npx bun riffs/mindmap-converter/src/cli.ts db-list --status completed
+bun riffs/mindmap-converter/src/cli.ts db-list --status completed
 
 # Filter by format
-npx bun riffs/mindmap-converter/src/cli.ts db-list --format opml
+bun riffs/mindmap-converter/src/cli.ts db-list --format opml
 
 # Search by title or content
-npx bun riffs/mindmap-converter/src/cli.ts db-search "Logging"
+bun riffs/mindmap-converter/src/cli.ts db-search "Logging"
 ```
 
 ### Database Schema
@@ -569,13 +569,13 @@ riffs/mindmap-converter/src/
 ### Type Checking
 
 ```bash
-bun run mindmap-converter:typecheck
+bun run --cwd riffs/mindmap-converter typecheck
 ```
 
 ### Running Tests
 
 ```bash
-bun run mindmap-converter:test
+bun run --cwd riffs/mindmap-converter test
 ```
 
 ### Direct Execution

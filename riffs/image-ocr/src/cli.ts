@@ -10,6 +10,7 @@ import { fileURLToPath } from 'node:url';
 import { Command } from 'commander';
 import * as fsExtra from 'fs-extra';
 import type { Logger } from 'pino';
+import packageManifest from '../package.json' with { type: 'json' };
 import { ImageOcr } from './core/ocr.js';
 import { configPath, loadConfig } from './lib/config.js';
 import { createLogger } from './lib/logger.js';
@@ -55,7 +56,7 @@ function applyCliOverrides(
 export function createProgram(): Command {
 	const program = new Command();
 
-	program.name('image-ocr').description('Extract text from images and PDFs using OCR').version('1.0.0');
+	program.name('image-ocr').description(packageManifest.description).version(packageManifest.version);
 
 	program
 		.command('process <path>')

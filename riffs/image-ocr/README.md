@@ -55,7 +55,7 @@ bun riffs/image-ocr/src/cli.ts process -r --language fra --confidence 0.7 ./imag
 ### Type Checking
 
 ```sh
-bun run image-ocr:typecheck
+bun run --cwd riffs/image-ocr typecheck
 # Or directly:
 tsc --noEmit -p riffs/image-ocr/tsconfig.json        # Type check source files only
 
@@ -65,7 +65,7 @@ tsc --noEmit -p riffs/image-ocr/tsconfig.json        # Type check source files o
 ### Testing
 
 ```sh
-bun run image-ocr:test
+bun run --cwd riffs/image-ocr test
 # Or directly with vitest:
 vitest run --coverage --coverage.reportsDirectory=coverage/image-ocr test/image-ocr/
 # Coverage report: coverage/image-ocr/index.html
@@ -73,7 +73,7 @@ vitest run --coverage --coverage.reportsDirectory=coverage/image-ocr test/image-
 
 ## Configuration
 
-Configuration file: `config/ocr-config.yaml`
+Configuration file: `config.yaml`
 
 All settings support environment variable overrides for language settings, confidence thresholds, and output preferences.
 

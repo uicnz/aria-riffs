@@ -2,6 +2,7 @@
 import { fileURLToPath } from 'node:url';
 import { Command } from 'commander';
 import type { Logger } from 'pino';
+import packageManifest from '../package.json' with { type: 'json' };
 import { ImageTranscoder } from './core/image-transcoder.js';
 import { loadConfig } from './lib/config.js';
 import { createLogger, type LoggerOptions } from './lib/logger.js';
@@ -19,7 +20,7 @@ export function createProgram(): ProgramWithTranscoder {
 		this.transcoder = transcoder;
 	};
 
-	program.name('image-transcoder');
+	program.name('image-transcoder').description(packageManifest.description).version(packageManifest.version);
 
 	program
 		.command('process')

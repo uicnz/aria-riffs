@@ -45,7 +45,7 @@ logging:
 
 ## Usage
 
-**IMPORTANT FOR AI AGENTS**: This project uses bun commands exclusively. All documentation and examples use direct bun execution, not npm scripts.
+**IMPORTANT FOR AI AGENTS**: This project uses bun commands exclusively. All documentation and examples use direct bun execution, not Bun scripts.
 
 Run from ARIA monorepo root:
 
@@ -54,7 +54,7 @@ Run from ARIA monorepo root:
 bun riffs/prompt-tracer/src/cli.ts [version] [options]
 
 # Root Bun script
-bun run prompt-tracer -- [version] [options]
+bun run --cwd riffs/prompt-tracer start -- [version] [options]
 ```
 
 ### Options
@@ -87,9 +87,9 @@ bun riffs/prompt-tracer/src/cli.ts --binary-path /path/to/custom/cli.js
 bun riffs/prompt-tracer/src/cli.ts --separate-trace
 
 # Using the root Bun script
-bun run prompt-tracer                    # System Claude
-bun run prompt-tracer -- 2.0.0
-bun run prompt-tracer -- --separate-trace
+bun run --cwd riffs/prompt-tracer start                    # System Claude
+bun run --cwd riffs/prompt-tracer start -- 2.0.0
+bun run --cwd riffs/prompt-tracer start -- --separate-trace
 ```
 
 ## How It Works
@@ -169,7 +169,7 @@ Enable verbose output:
 ```bash
 bun riffs/prompt-tracer/src/cli.ts -v
 # or
-bun run prompt-tracer -- -v
+bun run --cwd riffs/prompt-tracer start -- -v
 ```
 
 Shows detailed information about:

@@ -3,6 +3,7 @@ import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { Command } from 'commander';
 import type { Logger } from 'pino';
+import packageManifest from '../package.json' with { type: 'json' };
 import { buildOrgTree, countEmployees, getTreeDepth } from './core/build-tree.js';
 import { decompose } from './core/decompose.js';
 import { type EmbeddingProvider, indexSections } from './core/indexer.js';
@@ -344,10 +345,7 @@ function initLogger(configPath?: string, verbose?: boolean): Logger {
 export function createProgram(): Command {
 	const program = new Command();
 
-	program
-		.name('hr-staffer')
-		.description('Generate organizational charts from staff directory CSV files')
-		.version('1.0.0');
+	program.name('hr-staffer').description(packageManifest.description).version(packageManifest.version);
 
 	// Generate command (default action for backward compatibility)
 	program

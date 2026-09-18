@@ -16,7 +16,7 @@ describe('sharepoint-manager Config', () => {
 	describe('schema defaults', () => {
 		it('given empty config, when loadConfig called, then returns valid config with correct types', async () => {
 			const tempDir = await fs.mkdtemp(path.join(homedir(), '.aria-test-'));
-			const emptyConfigPath = path.join(tempDir, 'empty-config.yaml');
+			const emptyConfigPath = path.join(tempDir, 'config.yaml');
 			await fs.writeFile(emptyConfigPath, '{}');
 
 			try {
@@ -45,7 +45,7 @@ describe('sharepoint-manager Config', () => {
 
 		it('given invalid YAML config, when loaded, then throws ConfigError', async () => {
 			const tempDir = await fs.mkdtemp(path.join(homedir(), '.aria-test-'));
-			const tempConfigPath = path.join(tempDir, 'invalid-config.yaml');
+			const tempConfigPath = path.join(tempDir, 'config.yaml');
 			await fs.writeFile(tempConfigPath, 'invalid: yaml: content: [');
 
 			try {
@@ -60,7 +60,7 @@ describe('sharepoint-manager Config', () => {
 	describe('tilde expansion', () => {
 		it('given config with tilde paths, when loadConfig called, then tildes are expanded to home directory', async () => {
 			const tempDir = await fs.mkdtemp(path.join(homedir(), '.aria-test-'));
-			const tempConfigPath = path.join(tempDir, 'tilde-config.yaml');
+			const tempConfigPath = path.join(tempDir, 'config.yaml');
 			await fs.writeFile(
 				tempConfigPath,
 				`

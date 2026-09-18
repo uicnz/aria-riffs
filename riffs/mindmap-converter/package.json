@@ -17,6 +17,20 @@
         "src/",
         "config.yaml"
     ],
+    "scripts": {
+        "start": "bun src/cli.ts",
+        "convert": "bun src/cli.ts convert",
+        "validate": "bun src/cli.ts validate",
+        "batch": "bun src/cli.ts batch",
+        "export": "bun src/cli.ts export",
+        "db-stats": "bun src/cli.ts db-stats",
+        "db-list": "bun src/cli.ts db-list",
+        "db-search": "bun src/cli.ts db-search",
+        "export-jsonl": "bun src/cli.ts export-jsonl",
+        "jsonl-search": "bun src/cli.ts jsonl-search",
+        "typecheck": "tsc --noEmit -p tsconfig.json",
+        "test": "vitest run --coverage --coverage.reportsDirectory=../../coverage/mindmap-converter --coverage.include='**/*.ts' test/"
+    },
     "dependencies": {
         "commander": "^15.0.0",
         "dotenv": "^18.0.0",

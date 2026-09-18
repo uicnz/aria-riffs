@@ -1,4 +1,4 @@
-# Aria Image Rename Riff
+# Aria Image Renamer Riff
 
 Agent managed image renaming riff that generates descriptive filenames using multiple LLM providers (Ollama, Anthropic Claude) with optional file watching capabilities.
 
@@ -72,7 +72,7 @@ bun riffs/image-renamer/src/cli.ts watch -r ./images                  # Watch re
 ### Type Checking
 
 ```sh
-bun run image-renamer:typecheck
+bun run --cwd riffs/image-renamer typecheck
 # Or directly:
 tsc --noEmit -p riffs/image-renamer/tsconfig.json    # Type check source files only
 
@@ -82,7 +82,7 @@ tsc --noEmit -p riffs/image-renamer/tsconfig.json    # Type check source files o
 ### Testing
 
 ```sh
-bun run image-renamer:test
+bun run --cwd riffs/image-renamer test
 # Or directly with vitest:
 vitest run --coverage --coverage.reportsDirectory=coverage/image-renamer test/image-renamer/
 # Coverage report: coverage/image-renamer/index.html
@@ -90,7 +90,7 @@ vitest run --coverage --coverage.reportsDirectory=coverage/image-renamer test/im
 
 ## Configuration
 
-Configuration file: `config/name-config.yaml`
+Configuration file: `config.yaml`
 
 ### Provider Selection
 

@@ -17,6 +17,18 @@
         "src/",
         "config.yaml"
     ],
+    "scripts": {
+        "start": "bun src/cli.ts",
+        "index": "bun src/cli.ts index",
+        "index:reset": "bun src/cli.ts index --reset",
+        "search": "bun src/cli.ts search",
+        "graph": "bun src/cli.ts graph",
+        "graph:content": "bun src/cli.ts graph --include-content",
+        "graph:html": "bun src/cli.ts graph:html",
+        "graph:validate": "bun src/cli.ts graph:validate",
+        "typecheck": "tsc --noEmit -p tsconfig.json",
+        "test": "vitest run --coverage --coverage.reportsDirectory=../../coverage/doc-indexer --coverage.include='**/*.ts' test/"
+    },
     "dependencies": {
         "commander": "^15.0.0",
         "dotenv": "^18.0.0",

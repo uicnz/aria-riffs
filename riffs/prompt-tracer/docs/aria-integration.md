@@ -52,7 +52,7 @@ Add to root `package.json` scripts:
 
 ### 4. Create Configuration File
 
-Create `config/config-prompt-tracer.yaml`:
+Create `config.yaml`:
 
 ```yaml
 # Logging settings
@@ -87,8 +87,8 @@ export default defineConfig({
 ```bash
 # Run from Aria monorepo root
 bun install
-bun run prompt-tracer:test
-bun run prompt-tracer:typecheck
+bun run --cwd riffs/prompt-tracer test
+bun run --cwd riffs/prompt-tracer typecheck
 bun riffs/prompt-tracer/src/cli.ts --help
 ```
 

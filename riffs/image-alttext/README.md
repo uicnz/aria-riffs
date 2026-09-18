@@ -1,4 +1,4 @@
-# Aria Image AltText Riff
+# Aria Image Alt Text Riff
 
 Process markdown files to add alt text from figure captions.
 
@@ -42,18 +42,18 @@ bun riffs/image-alttext/src/cli.ts analyze <file>
 
 ## Quick Reference: bun Scripts
 
-| bun Command                                         | bun Script Equivalent                  |
-| --------------------------------------------------- | -------------------------------------- |
-| `bun riffs/image-alttext/src/cli.ts process <file>` | `bun run image-alttext:process <file>` |
-| `bun riffs/image-alttext/src/cli.ts`                | `bun run image-alttext:dev`            |
-| `tsc --noEmit -p riffs/image-alttext/tsconfig.json` | `bun run image-alttext:typecheck`      |
+| bun Command                                         | bun Script Equivalent                              |
+| --------------------------------------------------- | -------------------------------------------------- |
+| `bun riffs/image-alttext/src/cli.ts process <file>` | `bun run --cwd riffs/image-alttext process <file>` |
+| `bun riffs/image-alttext/src/cli.ts`                | `bun run --cwd riffs/image-alttext start`          |
+| `tsc --noEmit -p riffs/image-alttext/tsconfig.json` | `bun run --cwd riffs/image-alttext typecheck`      |
 
 ## Testing
 
 Type checking:
 
 ```sh
-bun run image-alttext:typecheck
+bun run --cwd riffs/image-alttext typecheck
 ```
 
 Test with provided test cases:
@@ -125,13 +125,13 @@ Logs are written to `.aria/logs/image-alttext.log` by default (JSON format via P
 
 ### Configuration
 
-Configure logging via `config/config-image-alttext.yaml`:
+Configure logging via `config.yaml`:
 
 ```yaml
 logging:
-    level: 'info' # trace, debug, info, warn, error, fatal
+    level: "info" # trace, debug, info, warn, error, fatal
     verbose: false # Enable console output
-    file: '.aria/logs/image-alttext.log'
+    file: ".aria/logs/image-alttext.log"
     max_file_size_mb: 10
     max_files: 7
 ```
