@@ -58,7 +58,7 @@ export const riffPrompt = {
 			name: '-m, --model',
 			type: 'string',
 			required: false,
-			description: 'Gemini model to use (default: gemini-3.1-flash-image)',
+			description: 'Gemini image model to use.',
 		},
 		{
 			name: '-a, --aspect',

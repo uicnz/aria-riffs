@@ -5,7 +5,7 @@ export const riffPrompt = {
 	name: 'riff-auditor',
 	summary: 'Riff configuration auditing and structural parity enforcement across all Aria riffs',
 	purpose:
-		'Runs comprehensive health checks on all riffs in the Aria monorepo to enforce structural and semantic parity. Every riff must follow the canonical directory layout, config shape, schema patterns, CLI structure, environment handling, logging, standalone Bun package identity, dependency policy, and tsconfig. Dependency auditing checks package-local runtime declarations against current registry releases and verifies shared-version parity without moving Riff dependencies to the workspace root. Outputs a JSON report categorizing each riff as healthy, issues, or unhealthy.',
+		'Runs comprehensive health checks on all riffs in the Aria monorepo to enforce structural and semantic parity. Every riff must follow the canonical directory layout, config shape, schema patterns, CLI structure, environment handling, logging, standalone Bun package identity, dependency policy, and tsconfig. Dependency auditing checks package-local runtime declarations against current registry releases and verifies shared-version parity without moving Riff dependencies to the repository root. Outputs a JSON report categorizing each riff as healthy, issues, or unhealthy.',
 	whenToUse: [
 		'Verifying all riffs conform to Aria structural parity standards after refactoring',
 		'Checking a single riff for compliance issues before committing changes',
