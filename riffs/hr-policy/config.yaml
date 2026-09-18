@@ -9,18 +9,18 @@ aria-riff:
 hr-policy:
     paths:
         input:
-            policies: '~/.aria/sources/cello/hr-policies/'
-            sections: '~/.aria/exports/cello/hr-policies/'
+            policies: "~/.aria/sources/cello/hr-policies/"
+            sections: "~/.aria/exports/cello/hr-policies/"
         output:
-            sections: '~/.aria/exports/cello/hr-policies/'
-            dir: '~/.aria/db/hr-policy'
+            sections: "~/.aria/exports/cello/hr-policies/"
+            dir: "~/.aria/db/hr-policy"
         database:
-            decomposer: '~/.aria/db/hr-policy/hr-policy.db'
-            indexer: '~/.aria/db/hr-policy/hr-policy.sqlite'
+            decomposer: "~/.aria/db/hr-policy/hr-policy.db"
+            indexer: "~/.aria/db/hr-policy/hr-policy.sqlite"
 
     embeddings:
         # Provider: 'openai', 'gemini', or 'ollama'
-        provider: 'openai'
+        provider: "openai"
         # Maximum characters to embed per text
         maxChars: 35000
         # Batch size for embedding requests
@@ -28,23 +28,23 @@ hr-policy:
 
         # OpenAI embeddings configuration
         openai:
-            apiKey: ''
-            model: 'text-embedding-3-large'
+            apiKey: ""
+            model: "text-embedding-3-large"
             dimensions: 3072
             timeout: 30
 
         # Google Gemini embeddings configuration
         gemini:
-            apiKey: ''
-            model: 'text-embedding-004'
+            apiKey: ""
+            model: "text-embedding-004"
             dimensions: 768
             timeout: 30
-            baseUrl: 'https://generativelanguage.googleapis.com/v1'
+            baseUrl: "https://generativelanguage.googleapis.com/v1"
 
         # Ollama embeddings configuration (for local models)
         ollama:
-            endpoint: 'http://localhost:11434/'
-            model: 'nomic-embed-text:latest'
+            endpoint: "http://localhost:11434/"
+            model: "nomic-embed-text:latest"
             dimensions: 768
             timeout: 60
             keepAlive: 300
@@ -53,17 +53,17 @@ hr-policy:
 
     decomposer:
         # Boundary patterns for section detection
-        primaryPattern: '^## .+'  # Primary boundary (H2 headings)
-        fallbackPattern: '^### .+'  # Fallback boundary (H3 headings)
+        primaryPattern: "^## .+" # Primary boundary (H2 headings)
+        fallbackPattern: "^### .+" # Fallback boundary (H3 headings)
 
         filePatterns:
-            - '*.md'
-            - '**/*.md'
+            - "*.md"
+            - "**/*.md"
 
     # Document indexer configuration
     indexer:
         # Document processing (model and dimensions inherited from embeddings section)
-        sections: 'both'
+        sections: "both"
         weightResponse: 1.8
 
         # Search configuration
@@ -73,24 +73,24 @@ hr-policy:
         # Higher values give more weight to exact keyword matches
         # Recommended: 0.3-0.5 for factoid queries, 0.1-0.2 for conceptual queries
         alpha: 0.35
-        pathWeight: 0.15  # Path relevance weight in hybrid search (0-1)
+        pathWeight: 0.15 # Path relevance weight in hybrid search (0-1)
 
         # Output display
         showMetadata: true
         highlight: true
 
         # Snippet extraction and highlighting
-        snippetContextLines: 15  # Lines before/after matches to include in snippet
-        maxSnippetLength: 800  # Maximum characters to display in snippet
+        snippetContextLines: 15 # Lines before/after matches to include in snippet
+        maxSnippetLength: 800 # Maximum characters to display in snippet
         # NOTE: highlightColor removed - TUI uses semantic theme colors via @aria/tui
         # CLI outputs via Pino structured logging (no term highlighting implemented)
 
 # Logging configuration (peer section)
 
 logging:
-    level: 'info'
+    level: "info"
     verbose: false
     # Log file path (relative to cwd)
-    file: '~/.aria/logs/hr-policy.log'
+    file: "~/.aria/logs/hr-policy.log"
     maxFileSizeMb: 10
     maxFiles: 7

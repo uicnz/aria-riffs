@@ -7,9 +7,9 @@ aria-riff:
 doc-converter:
     paths:
         input:
-            dir: '~/.aria/sources'
+            dir: "~/.aria/sources"
         output:
-            dir: '~/.aria/exports/doc-converter'
+            dir: "~/.aria/exports/doc-converter"
     type: auto
     cleanFirst: true
     inPlace: false
@@ -19,9 +19,9 @@ doc-converter:
     gitkeep: true
 
 logging:
-    level: 'info'
+    level: "info"
     verbose: false
-    file: '~/.aria/logs/doc-converter.log'
+    file: "~/.aria/logs/doc-converter.log"
     maxFileSizeMb: 10
     maxFiles: 7
 

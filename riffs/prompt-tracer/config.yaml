@@ -13,12 +13,12 @@ prompt-tracer:
     # Path settings
     paths:
         output:
-            reports: '~/.aria/db/prompt-tracer/reports'
-            traces: '~/.aria/db/prompt-tracer/traces'
+            reports: "~/.aria/db/prompt-tracer/reports"
+            traces: "~/.aria/db/prompt-tracer/traces"
 
 logging:
-    level: 'info'
+    level: "info"
     verbose: false
-    file: '~/.aria/logs/prompt-tracer.log'  # Log file path (relative to cwd)
+    file: "~/.aria/logs/prompt-tracer.log" # Log file path (relative to cwd)
     maxFileSizeMb: 10
     maxFiles: 7

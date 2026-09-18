@@ -14,7 +14,7 @@ image-transcoder:
             dir: null
 
     transcoding:
-        maxFileSizeBytes: 5242880  # 5MB in bytes
+        maxFileSizeBytes: 5242880 # 5MB in bytes
         quality: 85
 
     processing:
@@ -22,11 +22,11 @@ image-transcoder:
 
 logging:
     # Log level: DEBUG, INFO, WARN, ERROR
-    level: 'info'
+    level: "info"
     # Enable verbose (debug) logging
     verbose: false
     # Log file name (stored in .aria/logs/ directory)
-    file: '~/.aria/logs/image-transcoder.log'
+    file: "~/.aria/logs/image-transcoder.log"
     # Maximum log file size in MB before rotation
     maxFileSizeMb: 10
     # Maximum number of rotated log files to keep

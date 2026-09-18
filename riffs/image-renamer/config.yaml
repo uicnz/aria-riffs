@@ -11,54 +11,54 @@ image-renamer:
         input:
             dir: null
         database:
-            file: '~/.aria/db/image-renamer/image-renamer.sqlite'
+            file: "~/.aria/db/image-renamer/image-renamer.sqlite"
 
     # LLM Provider Configuration
     llm:
         # Choose provider: 'ollama', 'anthropic', or 'gemini' (all use AI SDK internally)
-        provider: 'ollama'
+        provider: "ollama"
 
         # Ollama API settings
         ollama:
-            endpoint: 'http://localhost:11434/'
-            model: 'llava-llama3'
+            endpoint: "http://localhost:11434/"
+            model: "llava-llama3"
             timeout: 30
             retryAttempts: 3
             retryDelay: 1.0
-            prompt: 'Describe this image in 4-5 words. Just give me the words, no preamble or punctuation.'
+            prompt: "Describe this image in 4-5 words. Just give me the words, no preamble or punctuation."
 
         # Anthropic Claude API settings
         anthropic:
-            apiKey: ''  # Set via ANTHROPIC_API_KEY environment variable
-            model: 'claude-sonnet-4-20250514'
+            apiKey: "" # Set via ANTHROPIC_API_KEY environment variable
+            model: "claude-sonnet-4-20250514"
             timeout: 30
             maxTokens: 1024
-            baseUrl: 'https://api.anthropic.com/v1'
-            prompt: 'Generate a concise, descriptive filename for this image in 4-5 words'
+            baseUrl: "https://api.anthropic.com/v1"
+            prompt: "Generate a concise, descriptive filename for this image in 4-5 words"
 
         # Google Gemini API settings
         gemini:
-            apiKey: ''  # Set via GOOGLE_API_KEY environment variable
-            model: 'gemini-2.5-flash'
+            apiKey: "" # Set via GOOGLE_API_KEY environment variable
+            model: "gemini-2.5-flash"
             timeout: 30
             maxTokens: 1024
-            baseUrl: 'https://generativelanguage.googleapis.com/v1beta'
-            prompt: 'Generate a concise, descriptive filename for this image in 4-5 words'
+            baseUrl: "https://generativelanguage.googleapis.com/v1beta"
+            prompt: "Generate a concise, descriptive filename for this image in 4-5 words"
 
     # Image Processing Configuration
     images:
-        supportedExtensions: ['.png', '.jpg', '.jpeg', '.gif', '.bmp']
+        supportedExtensions: [".png", ".jpg", ".jpeg", ".gif", ".bmp"]
         maxFileSizeMb: 50
         verifyBeforeProcessing: true
 
     # Filename Generation Configuration
     filename:
-        prompt: 'Describe this image in 4-5 words'
+        prompt: "Describe this image in 4-5 words"
         patternCleanup: true
         maxLength: 100
         removePunctuation: true
-        replaceSpacesWith: '-'
-        caseConversion: 'lower'  # 'lower', 'upper', 'title', or 'none'
+        replaceSpacesWith: "-"
+        caseConversion: "lower" # 'lower', 'upper', 'title', or 'none'
 
     # File Operations Configuration
     fileOperations:
@@ -83,15 +83,15 @@ image-renamer:
 
     # Database Configuration
     database:
-        tableName: 'images'
+        tableName: "images"
         # Journal mode: DELETE, WAL, TRUNCATE, PERSIST, MEMORY, or OFF
         # DELETE is safer for concurrent access, WAL is faster for reads
-        journalMode: 'DELETE'
+        journalMode: "DELETE"
 
 logging:
-    level: 'info'
+    level: "info"
     verbose: false
-    file: '~/.aria/logs/image-renamer.log'
+    file: "~/.aria/logs/image-renamer.log"
     maxFileSizeMb: 10
     maxFiles: 7
     consoleColors: true

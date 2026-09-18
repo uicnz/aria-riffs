@@ -9,36 +9,36 @@ aria-riff:
 image-generator:
     # Gemini API Configuration
     gemini:
-        defaultModel: 'gemini-3-pro-image-preview'  # override with IMAGE_GENERATOR_MODEL
-        timeoutMs: 60000  # override with IMAGE_GENERATOR_TIMEOUT_MS
+        defaultModel: "gemini-3-pro-image-preview" # override with IMAGE_GENERATOR_MODEL
+        timeoutMs: 60000 # override with IMAGE_GENERATOR_TIMEOUT_MS
         retryAttempts: 3
 
     # Image Generation Defaults
     defaults:
-        aspectRatio: '16:9'  # override with IMAGE_GENERATOR_ASPECT_RATIO
-        imageSize: '2K'  # override with IMAGE_GENERATOR_IMAGE_SIZE
-        outputFormat: 'png'  # override with IMAGE_GENERATOR_OUTPUT_FORMAT
+        aspectRatio: "16:9" # override with IMAGE_GENERATOR_ASPECT_RATIO
+        imageSize: "2K" # override with IMAGE_GENERATOR_IMAGE_SIZE
+        outputFormat: "png" # override with IMAGE_GENERATOR_OUTPUT_FORMAT
 
     # Output Configuration
     output:
-        filenamePattern: '{timestamp}_{operation}'
-        timestampFormat: 'YYYY-MM-DD_HH-mm-ss'
+        filenamePattern: "{timestamp}_{operation}"
+        timestampFormat: "YYYY-MM-DD_HH-mm-ss"
 
     # Path Configuration
     paths:
         output:
-            dir: '~/.aria/exports/image-generator/images'  # override with IMAGE_GENERATOR_OUTPUT_DIR
-            chatDir: '~/.aria/exports/image-generator/chats'  # override with IMAGE_GENERATOR_CHAT_DIR
-            history: '~/.aria/exports/image-generator/chats/image-generator-chat-history.json'  # It's possible I have not implemented this correctly by asserting we need a full path or a complete path at least meaning that if we are suggesting the chat directory, why do we have to explain the path in this particular key value pair?
+            dir: "~/.aria/exports/image-generator/images" # override with IMAGE_GENERATOR_OUTPUT_DIR
+            chatDir: "~/.aria/exports/image-generator/chats" # override with IMAGE_GENERATOR_CHAT_DIR
+            history: "~/.aria/exports/image-generator/chats/image-generator-chat-history.json" # It's possible I have not implemented this correctly by asserting we need a full path or a complete path at least meaning that if we are suggesting the chat directory, why do we have to explain the path in this particular key value pair?
 
     # Chat Session Configuration
     chat:
         autoSave: false
 
 logging:
-    level: 'info'  # override with IMAGE_GENERATOR_LOG_LEVEL
-    verbose: false  # override with IMAGE_GENERATOR_LOG_VERBOSE
-    file: '~/.aria/logs/image-generator.log'
+    level: "info" # override with IMAGE_GENERATOR_LOG_LEVEL
+    verbose: false # override with IMAGE_GENERATOR_LOG_VERBOSE
+    file: "~/.aria/logs/image-generator.log"
     maxFileSizeMb: 10
     maxFiles: 7
     prettyPrint: true

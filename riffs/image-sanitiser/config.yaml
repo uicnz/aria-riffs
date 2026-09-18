@@ -11,11 +11,12 @@ image-sanitiser:
         input:
             dir: null
         database:
-            file: '~/.aria/db/image-sanitiser/image-sanitiser.sqlite'
+            file: "~/.aria/db/image-sanitiser/image-sanitiser.sqlite"
 
     # Image Processing Configuration
     images:
-        supportedExtensions: ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff', '.tif', '.webp']
+        supportedExtensions:
+            [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff", ".tif", ".webp"]
         maxFileSizeMb: 100
         verifyAfterRename: true
 
@@ -43,15 +44,15 @@ image-sanitiser:
 
     # Database settings
     database:
-        tableName: 'images'
+        tableName: "images"
         # Journal mode: DELETE, WAL, TRUNCATE, PERSIST, MEMORY, or OFF
         # DELETE is safer for concurrent access, WAL is faster for reads
-        journalMode: 'DELETE'
+        journalMode: "DELETE"
 
 logging:
-    level: 'info'
+    level: "info"
     verbose: false
-    file: '~/.aria/logs/image-sanitiser.log'
+    file: "~/.aria/logs/image-sanitiser.log"
     maxFileSizeMb: 10
     maxFiles: 7
     consoleColors: true

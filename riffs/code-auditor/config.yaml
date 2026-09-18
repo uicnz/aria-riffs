@@ -12,8 +12,8 @@ code-auditor:
         jsonOutput: false
 
 logging:
-    level: 'info'
+    level: "info"
     verbose: false
-    file: '~/.aria/logs/code-auditor.log'
+    file: "~/.aria/logs/code-auditor.log"
     maxFileSizeMb: 10
     maxFiles: 7

@@ -13,36 +13,36 @@ aria-riff:
 image-ocr:
     paths:
         input:
-            dir: '~/.aria/assets/image-ocr/images'
+            dir: "~/.aria/assets/image-ocr/images"
         output:
-            dir: '~/.aria/exports/image-ocr/images'
+            dir: "~/.aria/exports/image-ocr/images"
         database:
-            dir: '~/.aria/db/image-ocr/tessdata'  # override with IMAGE_OCR_DATABASE_DIR
+            dir: "~/.aria/db/image-ocr/tessdata" # override with IMAGE_OCR_DATABASE_DIR
 
     # OCR settings
     ocr:
-        language: 'eng'  # override with IMAGE_OCR_LANGUAGE
-        confidenceThreshold: 0.5  # override with IMAGE_OCR_CONFIDENCE_THRESHOLD
-        timeout: 30  # override with IMAGE_OCR_TIMEOUT
+        language: "eng" # override with IMAGE_OCR_LANGUAGE
+        confidenceThreshold: 0.5 # override with IMAGE_OCR_CONFIDENCE_THRESHOLD
+        timeout: 30 # override with IMAGE_OCR_TIMEOUT
 
     # Output settings
     output:
-        format: 'markdown'  # override with IMAGE_OCR_OUTPUT_FORMAT
+        format: "markdown" # override with IMAGE_OCR_OUTPUT_FORMAT
         includeMetadata: true
         preserveLayout: false
 
     # File processing settings
     files:
         supportedExtensions:
-            - '.png'
-            - '.jpg'
-            - '.jpeg'
-            - '.gif'
-            - '.bmp'
-            - '.tiff'
-            - '.pdf'
+            - ".png"
+            - ".jpg"
+            - ".jpeg"
+            - ".gif"
+            - ".bmp"
+            - ".tiff"
+            - ".pdf"
         maxFileSizeMb: 100
-        outputExtension: '.txt'
+        outputExtension: ".txt"
 
     # Processing settings
     processing:
@@ -51,8 +51,8 @@ image-ocr:
         concurrentJobs: 2
 
 logging:
-    level: 'info'  # override with IMAGE_OCR_LOG_LEVEL
-    verbose: false  # override with IMAGE_OCR_LOG_VERBOSE
-    file: '~/.aria/logs/image-ocr.log'  # override with IMAGE_OCR_LOG_FILE
+    level: "info" # override with IMAGE_OCR_LOG_LEVEL
+    verbose: false # override with IMAGE_OCR_LOG_VERBOSE
+    file: "~/.aria/logs/image-ocr.log" # override with IMAGE_OCR_LOG_FILE
     maxFileSizeMb: 10
     maxFiles: 7

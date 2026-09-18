@@ -10,7 +10,7 @@ riff-auditor:
             riffs: riffs
             package: package.json
         output:
-            dir: '~/.aria/audits'
+            dir: "~/.aria/audits"
             filename: riff-auditor.json
 
     audits:

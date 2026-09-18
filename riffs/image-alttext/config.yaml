@@ -16,8 +16,8 @@ image-alttext:
     dryRun: false
 
 logging:
-    level: 'info'
+    level: "info"
     verbose: false
-    file: '~/.aria/logs/image-alttext.log'
+    file: "~/.aria/logs/image-alttext.log"
     maxFileSizeMb: 10
     maxFiles: 7

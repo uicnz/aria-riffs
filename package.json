@@ -23,8 +23,8 @@
     "lint:fix": "biome lint --write riffs/ scripts/ vitest.config.ts vitest-setup.ts",
     "format": "biome format --write riffs/ scripts/ vitest.config.ts vitest-setup.ts",
     "format:check": "biome format riffs/ scripts/ vitest.config.ts vitest-setup.ts",
-    "format:yaml": "yamlfmt riffs/*/config.yaml",
-    "format:yaml:check": "yamlfmt -dry riffs/*/config.yaml",
+    "format:yaml": "prettier --write --tab-width 4 'riffs/*/config.yaml'",
+    "format:yaml:check": "prettier --check --tab-width 4 'riffs/*/config.yaml'",
     "mdlint": "markdownlint-cli2",
     "mdlint:fix": "markdownlint-cli2 --fix",
     "quality": "bun run check && bun run typecheck && bun run format:yaml:check && bun run mdlint && bun run riff-auditor:audit --strict",
@@ -185,6 +185,7 @@
     "bun-types": "^1.4.2",
     "fs-extra": "^11.4.0",
     "markdownlint-cli2": "^0.23.2",
+    "prettier": "^3.9.8",
     "typescript": "^7.0.2",
     "vitest": "^5.0.1",
     "yaml": "^2.9.1"

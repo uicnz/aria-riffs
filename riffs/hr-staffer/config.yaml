@@ -13,25 +13,25 @@ hr-staffer:
             # Path to CSV file containing staff directory
             # CSV must have exactly 11 columns: Display Name, First Name, Last Name, Email Address,
             # Title, Department, Manager, Mobile, Street Address, City, Country
-            staff: '~/.aria/sources/cello/staff/cello-staff-active-directory.csv'
+            staff: "~/.aria/sources/cello/staff/cello-staff-active-directory.csv"
             # Input markdown file to decompose into sections
-            chart: '~/.aria/db/hr-staffer/org-chart.md'
+            chart: "~/.aria/db/hr-staffer/org-chart.md"
             # Directory containing decomposed section files to index
-            sections: '~/.aria/exports/cello/hr-staffer'
+            sections: "~/.aria/exports/cello/hr-staffer"
         output:
             # Output directory for generated org chart files
             # Charts will be saved as: org-chart.txt, org-chart.md, org-chart.mermaid, etc.
-            chart: '~/.aria/db/hr-staffer'
+            chart: "~/.aria/db/hr-staffer"
             # Output directory for decomposed section files
-            sections: '~/.aria/exports/cello/hr-staffer'
+            sections: "~/.aria/exports/cello/hr-staffer"
         database:
             # Path to SQLite database file
-            file: '~/.aria/db/hr-staffer/hr-staffer.sqlite'
+            file: "~/.aria/db/hr-staffer/hr-staffer.sqlite"
 
     # Embeddings configuration for vector search
     embeddings:
         # Provider: 'openai', 'gemini', or 'ollama'
-        provider: 'openai'
+        provider: "openai"
         # Maximum characters to embed per text
         maxChars: 35000
         # Batch size for embedding requests
@@ -40,24 +40,24 @@ hr-staffer:
         # OpenAI embeddings configuration
         openai:
             # API key (set via OPENAI_API_KEY environment variable)
-            apiKey: ''
-            model: 'text-embedding-3-large'
+            apiKey: ""
+            model: "text-embedding-3-large"
             dimensions: 3072
             timeout: 30
 
         # Google Gemini embeddings configuration
         gemini:
             # API key (set via GOOGLE_API_KEY environment variable)
-            apiKey: ''
-            model: 'text-embedding-004'
+            apiKey: ""
+            model: "text-embedding-004"
             dimensions: 768
             timeout: 30
-            baseUrl: 'https://generativelanguage.googleapis.com/v1'
+            baseUrl: "https://generativelanguage.googleapis.com/v1"
 
         # Ollama embeddings configuration (for local models)
         ollama:
-            endpoint: 'http://localhost:11434/'
-            model: 'nomic-embed-text:latest'
+            endpoint: "http://localhost:11434/"
+            model: "nomic-embed-text:latest"
             dimensions: 768
             timeout: 60
             keepAlive: 300
@@ -88,7 +88,7 @@ hr-staffer:
         # Teams to break down into separate sub-team files (by team leader Display Name)
         # This generates overview + individual sub-team mermaid files for specified leaders
         breakDownTeams:
-            - 'Rik Rogers'
+            - "Rik Rogers"
 
     # Database options
     database:
@@ -98,7 +98,7 @@ hr-staffer:
     # Decomposer configuration
     decomposer:
         # Regex pattern to match section headers (default matches H1-H6)
-        headerPattern: '^#{1,6} .+'
+        headerPattern: "^#{1,6} .+"
 
     # Indexer configuration
     indexer:
@@ -112,13 +112,13 @@ hr-staffer:
         # Scoring weights for hybrid search ranking
         # Base weights (title + field + name + semantic + lexical) should sum to 1.0
         weights:
-            title: 0.30  # Job title match (dominant for role-based queries)
-            field: 0.10  # Department, manager, location match
-            name: 0.15  # Person name match (dominant for name lookups)
-            semantic: 0.20  # Cosine similarity from embeddings
-            lexical: 0.25  # FTS-only RRF score (independent lexical signal)
-            nameBoost: 0.2  # Bonus multiplier when name confidence >= 0.8
-            passBonus: 0.025  # Bonus per FTS retrieval pass (capped at 0.1)
+            title: 0.30 # Job title match (dominant for role-based queries)
+            field: 0.10 # Department, manager, location match
+            name: 0.15 # Person name match (dominant for name lookups)
+            semantic: 0.20 # Cosine similarity from embeddings
+            lexical: 0.25 # FTS-only RRF score (independent lexical signal)
+            nameBoost: 0.2 # Bonus multiplier when name confidence >= 0.8
+            passBonus: 0.025 # Bonus per FTS retrieval pass (capped at 0.1)
         # Default number of results to return
         defaultResults: 5
         # Maximum characters to display in snippet
@@ -130,11 +130,11 @@ hr-staffer:
 
 logging:
     # Log level: DEBUG, INFO, WARN, ERROR
-    level: 'info'
+    level: "info"
     # Enable verbose (debug) logging
     verbose: false
     # Log file path (relative to cwd)
-    file: '~/.aria/logs/hr-staffer.log'
+    file: "~/.aria/logs/hr-staffer.log"
     # Maximum log file size in MB before rotation
     maxFileSizeMb: 10
     # Maximum number of rotated log files to keep
