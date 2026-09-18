@@ -25,7 +25,7 @@ bun install
 
 Configuration is loaded from `config/config-image-generator.yaml` (root level). Default settings:
 
-- **Model:** gemini-3-pro-image-preview
+- **Model:** gemini-3.1-flash-image
 - **Aspect Ratio:** 16:9
 - **Image Size:** 2K
 - **Output Directory:** .aria/exports/image-generator
@@ -86,7 +86,7 @@ bun run image-generator:generate <prompt> <output> [options]
 
 **Options:**
 
-- `-m, --model <model>` - Gemini model (default: gemini-3-pro-image-preview)
+- `-m, --model <model>` - Gemini model (default: gemini-3.1-flash-image)
 - `-a, --aspect <ratio>` - Aspect ratio: 1:1, 2:3, 3:2, 3:4, 4:3, 4:5, 5:4, 9:16, 16:9, 21:9 (default: 16:9)
 - `-s, --size <size>` - Image size: 1K, 2K, 4K (default: 2K)
 

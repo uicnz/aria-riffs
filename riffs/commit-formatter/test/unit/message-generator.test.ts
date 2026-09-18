@@ -15,14 +15,14 @@ const { mockLoadConfig } = vi.hoisted(() => {
 				},
 				gemini: {
 					apiKey: 'test-google-key',
-					model: 'gemini-2.5-flash',
+					model: 'gemini-3.8-flash',
 					temperature: 0.3,
 					maxTokens: 1000,
 					baseUrl: 'https://generativelanguage.googleapis.com/v1beta',
 				},
 				openai: {
 					apiKey: 'test-openai-key',
-					model: 'gpt-5-mini',
+					model: 'gpt-5.6-luna',
 					temperature: 0.3,
 					maxTokens: 1000,
 					baseUrl: 'https://api.openai.com/v1',

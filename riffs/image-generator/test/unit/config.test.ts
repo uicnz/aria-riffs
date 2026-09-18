@@ -17,7 +17,7 @@ describe('Configuration System', () => {
 			const riff = config['image-generator'];
 
 			expect(config).toBeDefined();
-			expect(riff.gemini.defaultModel).toBe('gemini-2.5-flash-image');
+			expect(riff.gemini.defaultModel).toBe('gemini-3.1-flash-image');
 			expect(riff.defaults.aspectRatio).toBe('1:1');
 			expect(riff.defaults.imageSize).toBe('1K');
 			expect(config.logging.level).toBe('debug');
@@ -28,7 +28,7 @@ describe('Configuration System', () => {
 			const riff = config['image-generator'];
 
 			expect(config).toBeDefined();
-			expect(riff.gemini.defaultModel).toBe('gemini-3-pro-image-preview');
+			expect(riff.gemini.defaultModel).toBe('gemini-3.1-flash-image');
 			expect(riff.defaults.aspectRatio).toBe('16:9');
 			expect(riff.defaults.imageSize).toBe('2K');
 		});
@@ -43,7 +43,7 @@ describe('Configuration System', () => {
 			const validConfig = {
 				'image-generator': {
 					gemini: {
-						defaultModel: 'gemini-2.5-flash-image',
+						defaultModel: 'gemini-3.1-flash-image',
 						timeoutMs: 60000,
 						retryAttempts: 3,
 					},
@@ -84,7 +84,7 @@ describe('Configuration System', () => {
 			const result = ImageGeneratorConfigSchema.parse({});
 			const riff = result['image-generator'];
 
-			expect(riff.gemini.defaultModel).toBe('gemini-3-pro-image-preview');
+			expect(riff.gemini.defaultModel).toBe('gemini-3.1-flash-image');
 			expect(riff.defaults.aspectRatio).toBe('1:1');
 			expect(result.logging.level).toBe('info');
 		});

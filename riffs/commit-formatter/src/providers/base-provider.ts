@@ -8,7 +8,7 @@ import type { CommitInfo } from '../lib/types.js';
 export interface ProviderConfig {
 	provider: 'anthropic' | 'gemini' | 'openai';
 	model: string;
-	temperature: number;
+	temperature?: number;
 	maxTokens: number;
 	apiKey: string;
 	baseUrl?: string;

@@ -9,7 +9,7 @@ aria-riff:
 image-generator:
     # Gemini API Configuration
     gemini:
-        defaultModel: "gemini-3-pro-image-preview" # override with IMAGE_GENERATOR_MODEL
+        defaultModel: "gemini-3.1-flash-image" # override with IMAGE_GENERATOR_MODEL
         timeoutMs: 60000 # override with IMAGE_GENERATOR_TIMEOUT_MS
         retryAttempts: 3
 

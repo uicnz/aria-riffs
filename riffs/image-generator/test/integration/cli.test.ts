@@ -50,7 +50,7 @@ describe('CLI Integration', () => {
 			const config = loadConfig();
 			const riff = config['image-generator'];
 
-			expect(riff.gemini.defaultModel).toBe('gemini-3-pro-image-preview');
+			expect(riff.gemini.defaultModel).toBe('gemini-3.1-flash-image');
 			expect(riff.defaults.aspectRatio).toBe('16:9');
 			expect(riff.defaults.imageSize).toBe('2K');
 		});

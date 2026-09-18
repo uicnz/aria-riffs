@@ -36,7 +36,7 @@ hr-policy:
         # Google Gemini embeddings configuration
         gemini:
             apiKey: ""
-            model: "text-embedding-004"
+            model: "gemini-embedding-2"
             dimensions: 768
             timeout: 30
             baseUrl: "https://generativelanguage.googleapis.com/v1"
@@ -44,7 +44,7 @@ hr-policy:
         # Ollama embeddings configuration (for local models)
         ollama:
             endpoint: "http://localhost:11434/"
-            model: "nomic-embed-text:latest"
+            model: "embeddinggemma:latest"
             dimensions: 768
             timeout: 60
             keepAlive: 300

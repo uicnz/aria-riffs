@@ -50,7 +50,7 @@ describe('image-renamer Config', () => {
 			const riffConfig = config['image-renamer'];
 			expect(riffConfig.llm.provider).toBe('ollama');
 			expect(riffConfig.llm.ollama.endpoint).toBe('http://localhost:11434/');
-			expect(riffConfig.llm.ollama.model).toBe('llava-llama3');
+			expect(riffConfig.llm.ollama.model).toBe('gemma4:12b');
 			expect(riffConfig.llm.ollama.timeout).toBe(30);
 			expect(riffConfig.llm.ollama.retryAttempts).toBe(3);
 			expect(riffConfig.llm.ollama.retryDelay).toBe(1.0);
@@ -249,7 +249,7 @@ image-renamer:
 				const riffConfig = config['image-renamer'];
 				expect(riffConfig.llm.provider).toBe('anthropic');
 				expect(riffConfig.llm.ollama.endpoint).toBe('http://localhost:11434/');
-				expect(riffConfig.llm.anthropic.model).toBe('claude-sonnet-4-20250514');
+				expect(riffConfig.llm.anthropic.model).toBe('claude-sonnet-5');
 				expect(riffConfig.llm.gemini.apiKey).toBe('');
 			} finally {
 				await fs.remove(tempDir);

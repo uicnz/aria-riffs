@@ -36,7 +36,7 @@ export class AnthropicProvider extends BaseLLMProvider {
 				],
 				system: SYSTEM_PROMPT,
 				maxOutputTokens: this.config.maxTokens,
-				temperature: this.config.temperature,
+				temperature: this.config.temperature ?? 0.3,
 				// Enable extended thinking for better analysis
 				experimental_telemetry: {
 					isEnabled: true,

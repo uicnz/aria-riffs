@@ -20,7 +20,7 @@ Agent managed image renaming riff that generates descriptive filenames using mul
 
 ```sh
 # Install and run Ollama
-ollama pull llava-llama3  # or llava:latest
+ollama pull gemma4:12b
 ollama serve
 ```
 

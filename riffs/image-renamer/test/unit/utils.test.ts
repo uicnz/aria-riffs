@@ -46,7 +46,7 @@ function createTestConfig(overrides: Partial<ImageRenamerConfig> = {}): ImageRen
 				provider: 'ollama',
 				ollama: {
 					endpoint: 'http://localhost:11434/',
-					model: 'llava-llama3',
+					model: 'gemma4:12b',
 					timeout: 30,
 					retryAttempts: 3,
 					retryDelay: 1.0,
@@ -54,7 +54,7 @@ function createTestConfig(overrides: Partial<ImageRenamerConfig> = {}): ImageRen
 				},
 				anthropic: {
 					apiKey: '',
-					model: 'claude-sonnet-4-20250514',
+					model: 'claude-sonnet-5',
 					timeout: 30,
 					maxTokens: 1024,
 					baseUrl: 'https://api.anthropic.com/v1',
@@ -62,7 +62,7 @@ function createTestConfig(overrides: Partial<ImageRenamerConfig> = {}): ImageRen
 				},
 				gemini: {
 					apiKey: '',
-					model: 'gemini-2.5-flash',
+					model: 'gemini-3.8-flash',
 					timeout: 30,
 					maxTokens: 1024,
 					baseUrl: 'https://generativelanguage.googleapis.com/v1beta',

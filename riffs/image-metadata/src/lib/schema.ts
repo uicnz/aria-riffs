@@ -24,7 +24,7 @@ const AriaRiffMetadataSchema = z
 
 const OllamaProviderSchema = z.object({
 	endpoint: z.string().default('http://localhost:11434/'),
-	model: z.string().default('llava-llama3'),
+	model: z.string().default('gemma4:12b'),
 	timeout: z.number().min(1).default(30),
 	keepAlive: z.number().min(0).default(5),
 	prompt: z.string().default('Describe this image in detail for use as XMP metadata description.'),
@@ -32,7 +32,7 @@ const OllamaProviderSchema = z.object({
 
 const AnthropicProviderSchema = z.object({
 	apiKey: z.string().default(''),
-	model: z.string().default('claude-sonnet-4-20250514'),
+	model: z.string().default('claude-sonnet-5'),
 	timeout: z.number().min(1).default(30),
 	maxTokens: z.number().min(1).default(1024),
 	baseUrl: z.string().default('https://api.anthropic.com/v1'),
@@ -41,7 +41,7 @@ const AnthropicProviderSchema = z.object({
 
 const GeminiProviderSchema = z.object({
 	apiKey: z.string().default(''),
-	model: z.string().default('gemini-2.5-flash'),
+	model: z.string().default('gemini-3.8-flash'),
 	timeout: z.number().min(1).default(30),
 	maxTokens: z.number().min(1).default(1024),
 	baseUrl: z.string().default('https://generativelanguage.googleapis.com/v1beta'),

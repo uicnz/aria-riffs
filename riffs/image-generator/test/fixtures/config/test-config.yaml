@@ -2,7 +2,7 @@
 
 image-generator:
     gemini:
-        defaultModel: 'gemini-2.5-flash-image'
+        defaultModel: 'gemini-3.1-flash-image'
         timeoutMs: 30000
         retryAttempts: 1
 

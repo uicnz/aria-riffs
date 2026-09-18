@@ -149,8 +149,8 @@ All config values can be overridden by environment variables.
 | Provider  | Default Model    | Environment Variable |
 | --------- | ---------------- | -------------------- |
 | Anthropic | claude-haiku-4-5 | ANTHROPIC_API_KEY    |
-| Gemini    | gemini-2.5-flash | GOOGLE_API_KEY       |
-| OpenAI    | gpt-5-mini       | OPENAI_API_KEY       |
+| Gemini    | gemini-3.8-flash | GOOGLE_API_KEY       |
+| OpenAI    | gpt-5.6-luna     | OPENAI_API_KEY       |
 
 ### Switching Providers
 

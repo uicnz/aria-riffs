@@ -111,7 +111,7 @@ describe('Configuration Management', () => {
 			const config = buildEmbeddingConfig();
 
 			expect(config.provider).toBe('gemini');
-			expect(config.model).toBe('text-embedding-004');
+			expect(config.model).toBe('gemini-embedding-2');
 			expect(config.dimensions).toBe(768);
 			expect((config as GeminiEmbeddingConfig).base_url).toBe('https://generativelanguage.googleapis.com/v1');
 		});
@@ -121,7 +121,7 @@ describe('Configuration Management', () => {
 			const config = buildEmbeddingConfig();
 
 			expect(config.provider).toBe('ollama');
-			expect(config.model).toBe('nomic-embed-text:latest');
+			expect(config.model).toBe('embeddinggemma:latest');
 			expect(config.dimensions).toBe(768);
 			expect((config as OllamaEmbeddingConfig).endpoint).toMatch(/^http:\/\/localhost:11434\/?$/);
 		});
@@ -313,7 +313,7 @@ hr-policy:
     maxChars: 15000
     gemini:
       apiKey: 'gemini-key'
-      model: 'text-embedding-004'
+      model: 'gemini-embedding-2'
       dimensions: 768
       timeout: 45
     openai:
@@ -330,7 +330,7 @@ logging:
 
 			const config = await loadDocIndexerConfig(testConfigPath);
 
-			expect(config.model).toBe('text-embedding-004');
+			expect(config.model).toBe('gemini-embedding-2');
 			expect(config.dimensions).toBe(768);
 			expect(config.maxEmbedChars).toBe(15000);
 		});
@@ -346,7 +346,7 @@ hr-policy:
     maxChars: 20000
     gemini:
       apiKey: 'config-gemini-key'
-      model: 'text-embedding-004'
+      model: 'gemini-embedding-2'
       dimensions: 768
       timeout: 45
   indexer:
@@ -358,7 +358,7 @@ logging:
 
 			const config = await loadDocIndexerConfig(testConfigPath);
 
-			expect(config.model).toBe('text-embedding-004');
+			expect(config.model).toBe('gemini-embedding-2');
 			expect(config.dimensions).toBe(768);
 		});
 

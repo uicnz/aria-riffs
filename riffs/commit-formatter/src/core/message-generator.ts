@@ -28,7 +28,7 @@ export class CommitMessageGenerator {
 		const providerConfig = {
 			provider: providerName,
 			model: providerSettings.model,
-			temperature: providerSettings.temperature,
+			temperature: 'temperature' in providerSettings ? providerSettings.temperature : undefined,
 			maxTokens: providerSettings.maxTokens,
 			apiKey: providerSettings.apiKey,
 			baseUrl: providerSettings.baseUrl,

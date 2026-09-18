@@ -19,14 +19,14 @@ const EMBEDDING_CONFIG: HrStafferEmbeddings = {
 	openai: { apiKey: '', model: 'text-embedding-3-large', dimensions: 3072, timeout: 30 },
 	gemini: {
 		apiKey: '',
-		model: 'text-embedding-004',
+		model: 'gemini-embedding-2',
 		dimensions: 768,
 		timeout: 30,
 		baseUrl: 'https://generativelanguage.googleapis.com/v1',
 	},
 	ollama: {
 		endpoint: 'http://localhost:11434/',
-		model: 'nomic-embed-text:latest',
+		model: 'embeddinggemma:latest',
 		dimensions: 768,
 		timeout: 60,
 		keepAlive: 300,

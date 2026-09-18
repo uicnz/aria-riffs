@@ -408,7 +408,7 @@ function buildGeminiEmbeddingConfig(configPath?: string): UnifiedEmbeddingConfig
 		return {
 			provider: 'gemini',
 			api_key: geminiConfig.apiKey || process.env['GOOGLE_API_KEY'] || '',
-			model: geminiConfig.model || process.env['HR_POLICY_GOOGLE_EMBEDDING_MODEL'] || 'text-embedding-004',
+			model: geminiConfig.model || process.env['HR_POLICY_GOOGLE_EMBEDDING_MODEL'] || 'gemini-embedding-2',
 			dimensions:
 				geminiConfig.dimensions || parseInt(process.env['HR_POLICY_GOOGLE_EMBEDDING_DIMENSIONS'] || '768', 10),
 			timeout: geminiConfig.timeout || parseInt(process.env['HR_POLICY_GOOGLE_TIMEOUT'] || '30', 10),
@@ -418,7 +418,7 @@ function buildGeminiEmbeddingConfig(configPath?: string): UnifiedEmbeddingConfig
 		return {
 			provider: 'gemini',
 			api_key: process.env['GOOGLE_API_KEY'] || '',
-			model: 'text-embedding-004',
+			model: 'gemini-embedding-2',
 			dimensions: 768,
 			timeout: 30,
 			base_url: 'https://generativelanguage.googleapis.com/v1',
@@ -434,7 +434,7 @@ function buildOllamaEmbeddingConfig(configPath?: string): UnifiedEmbeddingConfig
 		return {
 			provider: 'ollama',
 			endpoint: ollamaConfig.endpoint || process.env['HR_POLICY_OLLAMA_ENDPOINT'] || 'http://localhost:11434',
-			model: ollamaConfig.model || process.env['HR_POLICY_OLLAMA_EMBEDDING_MODEL'] || 'nomic-embed-text:latest',
+			model: ollamaConfig.model || process.env['HR_POLICY_OLLAMA_EMBEDDING_MODEL'] || 'embeddinggemma:latest',
 			dimensions:
 				ollamaConfig.dimensions || parseInt(process.env['HR_POLICY_OLLAMA_EMBEDDING_DIMENSIONS'] || '768', 10),
 			timeout: ollamaConfig.timeout || parseInt(process.env['HR_POLICY_OLLAMA_TIMEOUT'] || '60', 10),
@@ -445,7 +445,7 @@ function buildOllamaEmbeddingConfig(configPath?: string): UnifiedEmbeddingConfig
 		return {
 			provider: 'ollama',
 			endpoint: process.env['HR_POLICY_OLLAMA_ENDPOINT'] || 'http://localhost:11434',
-			model: 'nomic-embed-text:latest',
+			model: 'embeddinggemma:latest',
 			dimensions: 768,
 			timeout: 60,
 			keep_alive: undefined,

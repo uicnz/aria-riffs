@@ -36,7 +36,7 @@ export class GeminiProvider extends BaseLLMProvider {
 				],
 				system: SYSTEM_PROMPT,
 				maxOutputTokens: this.config.maxTokens,
-				temperature: this.config.temperature,
+				temperature: this.config.temperature ?? 0.3,
 			});
 
 			return this.cleanCommitMessage(result.text);

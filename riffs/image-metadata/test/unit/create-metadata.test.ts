@@ -53,7 +53,7 @@ const { mockLoadConfig } = vi.hoisted(() => {
 		llmProviders: {
 			ollama: {
 				endpoint: 'http://localhost:11434/',
-				model: 'llava-llama3',
+				model: 'gemma4:12b',
 				timeout: 30,
 				keepAlive: 5,
 				prompt: '',

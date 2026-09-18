@@ -4,7 +4,7 @@ embeddings:
     batch_size: 50
     gemini:
         api_key: 'gemini-test-key'
-        model: 'text-embedding-004'
+        model: 'gemini-embedding-2'
         dimensions: 768
         timeout: 45
 

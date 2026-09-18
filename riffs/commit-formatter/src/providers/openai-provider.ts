@@ -36,7 +36,6 @@ export class OpenAIProvider extends BaseLLMProvider {
 				],
 				system: SYSTEM_PROMPT,
 				maxOutputTokens: this.config.maxTokens,
-				temperature: this.config.temperature,
 			});
 
 			return this.cleanCommitMessage(result.text);

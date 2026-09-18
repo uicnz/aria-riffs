@@ -41,14 +41,14 @@ describe('ImageMeta Config', () => {
 		llmProviders: {
 			ollama: {
 				endpoint: 'http://localhost:11434/',
-				model: 'llava-llama3',
+				model: 'gemma4:12b',
 				timeout: 60,
 				keepAlive: 5,
 				prompt: 'Describe this image in detail.',
 			},
 			anthropic: {
 				apiKey: '',
-				model: 'claude-sonnet-4-20250514',
+				model: 'claude-sonnet-5',
 				timeout: 30,
 				maxTokens: 1024,
 				baseUrl: 'https://api.anthropic.com/v1',
@@ -56,7 +56,7 @@ describe('ImageMeta Config', () => {
 			},
 			gemini: {
 				apiKey: '',
-				model: 'gemini-2.5-flash',
+				model: 'gemini-3.8-flash',
 				timeout: 30,
 				maxTokens: 1024,
 				baseUrl: 'https://generativelanguage.googleapis.com/v1beta',
@@ -106,7 +106,7 @@ describe('ImageMeta Config', () => {
 			const riff = config['image-metadata'];
 
 			expect(riff.llm.provider).toBe('ollama');
-			expect(config.llmProviders.ollama.model).toBe('llava-llama3');
+			expect(config.llmProviders.ollama.model).toBe('gemma4:12b');
 			expect(config.llmProviders.ollama.endpoint).toBe('http://localhost:11434/');
 			expect(config.llmProviders.ollama.timeout).toBe(60);
 			expect(riff.paths.database.file).toBe('.aria/db/image/descriptions.db');

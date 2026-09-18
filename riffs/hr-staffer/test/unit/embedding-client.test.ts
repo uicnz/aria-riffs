@@ -31,14 +31,14 @@ describe('createEmbeddingService', () => {
 			},
 			gemini: {
 				apiKey: '',
-				model: 'text-embedding-004',
+				model: 'gemini-embedding-2',
 				dimensions: 768,
 				timeout: 30,
 				baseUrl: 'https://generativelanguage.googleapis.com/v1',
 			},
 			ollama: {
 				endpoint: 'http://localhost:11434/',
-				model: 'nomic-embed-text:latest',
+				model: 'embeddinggemma:latest',
 				dimensions: 768,
 				timeout: 60,
 				keepAlive: 300,
@@ -63,14 +63,14 @@ describe('createEmbeddingService', () => {
 			},
 			gemini: {
 				apiKey: 'test-google-key',
-				model: 'text-embedding-004',
+				model: 'gemini-embedding-2',
 				dimensions: 768,
 				timeout: 30,
 				baseUrl: 'https://generativelanguage.googleapis.com/v1',
 			},
 			ollama: {
 				endpoint: 'http://localhost:11434/',
-				model: 'nomic-embed-text:latest',
+				model: 'embeddinggemma:latest',
 				dimensions: 768,
 				timeout: 60,
 				keepAlive: 300,
@@ -79,7 +79,7 @@ describe('createEmbeddingService', () => {
 
 		const service = createEmbeddingService(config);
 
-		expect(service.getModelName()).toBe('text-embedding-004');
+		expect(service.getModelName()).toBe('gemini-embedding-2');
 	});
 
 	it('given ollama config selected, when created, then returns service with ollama model name', () => {
@@ -95,14 +95,14 @@ describe('createEmbeddingService', () => {
 			},
 			gemini: {
 				apiKey: '',
-				model: 'text-embedding-004',
+				model: 'gemini-embedding-2',
 				dimensions: 768,
 				timeout: 30,
 				baseUrl: 'https://generativelanguage.googleapis.com/v1',
 			},
 			ollama: {
 				endpoint: 'http://localhost:11434/',
-				model: 'nomic-embed-text:latest',
+				model: 'embeddinggemma:latest',
 				dimensions: 768,
 				timeout: 60,
 				keepAlive: 300,
@@ -111,7 +111,7 @@ describe('createEmbeddingService', () => {
 
 		const service = createEmbeddingService(config);
 
-		expect(service.getModelName()).toBe('nomic-embed-text:latest');
+		expect(service.getModelName()).toBe('embeddinggemma:latest');
 	});
 
 	it('given config, when getDimensions called, then returns correct dimensions for provider', () => {
@@ -127,14 +127,14 @@ describe('createEmbeddingService', () => {
 			},
 			gemini: {
 				apiKey: '',
-				model: 'text-embedding-004',
+				model: 'gemini-embedding-2',
 				dimensions: 768,
 				timeout: 30,
 				baseUrl: 'https://generativelanguage.googleapis.com/v1',
 			},
 			ollama: {
 				endpoint: 'http://localhost:11434/',
-				model: 'nomic-embed-text:latest',
+				model: 'embeddinggemma:latest',
 				dimensions: 768,
 				timeout: 60,
 				keepAlive: 300,
@@ -164,14 +164,14 @@ describe('createEmbeddingService', () => {
 				},
 				gemini: {
 					apiKey: '',
-					model: 'text-embedding-004',
+					model: 'gemini-embedding-2',
 					dimensions: 768,
 					timeout: 30,
 					baseUrl: 'https://generativelanguage.googleapis.com/v1',
 				},
 				ollama: {
 					endpoint: 'http://localhost:11434/',
-					model: 'nomic-embed-text:latest',
+					model: 'embeddinggemma:latest',
 					dimensions: 768,
 					timeout: 60,
 					keepAlive: 300,
@@ -205,14 +205,14 @@ describe('createEmbeddingService', () => {
 				},
 				gemini: {
 					apiKey: '',
-					model: 'text-embedding-004',
+					model: 'gemini-embedding-2',
 					dimensions: 768,
 					timeout: 30,
 					baseUrl: 'https://generativelanguage.googleapis.com/v1',
 				},
 				ollama: {
 					endpoint: 'http://localhost:11434/',
-					model: 'nomic-embed-text:latest',
+					model: 'embeddinggemma:latest',
 					dimensions: 768,
 					timeout: 60,
 					keepAlive: 300,
@@ -249,14 +249,14 @@ describe('EmbeddingService.embedSingle', () => {
 			},
 			gemini: {
 				apiKey: '',
-				model: 'text-embedding-004',
+				model: 'gemini-embedding-2',
 				dimensions: 768,
 				timeout: 30,
 				baseUrl: 'https://generativelanguage.googleapis.com/v1',
 			},
 			ollama: {
 				endpoint: 'http://localhost:11434/',
-				model: 'nomic-embed-text:latest',
+				model: 'embeddinggemma:latest',
 				dimensions: 768,
 				timeout: 60,
 				keepAlive: 300,

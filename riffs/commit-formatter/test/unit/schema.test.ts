@@ -16,7 +16,7 @@ describe('schema', () => {
 				},
 				gemini: {
 					apiKey: '',
-					model: 'gemini-2.5-flash',
+					model: 'gemini-3.8-flash',
 					temperature: 0.3,
 					maxTokens: 1000,
 					baseUrl: 'https://generativelanguage.googleapis.com/v1beta',
@@ -24,8 +24,7 @@ describe('schema', () => {
 				},
 				openai: {
 					apiKey: '',
-					model: 'gpt-5-mini',
-					temperature: 0.3,
+					model: 'gpt-5.6-luna',
 					maxTokens: 1000,
 					baseUrl: 'https://api.openai.com/v1',
 					timeout: 60,

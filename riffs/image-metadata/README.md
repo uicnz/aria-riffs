@@ -20,7 +20,7 @@ database storage.
 ```sh
 # Install required Ollama models
 ollama pull llava
-ollama pull llava-llama3:latest
+ollama pull gemma4:12b
 ```
 
 ## Quick Start

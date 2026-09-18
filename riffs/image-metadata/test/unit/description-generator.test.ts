@@ -109,7 +109,7 @@ function createMockConfig(provider: 'ollama' | 'anthropic' | 'gemini') {
 			},
 			gemini: {
 				apiKey: 'test-google-key',
-				model: 'gemini-2.5-flash',
+				model: 'gemini-3.8-flash',
 				timeout: 30,
 				maxTokens: 1024,
 				baseUrl: 'https://generativelanguage.googleapis.com/v1beta',
@@ -327,7 +327,7 @@ describe('LLM Client Module', () => {
 				mockedLoadConfig.mockReturnValue(createMockConfig('gemini'));
 
 				const newClient = new DescriptionGenerator();
-				expect(newClient.modelName).toBe('gemini-2.5-flash');
+				expect(newClient.modelName).toBe('gemini-3.8-flash');
 				expect(newClient.endpointUrl).toBe('https://generativelanguage.googleapis.com/v1beta');
 			});
 		});
@@ -338,7 +338,7 @@ describe('LLM Client Module', () => {
 				mockOllamaList.mockResolvedValue({
 					models: [
 						{
-							name: 'llava-llama3:latest',
+							name: 'gemma4:12b',
 							size: 4661224676,
 							modified_at: '2024-01-15T10:30:00Z',
 							digest: 'sha256:abc123',
@@ -358,7 +358,7 @@ describe('LLM Client Module', () => {
 
 				expect(models).toHaveLength(2);
 				expect(models[0]).toEqual({
-					name: 'llava-llama3:latest',
+					name: 'gemma4:12b',
 					size: 4661224676,
 					modified_at: '2024-01-15T10:30:00Z',
 					digest: 'sha256:abc123',
@@ -378,7 +378,7 @@ describe('LLM Client Module', () => {
 				mockOllamaList.mockResolvedValue({
 					models: [
 						{
-							name: 'llava:latest',
+							name: 'gemma4:e4b',
 							size: 4661224676,
 							modified_at: mockDate,
 							digest: 'sha256:abc123',
@@ -474,8 +474,8 @@ describe('LLM Client Module', () => {
 					jsonResponse({
 						models: [
 							{
-								name: 'models/gemini-2.5-flash',
-								displayName: 'Gemini 2.5 Flash',
+								name: 'models/gemini-3.8-flash',
+								displayName: 'Gemini 3.8 Flash',
 								version: '001',
 								inputTokenLimit: 1048576,
 								outputTokenLimit: 8192,
@@ -496,8 +496,8 @@ describe('LLM Client Module', () => {
 
 				expect(models).toHaveLength(2);
 				expect(models[0]).toEqual({
-					name: 'gemini-2.5-flash',
-					display_name: 'Gemini 2.5 Flash',
+					name: 'gemini-3.8-flash',
+					display_name: 'Gemini 3.8 Flash',
 					version: '001',
 					input_token_limit: 1048576,
 					output_token_limit: 8192,

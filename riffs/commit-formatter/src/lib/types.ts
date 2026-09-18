@@ -83,7 +83,7 @@ export interface RewriteReport {
 export interface ProviderSettings {
 	apiKey: string;
 	model: string;
-	temperature: number;
+	temperature?: number;
 	maxTokens: number;
 	baseUrl: string;
 	timeout: number;

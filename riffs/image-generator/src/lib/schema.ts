@@ -20,7 +20,7 @@ const AriaRiffMetadataSchema = z
 // =============================================================================
 
 const GeminiSchema = z.object({
-	defaultModel: z.string().default('gemini-3-pro-image-preview'),
+	defaultModel: z.string().default('gemini-3.1-flash-image'),
 	timeoutMs: z.number().default(60000),
 	retryAttempts: z.number().default(3),
 });

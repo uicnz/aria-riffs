@@ -29,7 +29,7 @@ export const OpenAIEmbeddingSchema = z.object({
 
 export const GeminiEmbeddingSchema = z.object({
 	apiKey: z.string().default(''),
-	model: z.string().default('text-embedding-004'),
+	model: z.string().default('gemini-embedding-2'),
 	dimensions: z.number().default(768),
 	timeout: z.number().default(30),
 	baseUrl: z.string().default('https://generativelanguage.googleapis.com/v1'),
@@ -37,7 +37,7 @@ export const GeminiEmbeddingSchema = z.object({
 
 export const OllamaEmbeddingSchema = z.object({
 	endpoint: z.string().default('http://localhost:11434/'),
-	model: z.string().default('nomic-embed-text:latest'),
+	model: z.string().default('embeddinggemma:latest'),
 	dimensions: z.number().default(768),
 	timeout: z.number().default(60),
 	keepAlive: z.number().default(300),
@@ -55,14 +55,14 @@ export const EmbeddingsSchema = z.object({
 	}),
 	gemini: GeminiEmbeddingSchema.optional().default({
 		apiKey: '',
-		model: 'text-embedding-004',
+		model: 'gemini-embedding-2',
 		dimensions: 768,
 		timeout: 30,
 		baseUrl: 'https://generativelanguage.googleapis.com/v1',
 	}),
 	ollama: OllamaEmbeddingSchema.optional().default({
 		endpoint: 'http://localhost:11434/',
-		model: 'nomic-embed-text:latest',
+		model: 'embeddinggemma:latest',
 		dimensions: 768,
 		timeout: 60,
 		keepAlive: 300,
@@ -158,14 +158,14 @@ export const HrPolicyRiffSchema = z.object({
 		},
 		gemini: {
 			apiKey: '',
-			model: 'text-embedding-004',
+			model: 'gemini-embedding-2',
 			dimensions: 768,
 			timeout: 30,
 			baseUrl: 'https://generativelanguage.googleapis.com/v1',
 		},
 		ollama: {
 			endpoint: 'http://localhost:11434/',
-			model: 'nomic-embed-text:latest',
+			model: 'embeddinggemma:latest',
 			dimensions: 768,
 			timeout: 60,
 			keepAlive: 300,

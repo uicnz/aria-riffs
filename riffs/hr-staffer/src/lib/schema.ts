@@ -197,7 +197,7 @@ export const HrStafferOpenAIEmbeddingsSchema = z.object({
  */
 export const HrStafferGeminiEmbeddingsSchema = z.object({
 	apiKey: z.string().default(''),
-	model: z.string().default('text-embedding-004'),
+	model: z.string().default('gemini-embedding-2'),
 	dimensions: z.number().positive().default(768),
 	timeout: z.number().positive().default(30),
 	baseUrl: z.string().default('https://generativelanguage.googleapis.com/v1'),
@@ -208,7 +208,7 @@ export const HrStafferGeminiEmbeddingsSchema = z.object({
  */
 export const HrStafferOllamaEmbeddingsSchema = z.object({
 	endpoint: z.string().default('http://localhost:11434/'),
-	model: z.string().default('nomic-embed-text:latest'),
+	model: z.string().default('embeddinggemma:latest'),
 	dimensions: z.number().positive().default(768),
 	timeout: z.number().positive().default(60),
 	keepAlive: z.number().positive().default(300),
@@ -229,14 +229,14 @@ export const HrStafferEmbeddingsSchema = z.object({
 	}),
 	gemini: HrStafferGeminiEmbeddingsSchema.default({
 		apiKey: '',
-		model: 'text-embedding-004',
+		model: 'gemini-embedding-2',
 		dimensions: 768,
 		timeout: 30,
 		baseUrl: 'https://generativelanguage.googleapis.com/v1',
 	}),
 	ollama: HrStafferOllamaEmbeddingsSchema.default({
 		endpoint: 'http://localhost:11434/',
-		model: 'nomic-embed-text:latest',
+		model: 'embeddinggemma:latest',
 		dimensions: 768,
 		timeout: 60,
 		keepAlive: 300,

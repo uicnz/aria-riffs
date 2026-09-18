@@ -113,7 +113,7 @@ image-generator/
 
 # Gemini API Configuration
 gemini:
-    default_model: 'gemini-2.5-flash-image'
+    default_model: 'gemini-3.1-flash-image'
     timeout_ms: 60000
     retry_attempts: 3
 
@@ -156,7 +156,7 @@ import { z } from 'zod';
 // Zod schema for configuration validation
 export const ConfigSchema = z.object({
     gemini: z.object({
-        default_model: z.string().default('gemini-2.5-flash-image'),
+        default_model: z.string().default('gemini-3.1-flash-image'),
         timeout_ms: z.number().default(60000),
         retry_attempts: z.number().default(3),
     }),

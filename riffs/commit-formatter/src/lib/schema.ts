@@ -12,20 +12,22 @@ const AriaRiffMetadataSchema = z
 	})
 	.strict();
 
-// Provider settings schema (common for all providers)
 const ProviderSettingsSchema = z.object({
 	apiKey: z.string().default(''),
 	model: z.string(),
-	temperature: z.number().min(0).max(2).default(0.3),
 	maxTokens: z.number().positive().default(100),
 	baseUrl: z.string().url(),
 	timeout: z.number().positive().default(30),
 });
 
+const SamplingProviderSettingsSchema = ProviderSettingsSchema.extend({
+	temperature: z.number().min(0).max(2).default(0.3),
+});
+
 // LLM configuration schema
 const LLMConfigSchema = z.object({
 	provider: z.enum(['anthropic', 'gemini', 'openai']).default('anthropic'),
-	anthropic: ProviderSettingsSchema.default({
+	anthropic: SamplingProviderSettingsSchema.default({
 		apiKey: '',
 		model: 'claude-haiku-4-5',
 		temperature: 0.3,
@@ -33,9 +35,9 @@ const LLMConfigSchema = z.object({
 		baseUrl: 'https://api.anthropic.com/v1',
 		timeout: 60,
 	}),
-	gemini: ProviderSettingsSchema.default({
+	gemini: SamplingProviderSettingsSchema.default({
 		apiKey: '',
-		model: 'gemini-2.5-flash',
+		model: 'gemini-3.8-flash',
 		temperature: 0.3,
 		maxTokens: 1000,
 		baseUrl: 'https://generativelanguage.googleapis.com/v1beta',
@@ -43,8 +45,7 @@ const LLMConfigSchema = z.object({
 	}),
 	openai: ProviderSettingsSchema.default({
 		apiKey: '',
-		model: 'gpt-5-mini',
-		temperature: 0.3,
+		model: 'gpt-5.6-luna',
 		maxTokens: 1000,
 		baseUrl: 'https://api.openai.com/v1',
 		timeout: 60,

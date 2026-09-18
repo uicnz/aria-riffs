@@ -24,7 +24,7 @@ commit-formatter:
         # Google Gemini API settings
         gemini:
             apiKey: "" # Set via GOOGLE_API_KEY environment variable
-            model: "gemini-2.5-flash" # Latest Flash model - fast and cost-effective
+            model: "gemini-3.8-flash" # Latest Flash model - fast and cost-effective
             temperature: 0.3
             maxTokens: 1000
             baseUrl: "https://generativelanguage.googleapis.com/v1beta"
@@ -33,8 +33,7 @@ commit-formatter:
         # OpenAI GPT API settings
         openai:
             apiKey: "" # Set via OPENAI_API_KEY environment variable
-            model: "gpt-5-mini" # Latest mini model - fast and cost-effective
-            temperature: 0.3
+            model: "gpt-5.6-luna" # Cost-efficient GPT-5.6 model for high-volume work
             maxTokens: 1000
             baseUrl: "https://api.openai.com/v1"
             timeout: 60

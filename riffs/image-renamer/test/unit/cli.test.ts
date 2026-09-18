@@ -79,7 +79,7 @@ vi.mock('../../src/lib/config.js', () => ({
 				provider: 'ollama',
 				ollama: {
 					endpoint: 'http://localhost:11434/',
-					model: 'llava-llama3',
+					model: 'gemma4:12b',
 					timeout: 30,
 					retryAttempts: 3,
 					retryDelay: 1.0,
@@ -87,7 +87,7 @@ vi.mock('../../src/lib/config.js', () => ({
 				},
 				anthropic: {
 					apiKey: '',
-					model: 'claude-sonnet-4-20250514',
+					model: 'claude-sonnet-5',
 					timeout: 30,
 					maxTokens: 1024,
 					baseUrl: 'https://api.anthropic.com/v1',
@@ -95,7 +95,7 @@ vi.mock('../../src/lib/config.js', () => ({
 				},
 				gemini: {
 					apiKey: '',
-					model: 'gemini-2.5-flash',
+					model: 'gemini-3.8-flash',
 					timeout: 30,
 					maxTokens: 1024,
 					baseUrl: 'https://generativelanguage.googleapis.com/v1beta',
