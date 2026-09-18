@@ -1,0 +1,28 @@
+{
+    "name": "@aria/doc-decomposer",
+    "version": "0.1.0",
+    "description": "RFP document analysis and decomposition",
+    "type": "module",
+    "packageManager": "bun@1.4.2",
+    "engines": {
+        "bun": ">=1.4.0",
+        "node": ">=26.0.0"
+    },
+    "main": "dist/cli.js",
+    "bin": {
+        "doc-decomposer": "dist/cli.js"
+    },
+    "files": [
+        "dist/",
+        "src/",
+        "config.yaml"
+    ],
+    "dependencies": {
+        "commander": "^15.0.0",
+        "dotenv": "^18.0.0",
+        "markdownlint": "^0.41.1",
+        "pino": "^10.3.1",
+        "yaml": "^2.9.1",
+        "zod": "^4.6.5"
+    }
+}

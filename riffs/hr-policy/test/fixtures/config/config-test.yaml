@@ -1,0 +1,28 @@
+embeddings:
+    provider: 'openai'
+    max_chars: 20000
+    batch_size: 100
+    openai:
+        api_key: 'sk-test-123'
+        model: 'text-embedding-3-large'
+        dimensions: 3072
+        timeout: 30
+
+indexer:
+    sections: 'both'
+    weight_response: 1.8
+    use_fts: true
+    hybrid: true
+    alpha: 0.2
+    show_metadata: true
+    highlight: true
+    paths:
+        database: '/tmp/test-hr-policy.db'
+        output_dir: '/tmp/test-output'
+        default_index_dir: 'sources'
+    logging:
+        level: 'debug'
+        verbose: false
+        file: 'test-hr-policy.log'
+        max_file_size_mb: 5
+        max_files: 3

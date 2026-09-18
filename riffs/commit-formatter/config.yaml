@@ -1,0 +1,101 @@
+# Commit Formatter Configuration
+
+# Riff metadata for TUI discovery
+aria-riff:
+    name: commit-formatter
+    description: Conventional commit message formatting
+    category: development
+
+commit-formatter:
+    # LLM Provider Configuration
+    llm:
+        # Choose provider: 'anthropic', 'gemini', or 'openai'
+        provider: 'anthropic'  # Default provider (override via COMMIT_FORMATTER_LLM_PROVIDER)
+
+        # Anthropic API settings
+        anthropic:
+            apiKey: ''  # Set via ANTHROPIC_API_KEY environment variable
+            model: 'claude-haiku-4-5'  # Latest Haiku model - fast and cost-effective
+            temperature: 0.3  # Lower for more consistent formatting
+            maxTokens: 1000  # Increased for detailed analysis and optional body text
+            baseUrl: 'https://api.anthropic.com/v1'
+            timeout: 60
+
+        # Google Gemini API settings
+        gemini:
+            apiKey: ''  # Set via GOOGLE_API_KEY environment variable
+            model: 'gemini-2.5-flash'  # Latest Flash model - fast and cost-effective
+            temperature: 0.3
+            maxTokens: 1000
+            baseUrl: 'https://generativelanguage.googleapis.com/v1beta'
+            timeout: 60
+
+        # OpenAI GPT API settings
+        openai:
+            apiKey: ''  # Set via OPENAI_API_KEY environment variable
+            model: 'gpt-5-mini'  # Latest mini model - fast and cost-effective
+            temperature: 0.3
+            maxTokens: 1000
+            baseUrl: 'https://api.openai.com/v1'
+            timeout: 60
+
+    # Default processing mode
+    # Options: 'automatic', 'assisted', 'advisory'
+    defaults:
+        mode: 'assisted'  # Safest default for active repos
+        count: 20  # Number of commits to scan
+        skipConventional: true  # Skip commits already in conventional format
+        createBackup: true  # Always create backup branch (highly recommended)
+        generateReport: true  # Generate report files
+
+    # Author rewriting settings
+    author:
+        mode: 'preserve'  # 'preserve' or 'rewrite'
+        # name: 'Your Name' # Only used when mode is 'rewrite'
+        # email: 'your.email@example.com' # Only used when mode is 'rewrite'
+
+    # Conventional Commits settings
+    conventionalCommits:
+        # Types allowed (per Conventional Commits v1.0.0 spec)
+        requiredTypes:
+            - 'feat'  # New feature (MINOR)
+            - 'fix'  # Bug fix (PATCH)
+
+        additionalTypes:
+            - 'build'  # Build system or external dependencies
+            - 'chore'  # Maintenance tasks, dependency updates
+            - 'ci'  # CI/CD changes
+            - 'docs'  # Documentation only
+            - 'style'  # Formatting, whitespace (no code change)
+            - 'refactor'  # Code change (neither fix nor feature)
+            - 'perf'  # Performance improvements
+            - 'test'  # Adding or updating tests
+
+        # Format rules
+        maxDescriptionLength: 72  # Keep descriptions concise
+        allowBreakingChanges: true  # Support ! notation (feat!:)
+        scopeOptional: true  # Scope is always optional per spec
+
+    # Backup settings
+    backup:
+        branchPrefix: 'backup-before-reformat'  # Prefix for backup branches
+        pushToRemote: false  # Don't auto-push backups
+        cleanupAfterDays: 30  # Suggest cleanup after this many days
+
+    # Path settings
+    paths:
+        output:
+            dir: '.'
+
+    # Report settings
+    reports:
+        jsonFilenameTemplate: 'commit-reformat-report-{date}.json'
+        markdownFilenameTemplate: 'commit-reformat-report-{date}.md'
+        includeDiffSummary: false  # Don't include full diffs in reports
+
+logging:
+    level: 'info'  # TRACE, DEBUG, INFO, WARN, ERROR, FATAL
+    verbose: false  # Enable verbose output (COMMIT_FORMATTER_LOG_VERBOSE)
+    file: '~/.aria/logs/commit-formatter.log'  # Log file path (relative to cwd)
+    maxFileSizeMb: 10  # Maximum size per log file
+    maxFiles: 7  # Keep last 7 log files

@@ -1,0 +1,2 @@
+This file exists only in directory 2.
+It should be detected as "Files only in directory 2" by the diff riff.

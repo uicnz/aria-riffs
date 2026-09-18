@@ -1,0 +1,250 @@
+# Riff metadata for TUI discovery
+aria-riff:
+    name: doc-converter
+    description: DocX to Markdown conversion with 18 Aria Rules
+    category: documents
+
+doc-converter:
+    paths:
+        input:
+            dir: '~/.aria/sources'
+        output:
+            dir: '~/.aria/exports/doc-converter'
+    type: auto
+    cleanFirst: true
+    inPlace: false
+    dirsRecurse: true
+    dirsPreserve: true
+    dirsSanitize: true
+    gitkeep: true
+
+logging:
+    level: 'info'
+    verbose: false
+    file: '~/.aria/logs/doc-converter.log'
+    maxFileSizeMb: 10
+    maxFiles: 7
+
+# @aria-config: justified-peer
+# Aria rule toggles - detailed config, not exposed in TUI
+ariaRules:
+    enabled: true
+    rules:
+        # Ensure document starts with a single H1; add from filename if missing
+        AR001: true
+
+        # Demote subsequent H1 headings and their subheadings
+        AR002: true
+
+        # Ensure exactly one blank line before and after each heading
+        AR003: true
+
+        # Remove trailing punctuation from headings (MD026)
+        AR004: true
+
+        # Add a colon after emphasized-only lines used as headings (MD036)
+        AR005: true
+
+        # Ensure single space after list markers and avoid touching --- or bold markers
+        AR006: true
+
+        # Indent nested bullet lists under ordered lists by 4 spaces (MD029)
+        AR007: true
+
+        # Remove leading spaces from Markdown table lines
+        AR008: true
+
+        # Insert a horizontal rule between consecutive tables
+        AR009: true
+
+        # Insert missing Markdown image references found in HTML at their original positions
+        AR010: true
+
+        # Move any image references before the first H1 to immediately after it
+        AR011: false
+
+        # Set image alt text to nearest preceding heading text
+        AR012: true
+
+        # Unescape Markdown links and auto-link bare URLs
+        AR013: true
+
+        # Remove residual basic HTML tags (excluding <br>)
+        AR014: true
+
+        # Remove HTML comments
+        AR015: true
+
+        # Remove lines with only hashes and inline stray hashes
+        AR016: true
+
+        # Remove trailing whitespace at end of lines
+        AR017: true
+
+        # Collapse multiple blank lines to a single blank line
+        AR018: true
+
+# @aria-config: justified-peer
+# Markdownlint execution settings - detailed config, not exposed in TUI
+markdownlint:
+    enabled: false
+    fix: false
+    configPath: null
+
+# @aria-config: justified-peer
+# Markdownlint rule toggles - detailed config, not exposed in TUI
+markdownlintRules:
+    enabled: false
+    rules:
+        # Heading levels should only increment by one level at a time
+        MD001: true
+
+        # Heading style
+        MD003: true
+
+        # Unordered list style
+        MD004: true
+
+        # Inconsistent indentation for list items at the same level
+        MD005: true
+
+        # Unordered list indentation
+        MD007: true
+
+        # Trailing spaces
+        MD009: true
+
+        # Hard tabs
+        MD010: true
+
+        # Reversed link syntax
+        MD011: true
+
+        # Multiple consecutive blank lines
+        MD012: true
+
+        # Line length
+        MD013: false
+
+        # Dollar signs used before commands without showing output
+        MD014: true
+
+        # No space after hash on atx style heading
+        MD018: true
+
+        # Multiple spaces after hash on atx style heading
+        MD019: true
+
+        # No space inside hashes on closed atx style heading
+        MD020: true
+
+        # Multiple spaces inside hashes on closed atx style heading
+        MD021: true
+
+        # Headings should be surrounded by blank lines
+        MD022: true
+
+        # Headings must start at the beginning of the line
+        MD023: true
+
+        # Multiple headings with the same content
+        MD024: true
+
+        # Multiple top-level headings in the same document
+        MD025: true
+
+        # Trailing punctuation in heading
+        MD026: true
+
+        # Multiple spaces after blockquote symbol
+        MD027: true
+
+        # Blank line inside blockquote
+        MD028: true
+
+        # Ordered list item prefix
+        MD029: true
+
+        # Spaces after list markers
+        MD030: true
+
+        # Fenced code blocks should be surrounded by blank lines
+        MD031: true
+
+        # Lists should be surrounded by blank lines
+        MD032: true
+
+        # Inline HTML
+        MD033: true
+
+        # Bare URL used
+        MD034: true
+
+        # Horizontal rule style
+        MD035: true
+
+        # Emphasis used instead of a heading
+        MD036: true
+
+        # Spaces inside emphasis markers
+        MD037: true
+
+        # Spaces inside code span elements
+        MD038: true
+
+        # Spaces inside link text
+        MD039: true
+
+        # Fenced code blocks should have a language specified
+        MD040: true
+
+        # First line in a file should be a top-level heading
+        MD041: true
+
+        # No empty links
+        MD042: true
+
+        # Required heading structure
+        MD043: true
+
+        # Proper names should have the correct capitalization
+        MD044: true
+
+        # Images should have alternate text (alt text)
+        MD045: true
+
+        # Code block style
+        MD046: true
+
+        # Files should end with a single newline character
+        MD047: true
+
+        # Code fence style
+        MD048: true
+
+        # Emphasis style
+        MD049: true
+
+        # Strong style
+        MD050: true
+
+        # Link fragments should be valid
+        MD051: true
+
+        # Reference links and images should use a label that is defined
+        MD052: true
+
+        # Link and image reference definitions should be needed
+        MD053: true
+
+        # Link and image style
+        MD054: true
+
+        # Table pipe style
+        MD055: true
+
+        # Table column count
+        MD056: true
+
+        # Tables should be surrounded by blank lines
+        MD058: true

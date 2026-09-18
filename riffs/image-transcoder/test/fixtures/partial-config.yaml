@@ -1,0 +1,5 @@
+# Partial config - only quality specified
+
+image-transcoder:
+  transcoding:
+    quality: 90

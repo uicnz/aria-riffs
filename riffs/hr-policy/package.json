@@ -1,0 +1,34 @@
+{
+    "name": "@aria/hr-policy",
+    "version": "0.1.0",
+    "description": "HR policy document indexing and search",
+    "type": "module",
+    "packageManager": "bun@1.4.2",
+    "engines": {
+        "bun": ">=1.4.0",
+        "node": ">=26.0.0"
+    },
+    "main": "dist/cli.js",
+    "bin": {
+        "hr-policy": "dist/cli.js"
+    },
+    "files": [
+        "dist/",
+        "src/",
+        "config.yaml"
+    ],
+    "dependencies": {
+        "@ai-sdk/google": "^4.0.75",
+        "@ai-sdk/openai": "^4.0.70",
+        "ai": "^7.0.106",
+        "ai-sdk-ollama": "^4.3.0",
+        "commander": "^15.0.0",
+        "dotenv": "^18.0.0",
+        "glob": "^13.0.6",
+        "js-yaml": "^5.4.2",
+        "libsql": "^0.5.29",
+        "pino": "^10.3.1",
+        "yaml": "^2.9.1",
+        "zod": "^4.6.5"
+    }
+}

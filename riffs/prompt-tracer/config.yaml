@@ -1,0 +1,24 @@
+# Prompt Tracer Configuration
+
+# Riff metadata for TUI discovery
+aria-riff:
+    name: prompt-tracer
+    description: Anthropic coding CLI prompt extraction and analysis
+    category: development
+
+prompt-tracer:
+    # Path to the Claude CLI executable (optional -- auto-detected via 'which claude')
+    # claudeExecutablePath: '/path/to/claude'
+
+    # Path settings
+    paths:
+        output:
+            reports: '~/.aria/db/prompt-tracer/reports'
+            traces: '~/.aria/db/prompt-tracer/traces'
+
+logging:
+    level: 'info'
+    verbose: false
+    file: '~/.aria/logs/prompt-tracer.log'  # Log file path (relative to cwd)
+    maxFileSizeMb: 10
+    maxFiles: 7

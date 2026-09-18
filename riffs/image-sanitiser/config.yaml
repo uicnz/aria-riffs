@@ -1,0 +1,57 @@
+# Image Sanitiser Riff Configuration
+
+# Riff metadata for TUI discovery
+aria-riff:
+    name: image-sanitiser
+    description: Image file extension verification and correction
+    category: images
+
+image-sanitiser:
+    paths:
+        input:
+            dir: null
+        database:
+            file: '~/.aria/db/image-sanitiser/image-sanitiser.sqlite'
+
+    # Image Processing Configuration
+    images:
+        supportedExtensions: ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff', '.tif', '.webp']
+        maxFileSizeMb: 100
+        verifyAfterRename: true
+
+    # File Detection Configuration
+    detection:
+        useSharpMetadata: true
+        preferSharpOverMagic: false
+        fallbackToMagicBytes: true
+        strictMode: false
+
+    # File Operations Configuration
+    fileOperations:
+        safeMoveRetries: 3
+        moveDelaySeconds: 0.5
+        backupOriginals: false
+        confirmOverwrites: true
+
+    # Processing Configuration
+    processing:
+        progressBar: true
+        batchSize: 50
+        concurrentOperations: false
+        dryRun: false
+        recursive: true
+
+    # Database settings
+    database:
+        tableName: 'images'
+        # Journal mode: DELETE, WAL, TRUNCATE, PERSIST, MEMORY, or OFF
+        # DELETE is safer for concurrent access, WAL is faster for reads
+        journalMode: 'DELETE'
+
+logging:
+    level: 'info'
+    verbose: false
+    file: '~/.aria/logs/image-sanitiser.log'
+    maxFileSizeMb: 10
+    maxFiles: 7
+    consoleColors: true

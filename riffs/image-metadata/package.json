@@ -1,0 +1,36 @@
+{
+    "name": "@aria/image-metadata",
+    "version": "0.1.0",
+    "description": "Image EXIF metadata extraction and processing",
+    "type": "module",
+    "packageManager": "bun@1.4.2",
+    "engines": {
+        "bun": ">=1.4.0",
+        "node": ">=26.0.0"
+    },
+    "main": "dist/cli.js",
+    "bin": {
+        "image-metadata": "dist/cli.js"
+    },
+    "files": [
+        "dist/",
+        "src/",
+        "config.yaml"
+    ],
+    "dependencies": {
+        "@ai-sdk/anthropic": "^4.0.57",
+        "@ai-sdk/google": "^4.0.75",
+        "ai": "^7.0.106",
+        "ai-sdk-ollama": "^4.3.0",
+        "cli-progress": "^3.12.0",
+        "commander": "^15.0.0",
+        "dotenv": "^18.0.0",
+        "fs-extra": "^11.4.0",
+        "js-yaml": "^5.4.2",
+        "libsql": "^0.5.29",
+        "ollama": "^0.6.3",
+        "pino": "^10.3.1",
+        "sharp": "^0.35.4",
+        "zod": "^4.6.5"
+    }
+}

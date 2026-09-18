@@ -1,0 +1,138 @@
+/**
+ * SQLite database manager for image descriptions
+ */
+
+import * as path from 'node:path';
+import * as fsExtra from 'fs-extra';
+import Database from 'libsql';
+import { loadConfig } from '../lib/config.js';
+import { DatabaseError, type DatabaseRecord } from '../lib/types.js';
+
+// Load config once at module level
+const appConfig = loadConfig();
+const riff = appConfig['image-metadata'];
+
+export class DatabaseManager {
+	private dbPath: string;
+	private tableName: string;
+	private db: Database.Database | null = null;
+
+	constructor() {
+		this.dbPath = riff.paths.database.file;
+		this.tableName = 'images';
+		if (!path.isAbsolute(this.dbPath)) {
+			this.dbPath = path.resolve(this.dbPath);
+		}
+	}
+
+	private async initializeDatabase(): Promise<void> {
+		try {
+			await fsExtra.ensureDir(path.dirname(this.dbPath));
+
+			this.db = new Database(this.dbPath);
+			const journalMode = riff.database.journalMode;
+			this.db.pragma(`journal_mode = ${journalMode}`);
+
+			this.db.exec(`
+        CREATE TABLE IF NOT EXISTS ${this.tableName} (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          file_path TEXT NOT NULL UNIQUE,
+          description TEXT NOT NULL,
+          created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+          updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        )
+      `);
+
+			this.db.exec(`
+        CREATE INDEX IF NOT EXISTS idx_file_path ON ${this.tableName}(file_path)
+      `);
+		} catch (error) {
+			throw new DatabaseError(`Failed to initialize database: ${error}`);
+		}
+	}
+
+	private async getConnection(): Promise<Database.Database> {
+		if (!this.db) {
+			await this.initializeDatabase();
+		}
+		if (!this.db) {
+			throw new DatabaseError('Failed to initialize database connection');
+		}
+		return this.db;
+	}
+
+	async saveDescription(filePath: string, description: string): Promise<void> {
+		try {
+			const db = await this.getConnection();
+			const normalizedPath = path.resolve(filePath);
+
+			const stmt = db.prepare(`
+        INSERT INTO ${this.tableName} (file_path, description)
+        VALUES (?, ?)
+        ON CONFLICT(file_path) DO UPDATE SET
+          description = excluded.description,
+          updated_at = CURRENT_TIMESTAMP
+      `);
+
+			stmt.run(normalizedPath, description);
+		} catch (error) {
+			throw new DatabaseError(`Failed to save description: ${error}`);
+		}
+	}
+
+	async getDescription(filePath: string): Promise<string | null> {
+		try {
+			const db = await this.getConnection();
+			const normalizedPath = path.resolve(filePath);
+
+			const stmt = db.prepare(`
+        SELECT description FROM ${this.tableName}
+        WHERE file_path = ?
+      `);
+
+			const row = stmt.get(normalizedPath) as { description: string } | undefined;
+			return row?.description || null;
+		} catch (error) {
+			throw new DatabaseError(`Failed to get description: ${error}`);
+		}
+	}
+
+	async getAllDescriptions(): Promise<DatabaseRecord[]> {
+		try {
+			const db = await this.getConnection();
+
+			const stmt = db.prepare(`
+        SELECT file_path, description, created_at, updated_at
+        FROM ${this.tableName}
+        ORDER BY updated_at DESC
+      `);
+
+			const rows = stmt.all() as DatabaseRecord[];
+			return rows;
+		} catch (error) {
+			throw new DatabaseError(`Failed to get all descriptions: ${error}`);
+		}
+	}
+
+	async countRecords(): Promise<number> {
+		try {
+			const db = await this.getConnection();
+			const stmt = db.prepare(`SELECT COUNT(*) as count FROM ${this.tableName}`);
+			const result = stmt.get() as { count: number };
+			return result.count;
+		} catch (error) {
+			throw new DatabaseError(`Failed to count records: ${error}`);
+		}
+	}
+
+	close(): void {
+		if (this.db) {
+			this.db.close();
+			this.db = null;
+		}
+	}
+
+	get databasePath(): string {
+		return this.dbPath;
+	}
+}

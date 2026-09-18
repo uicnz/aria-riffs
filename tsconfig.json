@@ -1,0 +1,60 @@
+{
+    "compilerOptions": {
+        "declaration": true,  /* helps with vscode intellisense */
+        "declarationMap": true,  /* helps with vscode go to definition */
+        "sourceMap": true,  /* builds .js.map files for easier debugging */
+
+        "skipLibCheck": true,  /* speeds up compilation, disables detection of multiple definitions of same type */
+
+        /* Type Checking -- enable all the checks */
+        "strict": true,
+        "alwaysStrict": true,
+        "allowUnreachableCode": false,
+        "allowUnusedLabels": false,
+        "exactOptionalPropertyTypes": false,  /* lots of complaints to fix when enabled */
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitAny": true,
+        "noImplicitOverride": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noPropertyAccessFromIndexSignature": false,  /* lots of complaints to fix when enabled  */
+        "noUncheckedIndexedAccess": false,  /* lots of complaints to fix when enabled */
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "strictBindCallApply": true,
+        "strictBuiltinIteratorReturn": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "strictPropertyInitialization": true,
+        "useUnknownInCatchVariables": true,
+
+        /* Language and Environment */
+        "target": "ESNext",
+        "lib": ["ESNext"],
+        "libReplacement": false,
+        "jsx": "react-jsx",
+
+        /* Modules */
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+
+        /* Interop Constraints */
+        "isolatedModules": true,
+        "allowSyntheticDefaultImports": true,
+        "forceConsistentCasingInFileNames": true,
+        "allowArbitraryExtensions": true,
+
+        "types": ["bun-types", "node"]
+    },
+    "include": [
+        "riffs/**/src/**/*.ts",
+        "riffs/**/src/**/*.tsx",
+        "riffs/**/test/**/*.ts",
+        "scripts/**/*.ts",
+        "vitest.config.ts",
+        "vitest-setup.ts"
+    ],
+    "exclude": ["**/node_modules/**", "**/dist/**", "coverage"]
+}

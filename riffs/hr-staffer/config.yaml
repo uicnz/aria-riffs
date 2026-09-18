@@ -1,0 +1,141 @@
+# Hr Staffer Configuration
+
+# Riff metadata for TUI discovery
+aria-riff:
+    name: hr-staffer
+    description: Staff directory with semantic matching
+    category: knowledge
+
+hr-staffer:
+    # Centralized path configuration
+    paths:
+        input:
+            # Path to CSV file containing staff directory
+            # CSV must have exactly 11 columns: Display Name, First Name, Last Name, Email Address,
+            # Title, Department, Manager, Mobile, Street Address, City, Country
+            staff: '~/.aria/sources/cello/staff/cello-staff-active-directory.csv'
+            # Input markdown file to decompose into sections
+            chart: '~/.aria/db/hr-staffer/org-chart.md'
+            # Directory containing decomposed section files to index
+            sections: '~/.aria/exports/cello/hr-staffer'
+        output:
+            # Output directory for generated org chart files
+            # Charts will be saved as: org-chart.txt, org-chart.md, org-chart.mermaid, etc.
+            chart: '~/.aria/db/hr-staffer'
+            # Output directory for decomposed section files
+            sections: '~/.aria/exports/cello/hr-staffer'
+        database:
+            # Path to SQLite database file
+            file: '~/.aria/db/hr-staffer/hr-staffer.sqlite'
+
+    # Embeddings configuration for vector search
+    embeddings:
+        # Provider: 'openai', 'gemini', or 'ollama'
+        provider: 'openai'
+        # Maximum characters to embed per text
+        maxChars: 35000
+        # Batch size for embedding requests
+        batchSize: 64
+
+        # OpenAI embeddings configuration
+        openai:
+            # API key (set via OPENAI_API_KEY environment variable)
+            apiKey: ''
+            model: 'text-embedding-3-large'
+            dimensions: 3072
+            timeout: 30
+
+        # Google Gemini embeddings configuration
+        gemini:
+            # API key (set via GOOGLE_API_KEY environment variable)
+            apiKey: ''
+            model: 'text-embedding-004'
+            dimensions: 768
+            timeout: 30
+            baseUrl: 'https://generativelanguage.googleapis.com/v1'
+
+        # Ollama embeddings configuration (for local models)
+        ollama:
+            endpoint: 'http://localhost:11434/'
+            model: 'nomic-embed-text:latest'
+            dimensions: 768
+            timeout: 60
+            keepAlive: 300
+
+    # Output format toggles
+    output:
+        formats:
+            # Generate plain text org chart
+            text: true
+            # Generate markdown org chart
+            markdown: true
+            # Generate mermaid diagram files
+            mermaid: true
+
+    # Display options
+    display:
+        # Include job titles in output
+        includeTitle: true
+        # Include department names in output
+        includeDepartment: true
+        # Include email addresses in output
+        includeEmail: false
+        # Maximum tree depth to display (null means no limit)
+        maxDepth: null
+
+    # Mermaid-specific options
+    mermaid:
+        # Teams to break down into separate sub-team files (by team leader Display Name)
+        # This generates overview + individual sub-team mermaid files for specified leaders
+        breakDownTeams:
+            - 'Rik Rogers'
+
+    # Database options
+    database:
+        # Enable SQLite database storage
+        enabled: true
+
+    # Decomposer configuration
+    decomposer:
+        # Regex pattern to match section headers (default matches H1-H6)
+        headerPattern: '^#{1,6} .+'
+
+    # Indexer configuration
+    indexer:
+        # Enable FTS5 full-text search
+        useFts: true
+
+    # Search configuration
+    search:
+        # Enable hybrid search (semantic + lexical)
+        hybrid: true
+        # Scoring weights for hybrid search ranking
+        # Base weights (title + field + name + semantic + lexical) should sum to 1.0
+        weights:
+            title: 0.30  # Job title match (dominant for role-based queries)
+            field: 0.10  # Department, manager, location match
+            name: 0.15  # Person name match (dominant for name lookups)
+            semantic: 0.20  # Cosine similarity from embeddings
+            lexical: 0.25  # FTS-only RRF score (independent lexical signal)
+            nameBoost: 0.2  # Bonus multiplier when name confidence >= 0.8
+            passBonus: 0.025  # Bonus per FTS retrieval pass (capped at 0.1)
+        # Default number of results to return
+        defaultResults: 5
+        # Maximum characters to display in snippet
+        maxSnippetLength: 500
+        # Enable highlighting of search terms in snippets
+        highlight: true
+
+# Logging configuration (peer section)
+
+logging:
+    # Log level: DEBUG, INFO, WARN, ERROR
+    level: 'info'
+    # Enable verbose (debug) logging
+    verbose: false
+    # Log file path (relative to cwd)
+    file: '~/.aria/logs/hr-staffer.log'
+    # Maximum log file size in MB before rotation
+    maxFileSizeMb: 10
+    # Maximum number of rotated log files to keep
+    maxFiles: 7

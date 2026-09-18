@@ -1,0 +1,23 @@
+# Image AltText Configuration
+
+# Riff metadata for TUI discovery
+aria-riff:
+    name: image-alttext
+    description: AI-generated image alt text for accessibility
+    category: images
+
+image-alttext:
+    paths:
+        input:
+            dir: null
+        output:
+            dir: null
+    verbose: false
+    dryRun: false
+
+logging:
+    level: 'info'
+    verbose: false
+    file: '~/.aria/logs/image-alttext.log'
+    maxFileSizeMb: 10
+    maxFiles: 7

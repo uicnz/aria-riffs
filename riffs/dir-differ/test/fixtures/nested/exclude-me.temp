@@ -1,0 +1,2 @@
+This file has the .temp extension that we'll exclude in testing.
+It should be excluded from comparison when using the --exclude *.temp option.

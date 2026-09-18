@@ -1,0 +1,3 @@
+Display Name,First Name,Last Name,Email Address,Title,Department,Manager,Mobile,Street Address,City,Country
+"Doe, Jane",Jane,Doe,jane@example.com,CEO,"Executive, Operations",No Manager,+1-555-0000,"123 Main St, Suite 100",San Francisco,USA
+"Smith, John",John,Smith,john@example.com,Manager,Engineering,"Doe, Jane",+1-555-0001,124 Main St,San Francisco,USA

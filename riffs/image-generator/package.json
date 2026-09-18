@@ -1,0 +1,28 @@
+{
+    "name": "@aria/image-generator",
+    "version": "0.1.0",
+    "description": "Text-to-image generation with Gemini API",
+    "type": "module",
+    "packageManager": "bun@1.4.2",
+    "engines": {
+        "bun": ">=1.4.0",
+        "node": ">=26.0.0"
+    },
+    "main": "dist/cli.js",
+    "bin": {
+        "image-generator": "dist/cli.js"
+    },
+    "files": [
+        "dist/",
+        "src/",
+        "config.yaml"
+    ],
+    "dependencies": {
+        "@google/genai": "^2.23.0",
+        "commander": "^15.0.0",
+        "dotenv": "^18.0.0",
+        "pino": "^10.3.1",
+        "yaml": "^2.9.1",
+        "zod": "^4.6.5"
+    }
+}

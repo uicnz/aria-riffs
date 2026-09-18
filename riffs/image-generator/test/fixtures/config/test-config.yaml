@@ -1,0 +1,32 @@
+# Test Configuration for Image Generator
+
+image-generator:
+    gemini:
+        defaultModel: 'gemini-2.5-flash-image'
+        timeoutMs: 30000
+        retryAttempts: 1
+
+    defaults:
+        aspectRatio: '1:1'
+        imageSize: '1K'
+        outputFormat: 'png'
+
+    output:
+        filenamePattern: 'test_{timestamp}'
+        timestampFormat: 'YYYY-MM-DD'
+
+    paths:
+        output:
+            dir: 'test-outputs'
+            chatDir: './test-outputs'
+            history: '.test-chat-history.json'
+
+    chat:
+        autoSave: true
+
+logging:
+    level: 'debug'
+    verbose: true
+    file: 'test.log'
+    maxFileSizeMb: 5
+    maxFiles: 3

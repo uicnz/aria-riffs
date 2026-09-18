@@ -1,0 +1,30 @@
+{
+    "name": "@aria/sharepoint-manager",
+    "version": "0.1.0",
+    "description": "SharePoint link extraction and file management",
+    "type": "module",
+    "packageManager": "bun@1.4.2",
+    "engines": {
+        "bun": ">=1.4.0",
+        "node": ">=26.0.0"
+    },
+    "main": "dist/cli.js",
+    "bin": {
+        "sharepoint-manager": "dist/cli.js"
+    },
+    "files": [
+        "dist/",
+        "src/",
+        "config.yaml"
+    ],
+    "dependencies": {
+        "commander": "^15.0.0",
+        "csv-parser": "^3.2.1",
+        "csv-writer": "^1.6.0",
+        "dotenv": "^18.0.0",
+        "js-yaml": "^5.4.2",
+        "libsql": "^0.5.29",
+        "pino": "^10.3.1",
+        "zod": "^4.6.5"
+    }
+}

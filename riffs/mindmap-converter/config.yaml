@@ -1,0 +1,58 @@
+# Mindmap Converter Configuration
+
+# Riff metadata for TUI discovery
+aria-riff:
+    name: mindmap-converter
+    description: OPML and FreeMind to Markdown conversion
+    category: utilities
+
+mindmap-converter:
+    # Path settings
+    paths:
+        input:
+            dir: '~/.aria/sources/mindmaps'
+        output:
+            dir: '~/.aria/exports/mindmap'
+            master: '~/.aria/exports/mindmap/mindmaps.jsonl'
+        database:
+            file: '~/.aria/db/mindmap-converter/mindmap-converter.sqlite'
+
+    # Conversion settings
+    conversion:
+        defaultFormat: 'headers'  # Default output format: headers, bullets, numbered, mixed, etc.
+        maxHeadingLevel: 6  # Maximum heading level before switching to bullets (1-6)
+        useBulletPoints: true  # Use bullet points after max heading level
+        preserveHierarchy: true  # Maintain hierarchical structure
+
+    # Output settings
+    output:
+        fileExtension: '.md'  # Output file extension
+        overwriteExisting: false  # Allow overwriting existing files
+        autoDetectFormat: true  # Auto-detect input format from file extension
+
+    # Validation settings
+    validation:
+        strictMode: false  # Strict validation of input files
+        requireTitle: false  # Require title in OPML files
+
+    # Database settings
+    database:
+        tableName: 'mindmaps'  # Table name for mindmap records
+        journalMode: 'WAL'  # Journal mode: DELETE, WAL, TRUNCATE, PERSIST, MEMORY, or OFF
+
+    # Batch processing settings
+    batch:
+        batchSize: 50  # Number of files to process in each batch
+        saveInterval: 10  # Save progress to database every N files
+        preserveStructure: true  # Preserve source directory structure in output
+
+    # JSONL export settings
+    jsonl:
+        appendMode: true  # Append to existing file (true) or overwrite (false)
+
+logging:
+    level: 'info'  # Logging level: DEBUG, INFO, WARN, ERROR
+    verbose: false  # Enable verbose output
+    file: '~/.aria/logs/mindmap-converter.log'  # Log file path (relative to cwd)
+    maxFileSizeMb: 10  # Maximum log file size before rotation
+    maxFiles: 7  # Number of rotated log files to keep

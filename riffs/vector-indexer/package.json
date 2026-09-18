@@ -1,0 +1,33 @@
+{
+    "name": "@aria/vector-indexer",
+    "version": "0.1.0",
+    "description": "Semantic vector indexing with embeddings and Qdrant",
+    "type": "module",
+    "packageManager": "bun@1.4.2",
+    "engines": {
+        "bun": ">=1.4.0",
+        "node": ">=26.0.0"
+    },
+    "main": "dist/cli.js",
+    "bin": {
+        "vector-indexer": "dist/cli.js"
+    },
+    "files": [
+        "dist/",
+        "src/",
+        "config.yaml"
+    ],
+    "dependencies": {
+        "@qdrant/js-client-rest": "^1.19.0",
+        "ai": "^7.0.106",
+        "ai-sdk-ollama": "^4.3.0",
+        "commander": "^15.0.0",
+        "dotenv": "^18.0.0",
+        "glob": "^13.0.6",
+        "ora": "^9.4.1",
+        "pino": "^10.3.1",
+        "wink-bm25-text-search": "^3.1.2",
+        "yaml": "^2.9.1",
+        "zod": "^4.6.5"
+    }
+}

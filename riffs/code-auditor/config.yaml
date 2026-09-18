@@ -1,0 +1,19 @@
+# Code Auditor Riff Configuration
+
+# Riff metadata for TUI discovery
+aria-riff:
+    name: code-auditor
+    description: Dependency management and security scanning
+    category: development
+
+code-auditor:
+    paths: {}
+    output:
+        jsonOutput: false
+
+logging:
+    level: 'info'
+    verbose: false
+    file: '~/.aria/logs/code-auditor.log'
+    maxFileSizeMb: 10
+    maxFiles: 7

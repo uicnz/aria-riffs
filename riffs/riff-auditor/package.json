@@ -1,0 +1,29 @@
+{
+    "name": "@aria/riff-auditor",
+    "version": "0.1.0",
+    "description": "Riff configuration auditing and validation",
+    "type": "module",
+    "packageManager": "bun@1.4.2",
+    "engines": {
+        "bun": ">=1.4.0",
+        "node": ">=26.0.0"
+    },
+    "main": "dist/cli.js",
+    "bin": {
+        "riff-auditor": "dist/cli.js"
+    },
+    "files": [
+        "dist/",
+        "src/",
+        "config.yaml"
+    ],
+    "dependencies": {
+        "commander": "^15.0.0",
+        "dotenv": "^18.0.0",
+        "js-yaml": "^5.4.2",
+        "pino": "^10.3.1",
+        "typescript": "^7.0.2",
+        "yaml": "^2.9.1",
+        "zod": "^4.6.5"
+    }
+}

@@ -1,0 +1,4 @@
+This file has the same content in both directories.
+It should be detected as an "Identical file" by the diff riff.
+
+It has multiple lines to make it more realistic.

@@ -1,0 +1,33 @@
+# image-transcoder Configuration
+
+# Riff metadata for TUI discovery
+aria-riff:
+    name: image-transcoder
+    description: Image resize and format conversion
+    category: images
+
+image-transcoder:
+    paths:
+        input:
+            dir: null
+        output:
+            dir: null
+
+    transcoding:
+        maxFileSizeBytes: 5242880  # 5MB in bytes
+        quality: 85
+
+    processing:
+        recursive: true
+
+logging:
+    # Log level: DEBUG, INFO, WARN, ERROR
+    level: 'info'
+    # Enable verbose (debug) logging
+    verbose: false
+    # Log file name (stored in .aria/logs/ directory)
+    file: '~/.aria/logs/image-transcoder.log'
+    # Maximum log file size in MB before rotation
+    maxFileSizeMb: 10
+    # Maximum number of rotated log files to keep
+    maxFiles: 7

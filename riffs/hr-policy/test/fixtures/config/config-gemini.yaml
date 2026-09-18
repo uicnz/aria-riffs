@@ -1,0 +1,13 @@
+embeddings:
+    provider: 'gemini'
+    max_chars: 15000
+    batch_size: 50
+    gemini:
+        api_key: 'gemini-test-key'
+        model: 'text-embedding-004'
+        dimensions: 768
+        timeout: 45
+
+indexer:
+    sections: 'both'
+    weight_response: 1.5

@@ -1,0 +1,57 @@
+# SharePoint Link Extractor Configuration
+
+# Riff metadata for TUI discovery
+aria-riff:
+    name: sharepoint-manager
+    description: SharePoint link extraction and file management
+    category: utilities
+
+sharepoint-manager:
+    # Path settings
+    paths:
+        input:
+            # OneDrive sync folder path
+            onedrive: '/Users/shaneholloman/Library/CloudStorage/OneDrive-CelloGroupLimited/Clients'
+            # OneDrive local database path (macOS)
+            onedriveDb: '~/Library/Containers/com.microsoft.OneDrive-mac/Data/Library/Application Support/OneDrive/settings/Business1/SyncEngineDatabase.db'
+        output:
+            # CSV output file path
+            index: '~/.aria/db/sharepoint-manager/sharepoint-manager.csv'
+        database:
+            # SQLite database path
+            file: '~/.aria/db/sharepoint-manager/sharepoint-manager.sqlite'
+
+    # SharePoint link settings
+    links:
+        # Base SharePoint URL for link generation
+        sharePointBase: 'https://celloltd-my.sharepoint.com/my'
+        # Milliseconds to wait for clipboard extraction
+        extractionDelay: 1500
+
+    # Output format settings
+    output:
+        # Output format: 'csv', 'sqlite', or 'both'
+        format: 'both'
+        # Save progress every N files
+        saveInterval: 10
+
+    # Processing settings
+    processing:
+        # Default batch size for processing files
+        batchSize: 50
+        # Automatically retry failed files
+        retryFailed: false
+
+    # Database extraction settings
+    database:
+        # SharePoint web path for URL construction
+        sharePointWebBasePath: 'personal/shane_holloman_cello_co_nz/Documents/Clients'
+        # Extraction method: 'auto' (try database first, fallback to applescript), 'database' (database only), 'applescript' (applescript only)
+        method: 'auto'
+
+logging:
+    level: 'info'
+    verbose: false
+    file: '~/.aria/logs/sharepoint-manager.log'
+    maxFileSizeMb: 10
+    maxFiles: 7

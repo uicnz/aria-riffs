@@ -1,0 +1,8 @@
+This file has different content in each directory.
+It should be detected as a "Changed file" by the diff riff.
+
+This is line 4 in dir1.
+This is line 5 in dir1.
+This is line 6 in dir1.
+
+Line specific to dir1.

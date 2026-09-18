@@ -1,0 +1,91 @@
+# Image Meta Processor Configuration
+#
+# Structure follows the canonical Aria config pattern:
+# - 'image-metadata:' wrapper for riff-specific config (TUI-visible)
+# - 'logging:' top-level peer section
+# - 'llmProviders:' top-level peer section for provider details
+
+# Riff metadata for TUI discovery
+aria-riff:
+    name: image-metadata
+    description: Image EXIF metadata extraction and processing
+    category: images
+
+image-metadata:
+    # Path configuration
+    paths:
+        input:
+            dir: '~/.aria/assets/images'
+        database:
+            file: '~/.aria/db/image-metadata/image-metadata.sqlite'  # override with IMAGE_METADATA_DATABASE_PATH
+
+    # LLM Provider Selection (just the selector, not full config)
+    llm:
+        # Choose provider: 'ollama', 'anthropic', or 'gemini'
+        provider: 'ollama'  # override with IMAGE_METADATA_PROVIDER
+
+    # Database settings
+    database:
+        backupCount: 3
+        # Journal mode: DELETE, WAL, TRUNCATE, PERSIST, MEMORY, or OFF
+        # DELETE is safer for concurrent access, WAL is faster for reads
+        journalMode: 'DELETE'
+
+    # Image processing settings
+    images:
+        supportedExtensions:
+            - '.png'
+            - '.jpg'
+            - '.jpeg'
+            - '.gif'
+            - '.bmp'
+        maxFileSizeMb: 50
+
+    # Metadata settings
+    metadata:
+        retryAttempts: 3
+        retryDelay: 1.0
+
+    # Processing settings
+    processing:
+        batchSize: 10
+        progressBar: true
+
+logging:
+    level: 'info'  # override with IMAGE_METADATA_LOG_LEVEL
+    verbose: false  # override with IMAGE_METADATA_LOG_VERBOSE
+    file: '~/.aria/logs/image-metadata.log'  # override with IMAGE_METADATA_LOG_FILE
+    maxFileSizeMb: 10
+    maxFiles: 7
+
+# @aria-config: justified-peer
+# Provider configuration details - not exposed in TUI (select provider via image-metadata.llm.provider)
+llmProviders:
+    # Ollama API settings
+    ollama:
+        endpoint: 'http://localhost:11434/'
+        model: 'llava-llama3'
+        # model: 'gemma3:12b'
+        timeout: 60
+        # Keep model loaded in memory for faster subsequent requests
+        # Time in seconds, -1 = indefinite, 0 = unload immediately
+        keepAlive: 300
+        prompt: Please provide a detailed description of this image. Include information about the main subjects, setting, colors, composition, mood, and any notable details. Write in a descriptive, professional style suitable for image metadata. Do not use markdown or any other kind of markup in the output. If you cannot see the image, respond with 'Image not visible.'
+
+    # Anthropic Claude API settings
+    anthropic:
+        apiKey: ''  # Set via ANTHROPIC_API_KEY environment variable
+        model: 'claude-sonnet-4-20250514'
+        timeout: 30
+        maxTokens: 1024
+        baseUrl: 'https://api.anthropic.com/v1'
+        prompt: Please provide a detailed description of this image. Include information about the main subjects, setting, colors, composition, mood, and any notable details. Write in a descriptive, professional style suitable for image metadata. Do not use markdown or any other kind of markup in the output. If you cannot see the image, respond with 'Image not visible.'
+
+    # Google Gemini API settings
+    gemini:
+        apiKey: ''  # Set via GOOGLE_API_KEY environment variable
+        model: 'gemini-2.5-flash'
+        timeout: 30
+        maxTokens: 1024
+        baseUrl: 'https://generativelanguage.googleapis.com/v1beta'
+        prompt: Please provide a detailed description of this image. Include information about the main subjects, setting, colors, composition, mood, and any notable details. Write in a descriptive, professional style suitable for image metadata. Do not use markdown or any other kind of markup in the output. If you cannot see the image, respond with 'Image not visible.'

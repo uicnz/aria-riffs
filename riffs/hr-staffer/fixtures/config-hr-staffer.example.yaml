@@ -1,0 +1,58 @@
+# Hr Staffer Configuration Example
+# Copy this file to config-hr-staffer.yaml and customize for your organization
+
+hr-staffer:
+    # Centralized path configuration
+    paths:
+        input:
+            # Path to CSV file containing staff directory
+            # CSV must have exactly 11 columns: Display Name, First Name, Last Name, Email Address,
+            # Title, Department, Manager, Mobile, Street Address, City, Country
+            staff: 'sources/your-organization/staff/staff-directory.csv'
+            # Input markdown file to decompose into sections
+            chart: '~/.aria/db/hr-staffer/org-chart.md'
+            # Directory containing decomposed section files to index
+            sections: '~/.aria/exports/cello/hr-staffer'
+        output:
+            # Output directory for generated org chart files
+            # Charts will be saved as: org-chart.txt, org-chart.md, org-chart.mermaid, etc.
+            chart: '~/.aria/db/hr-staffer'
+            # Output directory for decomposed section files
+            sections: '~/.aria/exports/cello/hr-staffer'
+        database:
+            # Path to SQLite database file
+            file: '~/.aria/db/hr-staffer/hr-staffer.db'
+
+    # Output format toggles
+    output:
+        formats:
+            # Generate plain text org chart
+            text: true
+            # Generate markdown org chart
+            markdown: true
+            # Generate mermaid diagram files
+            mermaid: true
+
+    # Display options
+    display:
+        # Include job titles in output
+        includeTitle: true
+        # Include department names in output
+        includeDepartment: true
+        # Include email addresses in output
+        includeEmail: false
+        # Maximum tree depth to display (null means no limit)
+        maxDepth: null
+
+    # Mermaid-specific options
+    mermaid:
+        # Teams to break down into separate sub-team files (by team leader Display Name)
+        # This generates overview + individual sub-team mermaid files for specified leaders
+        # Example: ['Executive Leader Name', 'Department Head Name']
+        # Leave empty [] for no breakdown (default)
+        breakDownTeams: []
+
+    # Database options
+    database:
+        # Enable SQLite database storage (stores employee data for querying)
+        enabled: true

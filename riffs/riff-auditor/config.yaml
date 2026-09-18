@@ -1,0 +1,69 @@
+# Riff metadata for TUI discovery
+aria-riff:
+    name: riff-auditor
+    description: Riff configuration auditing and validation
+    category: development
+
+riff-auditor:
+    paths:
+        input:
+            riffs: riffs
+            package: package.json
+        output:
+            dir: '~/.aria/audits'
+            filename: riff-auditor.json
+
+    audits:
+        config: true
+        schema: true
+        cli: true
+        env: true
+        logger: true
+        source: true
+        structure: true
+        tui: true
+        scripts: true
+        tsconfig: true
+        validation: true
+        paths: true
+        configTest: true
+        configLoader: true
+        dependencies: true
+
+    rules:
+        # Directory requirements
+        requireTestUnit: true
+        requireTestIntegration: true
+        requireTui: false
+        requireCore: true
+        requireLib: true
+        # Placeholder handling
+        allowGitkeepPlaceholders: true
+        # Script requirements
+        requireRiffScript: true
+        requireTestScript: true
+        requireTypecheckScript: true
+        # TUI requirements
+        requireTuiAppExport: false
+        requireTuiRenderAppExport: false
+        requireTuiControllerExport: false
+        requireAriaTuiPackage: false
+        requireAppShell: false
+        # CLI requirements
+        requireCreateProgramFunc: true
+        requireExecutionGuard: true
+        disallowModuleLevelProgram: true
+        # Config requirements
+        requireConfigWrapper: true
+        requireLoggingPeer: true
+        requireBracketNotation: true
+        # Schema requirements
+        requireLoggingSchema: true
+        requireStrictRoot: true
+
+logging:
+    level: info
+    verbose: false
+    file: .aria/logs/riff-auditor.log
+    maxFileSizeMb: 10
+    maxFiles: 7

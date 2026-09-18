@@ -1,0 +1,7 @@
+image-transcoder:
+  paths:
+    output:
+      dir: /custom/output/path
+  transcoding:
+    maxFileSizeBytes: 5242880
+    quality: 85

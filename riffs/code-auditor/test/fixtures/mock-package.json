@@ -1,0 +1,19 @@
+{
+    "name": "mock-project",
+    "version": "1.0.0",
+    "description": "Mock project for dependency audit testing",
+    "type": "module",
+    "main": "index.js",
+    "riffs": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "dependencies": {
+        "chalk": "^6.0.0",
+        "commander": "^15.0.0",
+        "used-dependency": "^1.0.0",
+        "unused-dependency": "^2.0.0"
+    },
+    "devDependencies": {
+        "jest": "^30.2.0"
+    }
+}

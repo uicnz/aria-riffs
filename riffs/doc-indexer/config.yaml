@@ -1,0 +1,425 @@
+# doc-indexer Configuration
+
+# Riff metadata for TUI discovery
+aria-riff:
+    name: doc-indexer
+    description: Document indexing, semantic search, and knowledge graphs
+    category: documents
+
+doc-indexer:
+    # Category definitions (domain-specific classification)
+    categories:
+        - name: 'standard'
+          description: 'Cookie-cutter: use verbatim across clients, no customisation needed'
+          customise: false
+        - name: 'hybrid'
+          description: 'Mix: standard framework with specific details added'
+          customise: true
+        - name: 'specific'
+          description: 'Snowflake: 100% custom, unique to each client, never done before'
+          customise: true
+
+    # Priority levels (domain-specific compliance levels)
+    priorities:
+        - name: 'Must Fully Comply'
+          level: 'must'
+        - name: 'Should Comply'
+          level: 'should'
+        - name: 'Nice to Comply'
+          level: 'nice'
+
+    # Department definitions (domain-specific organizational structure)
+    departments:
+        - name: 'core-services'
+          description: 'Responsible for fundamental network services including routing, switching, and core infrastructure'
+          leader: ''
+        - name: 'operations-engineering-noc'
+          description: 'Handles network operations, monitoring, incident response, and engineering support'
+          leader: ''
+        - name: 'commercial-service-management'
+          description: 'Manages commercial aspects, service delivery, and customer relationship management'
+          leader: ''
+        - name: 'project-delivery'
+          description: 'Oversees project implementation, timelines, and delivery of network solutions'
+          leader: ''
+        - name: 'business-operations'
+          description: 'Handles business processes, operational procedures, and organizational management'
+          leader: ''
+        - name: 'security-compliance'
+          description: 'Ensures security standards, compliance requirements, and risk management'
+          leader: ''
+
+    # Path settings
+    paths:
+        input:
+            # Default directory to index
+            documents: '~/.aria/exports/cello/clients/inland-revenue-department/response/rfp-responses-decomposed'
+            # Full RFP path for context
+            fullRfp: '~/.aria/exports/cello/clients/inland-revenue-department/response/rfp-responses-original/rfp-wifi-and-internet-rfp-appendix-a-response-form.md'
+        output:
+            # Output directory for graph and documents
+            dir: '~/.aria/db/doc-indexer'
+        template:
+            # Graph JSON output filename
+            graph: 'graph.json'
+            # Documents JSONL output filename
+            documents: 'documents.jsonl'
+            # HTML viewer output filename
+            viewer: 'viewer.html'
+        database:
+            # SQLite database file
+            file: '~/.aria/db/doc-indexer/doc-indexer.sqlite'
+
+    # RFP parser configuration (optional - omit for non-RFP documents)
+    rfp:
+        # Static metadata (overrides extraction if both provided) note we need a method to handle any client. Right now, the scope of this is too myopic.
+        metadata:
+            vendor: 'Cello Group Limited'
+            client: 'Inland Revenue'
+            rfpName: 'WiFi & Internet'
+
+        # Dynamic metadata extraction patterns (applied to first file)
+        extraction:
+            vendor:
+                pattern: '\|\s*Business website:\s*\|\s*<([^>]+)>'
+                fallback: 'Cello Group Limited'
+            client:
+                pattern: 'Client:\s*(.+)'
+                fallback: null
+            rfpName:
+                pattern: 'RFP Name:\s*(.+)'
+                fallback: null
+            proposalDate:
+                pattern: 'Date of this proposal:\s*([\d-]+)'
+                dateFormat: 'DD-MM-YY'
+
+        # Requirement identifier patterns (regex-based)
+        requirements:
+            patterns:
+                - '\b(BR\d{1,4})\b'  # Business Requirements
+                - '\b(MR\d{1,4})\b'  # Mandatory Requirements
+                - '\b(SR\d{1,4})\b'  # Security Requirements
+                - '\b(PR\d{1,4})\b'  # Performance Requirements
+
+    # Search configuration
+    search:
+        # Scoring weights for hybrid search ranking
+        # Base weights should sum to 1.0 for the primary formula
+        weights:
+            # Base scoring weights (sum to 1.0)
+            title: 0.25  # Weight for title match score
+            identifier: 0.15  # Weight for identifier match score
+            semantic: 0.30  # Weight for semantic similarity
+            lexical: 0.20  # Weight for lexical/RRF score
+            phrase: 0.10  # Weight for exact phrase match
+            # Bonus multipliers
+            identifierBoost: 0.20  # Extra boost for exact identifier matches
+            phraseBoost: 0.15  # Extra boost for phrase matches
+            passBonus: 0.025  # Bonus per retrieval pass (capped at 0.1)
+
+        # Snippet extraction settings
+        # Number of lines of context around the match (1 = tight, 2 = moderate, 3+ = verbose)
+        snippetContextLines: 1
+
+    # OpenAI model for embeddings
+    model: 'text-embedding-3-large'
+    # Embedding dimensions
+    dimensions: 3072
+    # Maximum characters per item for embedding
+    maxEmbedChars: 20000
+    # Section mode: 'response', 'request', 'both', or 'full'
+    sections: 'both'
+    # Bias embeddings toward Response sections
+    weightResponse: 1.8
+    # Enable full-text search (FTS5)
+    useFts: true
+    # Enable hybrid lexical+semantic search
+    hybrid: true
+    # Lexical weight when hybrid is enabled (0.0-1.0)
+    alpha: 0.2
+    # Show metadata in search results
+    showMetadata: true
+    # Highlight query terms in results
+    highlight: true
+    # Color for highlighting search terms in snippets
+    highlightColor: 'magenta'
+
+    # TUI configuration
+    # Override with DOC_INDEXER_THEME environment variable
+    tui:
+        # Available themes:
+        # Dark: Default Dark, GitHub Dark, Ayu Dark, Dracula, Atom One, Shades Of Purple, Holiday, ANSI Dark
+        # Light: Default Light, GitHub Light, Ayu Light, Xcode, Google Code, ANSI Light
+        theme: 'GitHub Dark'
+
+logging:
+    level: 'info'
+    verbose: false
+    file: '~/.aria/logs/doc-indexer.log'
+    maxFileSizeMb: 10
+    maxFiles: 7
+
+# @aria-config: justified-peer
+# Reference data for search enhancement - not exposed in TUI
+searchReference:
+    # Abbreviation expansions: maps short form to expanded terms
+    abbreviations:
+        # Service Management
+        sla: ['service', 'level', 'agreement']
+        slo: ['service', 'level', 'objective']
+        kpi: ['key', 'performance', 'indicator']
+        itil: ['information', 'technology', 'infrastructure', 'library']
+        itsm: ['service', 'management']
+        # Security
+        siem: ['security', 'information', 'event', 'management']
+        soc: ['security', 'operations', 'center']
+        iam: ['identity', 'access', 'management']
+        mfa: ['multi', 'factor', 'authentication']
+        sso: ['single', 'sign', 'on']
+        pki: ['public', 'key', 'infrastructure']
+        ddos: ['distributed', 'denial', 'service']
+        ids: ['intrusion', 'detection', 'system']
+        ips: ['intrusion', 'prevention', 'system']
+        waf: ['web', 'application', 'firewall']
+        vpn: ['virtual', 'private', 'network']
+        ssl: ['secure', 'socket', 'layer']
+        tls: ['transport', 'layer', 'security']
+        # Network Operations
+        noc: ['network', 'operations', 'center']
+        lan: ['local', 'area', 'network']
+        wan: ['wide', 'area', 'network']
+        dns: ['domain', 'name', 'system']
+        dhcp: ['dynamic', 'host', 'configuration', 'protocol']
+        snmp: ['simple', 'network', 'management', 'protocol']
+        bgp: ['border', 'gateway', 'protocol']
+        mpls: ['multiprotocol', 'label', 'switching']
+        # Cloud and Infrastructure
+        iaas: ['infrastructure', 'as', 'service']
+        paas: ['platform', 'as', 'service']
+        saas: ['software', 'as', 'service']
+        vm: ['virtual', 'machine']
+        vdi: ['virtual', 'desktop', 'infrastructure']
+        cdn: ['content', 'delivery', 'network']
+        dr: ['disaster', 'recovery']
+        rpo: ['recovery', 'point', 'objective']
+        rto: ['recovery', 'time', 'objective']
+        ha: ['high', 'availability']
+        # Development and Operations
+        ci: ['continuous', 'integration']
+        cd: ['continuous', 'deployment', 'delivery']
+        api: ['application', 'programming', 'interface']
+        rest: ['representational', 'state', 'transfer']
+        sdk: ['software', 'development', 'kit']
+        sdlc: ['software', 'development', 'lifecycle']
+        # Business and Compliance
+        rfp: ['request', 'for', 'proposal']
+        rfi: ['request', 'for', 'information']
+        sow: ['statement', 'of', 'work']
+        pci: ['payment', 'card', 'industry']
+        gdpr: ['general', 'data', 'protection', 'regulation']
+        hipaa: ['health', 'insurance', 'portability', 'accountability']
+        iso: ['international', 'standards', 'organization']
+        soc2: ['service', 'organization', 'control']
+        # Operations
+        mttr: ['mean', 'time', 'repair', 'resolution']
+        mttf: ['mean', 'time', 'failure']
+        mtbf: ['mean', 'time', 'between', 'failures']
+        ops: ['operations']
+        bcp: ['business', 'continuity', 'plan']
+        brp: ['business', 'recovery', 'plan']
+
+    # Synonym groups: arrays of terms that should match together
+    synonyms:
+        # Management terms
+        - ['management', 'mgmt', 'admin', 'administration']
+        - ['incident', 'issue', 'ticket', 'problem']
+        - ['change', 'modification', 'update', 'amendment']
+        - ['request', 'requisition', 'order']
+        # Process terms
+        - ['process', 'procedure', 'workflow', 'methodology']
+        - ['policy', 'guideline', 'standard', 'rule']
+        - ['patching', 'updates', 'patches', 'update']
+        - ['testing', 'validation', 'verification', 'qa']
+        # Security terms
+        - ['security', 'protection', 'safeguard']
+        - ['authentication', 'auth', 'login', 'access']
+        - ['monitoring', 'surveillance', 'observation', 'tracking']
+        - ['vulnerability', 'weakness', 'exposure', 'flaw']
+        - ['threat', 'risk', 'danger', 'hazard']
+        # Infrastructure terms
+        - ['server', 'host', 'node', 'machine']
+        - ['network', 'infrastructure', 'connectivity']
+        - ['storage', 'data', 'repository']
+        - ['backup', 'archive', 'snapshot']
+        - ['cloud', 'hosted', 'remote']
+        # Support terms
+        - ['support', 'assistance', 'help', 'service']
+        - ['maintenance', 'upkeep', 'servicing']
+        - ['availability', 'uptime', 'reliability']
+        - ['performance', 'efficiency', 'speed']
+        # Document identifiers
+        - ['mr', 'management', 'requirement']
+        - ['br', 'business', 'requirement']
+        - ['sr', 'security', 'requirement']
+        - ['pr', 'project', 'requirement']
+        # Organization terms
+        - ['team', 'group', 'department', 'unit']
+        - ['vendor', 'supplier', 'provider', 'partner']
+        - ['customer', 'client', 'user', 'consumer']
+
+    # Stop words to filter from queries
+    stopWords:
+        # Articles
+        - 'a'
+        - 'an'
+        - 'the'
+        # Conjunctions
+        - 'and'
+        - 'or'
+        - 'but'
+        - 'nor'
+        - 'yet'
+        - 'so'
+        - 'because'
+        - 'since'
+        - 'although'
+        - 'unless'
+        - 'if'
+        - 'as'
+        # Prepositions
+        - 'at'
+        - 'by'
+        - 'for'
+        - 'from'
+        - 'in'
+        - 'into'
+        - 'of'
+        - 'on'
+        - 'to'
+        - 'with'
+        - 'without'
+        - 'under'
+        - 'over'
+        - 'through'
+        - 'after'
+        - 'before'
+        - 'above'
+        - 'below'
+        - 'between'
+        - 'during'
+        - 'while'
+        - 'about'
+        - 'against'
+        - 'among'
+        - 'until'
+        # Pronouns
+        - 'i'
+        - 'me'
+        - 'my'
+        - 'we'
+        - 'our'
+        - 'you'
+        - 'your'
+        - 'he'
+        - 'she'
+        - 'it'
+        - 'they'
+        - 'them'
+        - 'their'
+        # Be verbs
+        - 'is'
+        - 'are'
+        - 'was'
+        - 'were'
+        - 'am'
+        - 'been'
+        - 'being'
+        - 'be'
+        # Auxiliary verbs
+        - 'have'
+        - 'has'
+        - 'had'
+        - 'do'
+        - 'does'
+        - 'did'
+        - 'will'
+        - 'would'
+        - 'could'
+        - 'should'
+        - 'may'
+        - 'might'
+        - 'must'
+        - 'can'
+        # Common adverbs
+        - 'not'
+        - 'just'
+        - 'only'
+        - 'very'
+        - 'really'
+        - 'still'
+        - 'also'
+        - 'even'
+        - 'ever'
+        - 'never'
+        - 'too'
+        # Question words
+        - 'what'
+        - 'when'
+        - 'where'
+        - 'who'
+        - 'whom'
+        - 'whose'
+        - 'why'
+        - 'how'
+        - 'which'
+        # Demonstratives and quantifiers
+        - 'this'
+        - 'that'
+        - 'these'
+        - 'those'
+        - 'all'
+        - 'any'
+        - 'both'
+        - 'each'
+        - 'few'
+        - 'more'
+        - 'most'
+        - 'other'
+        - 'some'
+        - 'such'
+        - 'than'
+        - 'then'
+        - 'there'
+
+    # Identifier prefix expansions: maps prefix to expanded terms
+    # Used to enrich embeddings and FTS for document identifiers
+    identifierExpansions:
+        MR: ['management', 'requirement', 'managed']
+        BR: ['business', 'requirement']
+        SR: ['security', 'requirement']
+        PR: ['project', 'requirement']
+
+    # Domain-specific product/platform names for keyword extraction
+    # These are detected in content and added to embeddings
+    domainProducts:
+        - 'meraki'
+        - 'cisco'
+        - 'sentinel'
+        - 'azure'
+        - 'microsoft'
+        - 'servicenow'
+        - 'splunk'
+        - 'palo alto'
+        - 'fortinet'
+
+    # Domain-specific technical concepts for keyword extraction
+    # Multi-word concepts that should be preserved and boosted
+    domainConcepts:
+        - 'zero trust'
+        - 'cloud native'
+        - 'high availability'
+        - 'disaster recovery'
+        - 'incident response'
+        - 'change management'
+        - 'service level'
+        - 'performance monitoring'

@@ -1,0 +1,72 @@
+commit-formatter:
+    llm:
+        provider: 'anthropic'
+        anthropic:
+            apiKey: 'test-api-key-anthropic'
+            model: 'claude-haiku-4-5'
+            temperature: 0.3
+            maxTokens: 1000
+            baseUrl: 'https://api.anthropic.com/v1'
+            timeout: 60
+        gemini:
+            apiKey: ''
+            model: 'gemini-2.5-flash'
+            temperature: 0.3
+            maxTokens: 1000
+            baseUrl: 'https://generativelanguage.googleapis.com/v1beta'
+            timeout: 60
+        openai:
+            apiKey: ''
+            model: 'gpt-5-mini'
+            temperature: 0.3
+            maxTokens: 1000
+            baseUrl: 'https://api.openai.com/v1'
+            timeout: 60
+
+    defaults:
+        mode: 'assisted'
+        count: 20
+        skipConventional: true
+        createBackup: true
+        generateReport: true
+
+    author:
+        mode: 'preserve'
+
+    conventionalCommits:
+        requiredTypes:
+            - 'feat'
+            - 'fix'
+        additionalTypes:
+            - 'build'
+            - 'chore'
+            - 'ci'
+            - 'docs'
+            - 'style'
+            - 'refactor'
+            - 'perf'
+            - 'test'
+        maxDescriptionLength: 72
+        allowBreakingChanges: true
+        scopeOptional: true
+
+    backup:
+        branchPrefix: 'backup-before-reformat'
+        pushToRemote: false
+        cleanupAfterDays: 30
+
+    paths:
+        output:
+            dir: '.'
+
+    reports:
+        jsonFilenameTemplate: 'commit-reformat-report-{date}.json'
+        markdownFilenameTemplate: 'commit-reformat-report-{date}.md'
+        includeDiffSummary: false
+
+logging:
+    level: 'info'
+    verbose: false
+    file: 'commit-formatter.log'
+    maxFileSizeMb: 10
+    maxFiles: 7

@@ -1,0 +1,104 @@
+# Doc Decomposer Configuration
+
+# Riff metadata for TUI discovery
+aria-riff:
+    name: doc-decomposer
+    description: RFP document analysis and decomposition
+    category: documents
+
+doc-decomposer:
+    # Response templates - company-specific text used in output
+    responseTemplates:
+        # Company name used in response templates and parsing patterns
+        # Example: 'Acme Corp' produces 'See Acme Corp response to BR01'
+        companyName: 'Cello'
+        # Compliance statement template
+        # Example: 'agrees to fully comply' produces '[Company] agrees to fully comply'
+        complianceStatement: 'agrees to fully comply'
+
+    # Category definitions (domain-specific classification)
+    categories:
+        - name: 'standard'
+          description: 'Responses containing established policies and procedures that never change in substance. The content remains identical across all clients - only minor phrasing adjustments for natural flow. Policy-driven responses.'
+          customise: false
+        - name: 'hybrid'
+          description: 'Responses combining standard framework with client-specific details. The structure and approach remain consistent but specific values (names, dates, locations, quantities) must be adapted. Template-based customisation.'
+          customise: true
+        - name: 'specific'
+          description: 'Completely custom responses unique to each clients environment and requirements. No reusable template exists - must be written from scratch based on specific infrastructure, topology, and business needs. Full customisation required.'
+          customise: true
+
+    # Priority levels (domain-specific compliance levels)
+    priorities:
+        - name: 'Must Fully Comply'
+          level: 'must'
+        - name: 'Should Comply'
+          level: 'should'
+        - name: 'Nice to Comply'
+          level: 'nice'
+
+    # Department definitions (domain-specific organizational structure)
+    departments:
+        - name: 'core-services'
+          description: 'Responsible for fundamental network services including routing, switching, and core infrastructure'
+        - name: 'operations-engineering-noc'
+          description: 'Handles network operations, monitoring, incident response, and engineering support'
+        - name: 'commercial-service-management'
+          description: 'Manages commercial aspects, service delivery, and customer relationship management'
+        - name: 'project-delivery'
+          description: 'Oversees project implementation, timelines, and delivery of network solutions'
+        - name: 'business-operations'
+          description: 'Handles business processes, operational procedures, and organizational management'
+        - name: 'security-compliance'
+          description: 'Ensures security standards, compliance requirements, and risk management'
+
+    # Regex patterns for parsing (domain-specific)
+    patterns:
+        # Matches IMPORTANT blocks with identifier (e.g., BR43)
+        importantBlock: '>\s*\[!IMPORTANT\][\s\S]*?-\s+([A-Z]+\d{1,4})(?:\s|$)[\s\S]*?(?=\n(?!>)|$)'
+        importantBlockFlags: 'g'
+
+        # Matches metadata sections in classification file
+        metadataSection: '\d+\.\s+\*\*(.*?)\s+\((.*?)\)\*\*([\s\S]*?)(?=\d+\.\s+\*\*|$)'
+        metadataSectionFlags: 'g'
+
+        # Matches markdown headings
+        heading: '(?:^|\n)#{1,4}\s+([^\n]+)(?:\n|$)[^]*?$'
+        headingFlags: ''
+
+        # Matches markdown image references
+        imageRef: '!\[([^\]]*)\]\(([^)]+)\)'
+        imageRefFlags: 'g'
+
+        # Field extractors for metadata
+        priority: 'Priority:\s+`(.*?)`'
+        priorityFlags: ''
+        category: 'Category:\s+`(.*?)`'
+        categoryFlags: ''
+        department: 'Department:\s+`(.*?)`'
+        departmentFlags: ''
+        leader: 'Leader:\s+`(.*?)`'
+        leaderFlags: ''
+        customise: 'Customise:\s+`(.*?)`'
+        customiseFlags: ''
+
+    # Default paths (domain-specific)
+    paths:
+        input:
+            # TUI default: metadata classification file
+            metadata: '~/.aria/exports/cello/clients/inland-revenue-department/response/rfp-responses-original/rfp-request-response-pairs-tagged.md'
+            # TUI default: RFP source document
+            rfp: '~/.aria/exports/cello/clients/inland-revenue-department/response/rfp-responses-original/rfp-wifi-and-internet-rfp-appendix-a-response-form.md'
+        output:
+            dir: '~/.aria/exports/cello/clients/inland-revenue-department/response/rfp-responses-decomposed'
+        template:
+            descriptions: '.metadata/descriptions'
+            assets: 'assets'
+            fullRfp: 'full-rfp'
+
+logging:
+    level: 'info'
+    verbose: false
+    file: '~/.aria/logs/doc-decomposer.log'
+    maxFileSizeMb: 10
+    maxFiles: 7

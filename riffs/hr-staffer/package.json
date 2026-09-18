@@ -1,0 +1,32 @@
+{
+    "name": "@aria/hr-staffer",
+    "version": "0.1.0",
+    "description": "Staff directory with semantic matching",
+    "type": "module",
+    "packageManager": "bun@1.4.2",
+    "engines": {
+        "bun": ">=1.4.0",
+        "node": ">=26.0.0"
+    },
+    "main": "dist/cli.js",
+    "bin": {
+        "hr-staffer": "dist/cli.js"
+    },
+    "files": [
+        "dist/",
+        "src/",
+        "config.yaml"
+    ],
+    "dependencies": {
+        "@ai-sdk/google": "^4.0.75",
+        "@ai-sdk/openai": "^4.0.70",
+        "ai": "^7.0.106",
+        "ai-sdk-ollama": "^4.3.0",
+        "commander": "^15.0.0",
+        "dotenv": "^18.0.0",
+        "js-yaml": "^5.4.2",
+        "libsql": "^0.5.29",
+        "pino": "^10.3.1",
+        "zod": "^4.6.5"
+    }
+}

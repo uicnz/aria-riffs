@@ -1,0 +1,5 @@
+# Partial config - only maxFileSizeBytes specified
+
+image-transcoder:
+  transcoding:
+    maxFileSizeBytes: 10485760  # 10MB in bytes
