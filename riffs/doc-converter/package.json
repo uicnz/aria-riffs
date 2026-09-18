@@ -1,6 +1,6 @@
 {
     "name": "@aria/doc-converter",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "DocX to Markdown conversion with 18 Aria Rules",
     "type": "module",
     "packageManager": "bun@1.4.2",

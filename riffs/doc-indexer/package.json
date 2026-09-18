@@ -1,6 +1,6 @@
 {
     "name": "@aria/doc-indexer",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "Document indexing, semantic search, and knowledge graphs",
     "type": "module",
     "packageManager": "bun@1.4.2",

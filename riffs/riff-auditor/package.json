@@ -1,6 +1,6 @@
 {
     "name": "@aria/riff-auditor",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "Riff configuration auditing and validation",
     "type": "module",
     "packageManager": "bun@1.4.2",

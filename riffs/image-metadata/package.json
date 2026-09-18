@@ -1,6 +1,6 @@
 {
     "name": "@aria/image-metadata",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "Image EXIF metadata extraction and processing",
     "type": "module",
     "packageManager": "bun@1.4.2",

@@ -1,6 +1,6 @@
 {
     "name": "@aria/sharepoint-manager",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "SharePoint link extraction and file management",
     "type": "module",
     "packageManager": "bun@1.4.2",

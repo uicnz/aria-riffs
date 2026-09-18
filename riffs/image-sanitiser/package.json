@@ -1,6 +1,6 @@
 {
     "name": "@aria/image-sanitiser",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "Image file extension verification and correction",
     "type": "module",
     "packageManager": "bun@1.4.2",

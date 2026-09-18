@@ -24,7 +24,7 @@
     },
     "riffs/code-auditor": {
       "name": "@aria/code-auditor",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "bin": {
         "code-auditor": "dist/cli.js",
       },
@@ -38,7 +38,7 @@
     },
     "riffs/commit-formatter": {
       "name": "@aria/commit-formatter",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "bin": {
         "commit-formatter": "dist/cli.js",
       },
@@ -56,7 +56,7 @@
     },
     "riffs/dir-differ": {
       "name": "@aria/dir-differ",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "bin": {
         "dir-differ": "dist/cli.js",
       },
@@ -71,7 +71,7 @@
     },
     "riffs/doc-converter": {
       "name": "@aria/doc-converter",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "bin": {
         "doc-converter": "dist/cli.js",
       },
@@ -89,7 +89,7 @@
     },
     "riffs/doc-decomposer": {
       "name": "@aria/doc-decomposer",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "bin": {
         "doc-decomposer": "dist/cli.js",
       },
@@ -104,7 +104,7 @@
     },
     "riffs/doc-indexer": {
       "name": "@aria/doc-indexer",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "bin": {
         "doc-indexer": "dist/cli.js",
       },
@@ -121,7 +121,7 @@
     },
     "riffs/hr-policy": {
       "name": "@aria/hr-policy",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "bin": {
         "hr-policy": "dist/cli.js",
       },
@@ -142,7 +142,7 @@
     },
     "riffs/hr-staffer": {
       "name": "@aria/hr-staffer",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "bin": {
         "hr-staffer": "dist/cli.js",
       },
@@ -161,7 +161,7 @@
     },
     "riffs/image-alttext": {
       "name": "@aria/image-alttext",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "bin": {
         "image-alttext": "dist/cli.js",
       },
@@ -175,7 +175,7 @@
     },
     "riffs/image-generator": {
       "name": "@aria/image-generator",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "bin": {
         "image-generator": "dist/cli.js",
       },
@@ -190,7 +190,7 @@
     },
     "riffs/image-metadata": {
       "name": "@aria/image-metadata",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "bin": {
         "image-metadata": "dist/cli.js",
       },
@@ -213,7 +213,7 @@
     },
     "riffs/image-ocr": {
       "name": "@aria/image-ocr",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "bin": {
         "image-ocr": "dist/cli.js",
       },
@@ -230,7 +230,7 @@
     },
     "riffs/image-renamer": {
       "name": "@aria/image-renamer",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "bin": {
         "image-renamer": "dist/cli.js",
       },
@@ -254,7 +254,7 @@
     },
     "riffs/image-sanitiser": {
       "name": "@aria/image-sanitiser",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "bin": {
         "image-sanitiser": "dist/cli.js",
       },
@@ -273,7 +273,7 @@
     },
     "riffs/image-transcoder": {
       "name": "@aria/image-transcoder",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "bin": {
         "image-transcoder": "dist/cli.js",
       },
@@ -288,7 +288,7 @@
     },
     "riffs/mindmap-converter": {
       "name": "@aria/mindmap-converter",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "bin": {
         "mindmap-converter": "dist/cli.js",
       },
@@ -305,7 +305,7 @@
     },
     "riffs/prompt-tracer": {
       "name": "@aria/prompt-tracer",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "bin": {
         "prompt-tracer": "dist/cli.js",
       },
@@ -320,7 +320,7 @@
     },
     "riffs/riff-auditor": {
       "name": "@aria/riff-auditor",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "bin": {
         "riff-auditor": "dist/cli.js",
       },
@@ -336,7 +336,7 @@
     },
     "riffs/sharepoint-manager": {
       "name": "@aria/sharepoint-manager",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "bin": {
         "sharepoint-manager": "dist/cli.js",
       },
@@ -353,7 +353,7 @@
     },
     "riffs/vector-indexer": {
       "name": "@aria/vector-indexer",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "bin": {
         "vector-indexer": "dist/cli.js",
       },

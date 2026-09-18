@@ -1,6 +1,6 @@
 {
     "name": "@aria/prompt-tracer",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "Anthropic coding CLI prompt extraction and analysis",
     "type": "module",
     "packageManager": "bun@1.4.2",

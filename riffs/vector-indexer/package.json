@@ -1,6 +1,6 @@
 {
     "name": "@aria/vector-indexer",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "Semantic vector indexing with embeddings and Qdrant",
     "type": "module",
     "packageManager": "bun@1.4.2",

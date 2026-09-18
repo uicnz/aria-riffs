@@ -1,6 +1,6 @@
 {
     "name": "@aria/hr-policy",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "HR policy document indexing and search",
     "type": "module",
     "packageManager": "bun@1.4.2",
