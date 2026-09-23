@@ -1,0 +1,4 @@
+contributions:
+    executable:
+        entrypoint: dist/cli.js
+        bin: dir-differ

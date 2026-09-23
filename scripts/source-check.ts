@@ -121,6 +121,8 @@ for (const tier of tiers) {
 		if (!existsSync(path.join(unitRoot, 'RIFF.md'))) throw new Error(`Release unit has no RIFF.md: ${unitRoot}`);
 		if (!existsSync(path.join(unitRoot, 'README.md')))
 			throw new Error(`Release unit has no README.md: ${unitRoot}`);
+		if (!existsSync(path.join(unitRoot, 'aria.yaml')))
+			throw new Error(`Release unit has no aria.yaml: ${unitRoot}`);
 		const identity = riffName(unitRoot);
 		if (identities.has(identity)) throw new Error(`Riff identity occurs more than once: ${identity}`);
 		identities.add(identity);

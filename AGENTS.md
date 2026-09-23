@@ -22,10 +22,10 @@ Do not add package-name branches to Source tooling. Tier roots are enumerated ge
 - `riff` is the only product token for an independently distributed executable callable in this repository.
 - A Riff is not a Tool type, Tool source, Tool mode, Tool package, or Tool compatibility layer.
 - Riff wiring uses only the canonical Riff vocabulary defined in this repository.
-- Every Riff uses the same wiring contract: `README.md`, `RIFF.md`, `config.yaml`, `package.json`, `src/cli.ts`, and the developer-built `dist/cli.js` distribution.
+- Every Riff uses the same wiring contract: `README.md`, `RIFF.md`, `aria.yaml`, `config.yaml`, `package.json`, `src/cli.ts`, and the developer-built `dist/cli.js` distribution. `aria.yaml` is the Aria item declaration shared by every ICP family; a Riff declares its `executable` contribution there.
 - `RIFF.md` is the authored specification an Agent reads before invoking: frontmatter `name` and `description`, then the sections Purpose, When to use, Pipeline, Parameters, Output, Constraints, Conventions, and Examples, in that order. Example commands invoke `$RIFF`. Aria parses this document; it is the only source of Riff guidance.
 - `config.yaml` exposes runtime configuration and canonical discovery metadata beneath `aria-riff`; its `name` matches the directory name exactly.
-- `package.json` uses `@aria/<riff>`, exposes a binary named `<riff>`, and lists `dist/`, `src/`, `config.yaml`, `README.md`, and `RIFF.md` as its files.
+- `package.json` uses `@aria/<riff>`, exposes a binary named `<riff>`, and lists `dist/`, `src/`, `config.yaml`, `README.md`, `RIFF.md`, and `aria.yaml` as its files.
 - Aria owns invocation identity, approval, durability, telemetry, and protocol projection. A Riff receives arguments and executes its own bounded business behavior. It does not impersonate an Aria Tool or manufacture Tool correlation.
 - Riff developers own dependency installation and distribution builds. Normal Riff invocation never installs dependencies. When an invoked package is incomplete or broken, the Aria agent may inspect and repair it in place with its ordinary filesystem, Shell, package, build, and test capabilities before refreshing discovery and retrying.
 - Keep all Riffs at absolute structural and semantic parity. Extend `riff-auditor` when the shared wiring contract changes so parity remains executable rather than documentary.

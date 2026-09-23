@@ -17,7 +17,8 @@
         "src/",
         "config.yaml",
         "README.md",
-        "RIFF.md"
+        "RIFF.md",
+        "aria.yaml"
     ],
     "scripts": {
         "build": "bun ../../../scripts/build-riff.ts",

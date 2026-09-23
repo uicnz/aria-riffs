@@ -122,7 +122,7 @@ export class RiffAuditor {
 			issues.push(`package binary "${riff}" must equal "dist/cli.js"`);
 		}
 		if (wiringResult.packageJsonValid && !wiringResult.packageFilesMatchCanonical) {
-			issues.push('package files must equal: dist/, src/, config.yaml, README.md, RIFF.md');
+			issues.push('package files must equal: dist/, src/, config.yaml, README.md, RIFF.md, aria.yaml');
 		}
 		if (promptResult.promptExists && !promptResult.promptLoads) {
 			issues.push('RIFF.md must be a readable Riff document');

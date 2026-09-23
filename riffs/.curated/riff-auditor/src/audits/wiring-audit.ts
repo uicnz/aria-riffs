@@ -8,6 +8,7 @@ import { riffRoot } from './utils.js';
 export const CANONICAL_RIFF_FILES = [
 	'README.md',
 	'RIFF.md',
+	'aria.yaml',
 	'config.yaml',
 	'package.json',
 	'tsconfig.json',
@@ -36,7 +37,7 @@ export const CANONICAL_PACKAGE_KEYS = [
 	'dependencies',
 ] as const;
 
-export const CANONICAL_PACKAGE_FILES = ['dist/', 'src/', 'config.yaml', 'README.md', 'RIFF.md'] as const;
+export const CANONICAL_PACKAGE_FILES = ['dist/', 'src/', 'config.yaml', 'README.md', 'RIFF.md', 'aria.yaml'] as const;
 
 export interface RiffWiringAuditResult {
 	missingCanonicalFiles: string[];

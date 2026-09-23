@@ -31,7 +31,7 @@ function writeRiff(
 			engines: { bun: '>=1.4.0', node: '>=26.0.0' },
 			main: 'dist/cli.js',
 			bin: { [riff]: 'dist/cli.js' },
-			files: ['dist/', 'src/', 'config.yaml', 'README.md', 'RIFF.md'],
+			files: ['dist/', 'src/', 'config.yaml', 'README.md', 'RIFF.md', 'aria.yaml'],
 			scripts: {
 				start: 'bun src/cli.ts',
 				test: `vitest run --coverage --coverage.reportsDirectory=../../coverage/${riff} --coverage.include='**/*.ts' test/`,
@@ -44,6 +44,7 @@ function writeRiff(
 	writeFileSync(join(riffRoot, 'dist', 'cli.js'), 'console.log("sample");\n');
 	writeFileSync(join(riffRoot, 'src', 'cli.ts'), 'export function createProgram() {}\n');
 	writeFileSync(join(riffRoot, 'RIFF.md'), `---\nname: ${input.promptName ?? riff}\ndescription: Sample Riff\n---\n`);
+	writeFileSync(join(riffRoot, 'aria.yaml'), 'contributions:\n    executable:\n        entrypoint: dist/cli.js\n');
 	for (const file of ['config.ts', 'load-dotenv.ts', 'logger.ts', 'schema.ts', 'types.ts']) {
 		writeFileSync(join(riffRoot, 'src', 'lib', file), 'export {};\n');
 	}
