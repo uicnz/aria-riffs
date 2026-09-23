@@ -1,0 +1,41 @@
+{
+    "name": "@aria/image-ocr",
+    "version": "0.2.0",
+    "description": "OCR text extraction from images and PDFs",
+    "type": "module",
+    "packageManager": "bun@1.4.2",
+    "engines": {
+        "bun": ">=1.4.0",
+        "node": ">=26.0.0"
+    },
+    "main": "dist/cli.js",
+    "bin": {
+        "image-ocr": "dist/cli.js"
+    },
+    "files": [
+        "dist/",
+        "src/",
+        "config.yaml",
+        "README.md",
+        "RIFF.md"
+    ],
+    "scripts": {
+        "build": "bun ../../../scripts/build-riff.ts",
+        "start": "bun src/cli.ts",
+        "process": "bun src/cli.ts process",
+        "check": "bun src/cli.ts check-setup",
+        "config": "bun src/cli.ts config",
+        "typecheck": "tsc --noEmit -p tsconfig.json",
+        "test": "vitest run --coverage --coverage.reportsDirectory=../../coverage/image-ocr --coverage.include='**/*.ts' test/"
+    },
+    "dependencies": {
+        "cli-progress": "^3.12.0",
+        "commander": "^15.0.0",
+        "dotenv": "^18.0.0",
+        "fs-extra": "^11.4.0",
+        "pino": "^10.3.1",
+        "scribe.js-ocr": "^0.15.0",
+        "yaml": "^2.9.1",
+        "zod": "^4.6.5"
+    }
+}

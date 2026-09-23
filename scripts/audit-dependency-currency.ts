@@ -23,7 +23,7 @@ function parseVersion(spec: string): string | null {
 	return spec.match(/^\^?(\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?)$/)?.[1] ?? null;
 }
 
-const riffManifests = [...new Bun.Glob('riffs/*/package.json').scanSync('.')].sort();
+const riffManifests = [...new Bun.Glob('riffs/*/*/package.json').scanSync('.')].sort();
 const manifestPaths = ['package.json', ...riffManifests];
 const declarations: DependencyDeclaration[] = [];
 const violations: string[] = [];

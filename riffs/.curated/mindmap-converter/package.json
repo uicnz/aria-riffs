@@ -1,0 +1,47 @@
+{
+    "name": "@aria/mindmap-converter",
+    "version": "0.2.0",
+    "description": "OPML and FreeMind to Markdown conversion",
+    "type": "module",
+    "packageManager": "bun@1.4.2",
+    "engines": {
+        "bun": ">=1.4.0",
+        "node": ">=26.0.0"
+    },
+    "main": "dist/cli.js",
+    "bin": {
+        "mindmap-converter": "dist/cli.js"
+    },
+    "files": [
+        "dist/",
+        "src/",
+        "config.yaml",
+        "README.md",
+        "RIFF.md"
+    ],
+    "scripts": {
+        "build": "bun ../../../scripts/build-riff.ts",
+        "start": "bun src/cli.ts",
+        "convert": "bun src/cli.ts convert",
+        "validate": "bun src/cli.ts validate",
+        "batch": "bun src/cli.ts batch",
+        "export": "bun src/cli.ts export",
+        "db-stats": "bun src/cli.ts db-stats",
+        "db-list": "bun src/cli.ts db-list",
+        "db-search": "bun src/cli.ts db-search",
+        "export-jsonl": "bun src/cli.ts export-jsonl",
+        "jsonl-search": "bun src/cli.ts jsonl-search",
+        "typecheck": "tsc --noEmit -p tsconfig.json",
+        "test": "vitest run --coverage --coverage.reportsDirectory=../../coverage/mindmap-converter --coverage.include='**/*.ts' test/"
+    },
+    "dependencies": {
+        "commander": "^15.0.0",
+        "dotenv": "^18.0.0",
+        "fast-xml-parser": "^5.11.1",
+        "glob": "^13.0.6",
+        "libsql": "^0.5.29",
+        "pino": "^10.3.1",
+        "yaml": "^2.9.1",
+        "zod": "^4.6.5"
+    }
+}

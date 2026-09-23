@@ -1,0 +1,28 @@
+name: Source check
+
+on:
+    pull_request:
+    push:
+        branches:
+            - main
+
+permissions:
+    contents: read
+
+jobs:
+    inspect:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Check out Riff Source
+              uses: actions/checkout@v7
+
+            - name: Set up Bun
+              uses: oven-sh/setup-bun@v2
+              with:
+                  bun-version: 1.4.2
+
+            - name: Install Source dependencies
+              run: bun install --frozen-lockfile
+
+            - name: Inspect every tier and release unit
+              run: bun scripts/source-check.ts riffs

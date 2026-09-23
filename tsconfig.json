@@ -49,9 +49,15 @@
         "types": ["bun-types", "node"]
     },
     "include": [
-        "riffs/**/src/**/*.ts",
-        "riffs/**/src/**/*.tsx",
-        "riffs/**/test/**/*.ts",
+        "riffs/.system/*/src/**/*.ts",
+        "riffs/.system/*/src/**/*.tsx",
+        "riffs/.system/*/test/**/*.ts",
+        "riffs/.curated/*/src/**/*.ts",
+        "riffs/.curated/*/src/**/*.tsx",
+        "riffs/.curated/*/test/**/*.ts",
+        "riffs/.experimental/*/src/**/*.ts",
+        "riffs/.experimental/*/src/**/*.tsx",
+        "riffs/.experimental/*/test/**/*.ts",
         "scripts/**/*.ts",
         "vitest.config.ts",
         "vitest-setup.ts"

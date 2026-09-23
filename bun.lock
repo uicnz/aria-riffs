@@ -22,7 +22,7 @@
         "yaml": "^2.9.1",
       },
     },
-    "riffs/code-auditor": {
+    "riffs/.curated/code-auditor": {
       "name": "@aria/code-auditor",
       "version": "0.2.0",
       "bin": {
@@ -36,7 +36,7 @@
         "zod": "^4.6.5",
       },
     },
-    "riffs/commit-formatter": {
+    "riffs/.curated/commit-formatter": {
       "name": "@aria/commit-formatter",
       "version": "0.2.0",
       "bin": {
@@ -54,7 +54,7 @@
         "zod": "^4.6.5",
       },
     },
-    "riffs/dir-differ": {
+    "riffs/.curated/dir-differ": {
       "name": "@aria/dir-differ",
       "version": "0.2.0",
       "bin": {
@@ -69,7 +69,7 @@
         "zod": "^4.6.5",
       },
     },
-    "riffs/doc-converter": {
+    "riffs/.curated/doc-converter": {
       "name": "@aria/doc-converter",
       "version": "0.2.0",
       "bin": {
@@ -87,7 +87,7 @@
         "zod": "^4.6.5",
       },
     },
-    "riffs/doc-decomposer": {
+    "riffs/.curated/doc-decomposer": {
       "name": "@aria/doc-decomposer",
       "version": "0.2.0",
       "bin": {
@@ -102,7 +102,7 @@
         "zod": "^4.6.5",
       },
     },
-    "riffs/doc-indexer": {
+    "riffs/.curated/doc-indexer": {
       "name": "@aria/doc-indexer",
       "version": "0.2.0",
       "bin": {
@@ -119,7 +119,7 @@
         "zod": "^4.6.5",
       },
     },
-    "riffs/hr-policy": {
+    "riffs/.curated/hr-policy": {
       "name": "@aria/hr-policy",
       "version": "0.2.0",
       "bin": {
@@ -140,7 +140,7 @@
         "zod": "^4.6.5",
       },
     },
-    "riffs/hr-staffer": {
+    "riffs/.curated/hr-staffer": {
       "name": "@aria/hr-staffer",
       "version": "0.2.0",
       "bin": {
@@ -159,7 +159,7 @@
         "zod": "^4.6.5",
       },
     },
-    "riffs/image-alttext": {
+    "riffs/.curated/image-alttext": {
       "name": "@aria/image-alttext",
       "version": "0.2.0",
       "bin": {
@@ -173,7 +173,7 @@
         "zod": "^4.6.5",
       },
     },
-    "riffs/image-generator": {
+    "riffs/.curated/image-generator": {
       "name": "@aria/image-generator",
       "version": "0.2.0",
       "bin": {
@@ -188,7 +188,7 @@
         "zod": "^4.6.5",
       },
     },
-    "riffs/image-metadata": {
+    "riffs/.curated/image-metadata": {
       "name": "@aria/image-metadata",
       "version": "0.2.0",
       "bin": {
@@ -211,7 +211,7 @@
         "zod": "^4.6.5",
       },
     },
-    "riffs/image-ocr": {
+    "riffs/.curated/image-ocr": {
       "name": "@aria/image-ocr",
       "version": "0.2.0",
       "bin": {
@@ -228,7 +228,7 @@
         "zod": "^4.6.5",
       },
     },
-    "riffs/image-renamer": {
+    "riffs/.curated/image-renamer": {
       "name": "@aria/image-renamer",
       "version": "0.2.0",
       "bin": {
@@ -252,7 +252,7 @@
         "zod": "^4.6.5",
       },
     },
-    "riffs/image-sanitiser": {
+    "riffs/.curated/image-sanitiser": {
       "name": "@aria/image-sanitiser",
       "version": "0.2.0",
       "bin": {
@@ -271,7 +271,7 @@
         "zod": "^4.6.5",
       },
     },
-    "riffs/image-transcoder": {
+    "riffs/.curated/image-transcoder": {
       "name": "@aria/image-transcoder",
       "version": "0.2.0",
       "bin": {
@@ -286,7 +286,7 @@
         "zod": "^4.6.5",
       },
     },
-    "riffs/mindmap-converter": {
+    "riffs/.curated/mindmap-converter": {
       "name": "@aria/mindmap-converter",
       "version": "0.2.0",
       "bin": {
@@ -303,7 +303,7 @@
         "zod": "^4.6.5",
       },
     },
-    "riffs/prompt-tracer": {
+    "riffs/.curated/prompt-tracer": {
       "name": "@aria/prompt-tracer",
       "version": "0.2.0",
       "bin": {
@@ -318,7 +318,7 @@
         "zod": "^4.6.5",
       },
     },
-    "riffs/riff-auditor": {
+    "riffs/.curated/riff-auditor": {
       "name": "@aria/riff-auditor",
       "version": "0.2.0",
       "bin": {
@@ -334,7 +334,7 @@
         "zod": "^4.6.5",
       },
     },
-    "riffs/sharepoint-manager": {
+    "riffs/.curated/sharepoint-manager": {
       "name": "@aria/sharepoint-manager",
       "version": "0.2.0",
       "bin": {
@@ -351,7 +351,7 @@
         "zod": "^4.6.5",
       },
     },
-    "riffs/vector-indexer": {
+    "riffs/.curated/vector-indexer": {
       "name": "@aria/vector-indexer",
       "version": "0.2.0",
       "bin": {
@@ -388,45 +388,45 @@
 
     "@ai-sdk/provider-utils": ["@ai-sdk/provider-utils@5.0.44", "", { "dependencies": { "@ai-sdk/provider": "4.0.17", "@standard-schema/spec": "^1.1.0", "@workflow/serde": "4.1.0", "eventsource-parser": "^3.0.8", "undici": "^7.29.0" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-TZGr0Al1mMnRh7Wd+3qTnSdWvBDIst2Abl8mglkob8rbXF1TG5xoeVLV19rD/AtB+NL/LUPITdbQ0EFGHRBcSw=="],
 
-    "@aria/code-auditor": ["@aria/code-auditor@workspace:riffs/code-auditor"],
+    "@aria/code-auditor": ["@aria/code-auditor@workspace:riffs/.curated/code-auditor"],
 
-    "@aria/commit-formatter": ["@aria/commit-formatter@workspace:riffs/commit-formatter"],
+    "@aria/commit-formatter": ["@aria/commit-formatter@workspace:riffs/.curated/commit-formatter"],
 
-    "@aria/dir-differ": ["@aria/dir-differ@workspace:riffs/dir-differ"],
+    "@aria/dir-differ": ["@aria/dir-differ@workspace:riffs/.curated/dir-differ"],
 
-    "@aria/doc-converter": ["@aria/doc-converter@workspace:riffs/doc-converter"],
+    "@aria/doc-converter": ["@aria/doc-converter@workspace:riffs/.curated/doc-converter"],
 
-    "@aria/doc-decomposer": ["@aria/doc-decomposer@workspace:riffs/doc-decomposer"],
+    "@aria/doc-decomposer": ["@aria/doc-decomposer@workspace:riffs/.curated/doc-decomposer"],
 
-    "@aria/doc-indexer": ["@aria/doc-indexer@workspace:riffs/doc-indexer"],
+    "@aria/doc-indexer": ["@aria/doc-indexer@workspace:riffs/.curated/doc-indexer"],
 
-    "@aria/hr-policy": ["@aria/hr-policy@workspace:riffs/hr-policy"],
+    "@aria/hr-policy": ["@aria/hr-policy@workspace:riffs/.curated/hr-policy"],
 
-    "@aria/hr-staffer": ["@aria/hr-staffer@workspace:riffs/hr-staffer"],
+    "@aria/hr-staffer": ["@aria/hr-staffer@workspace:riffs/.curated/hr-staffer"],
 
-    "@aria/image-alttext": ["@aria/image-alttext@workspace:riffs/image-alttext"],
+    "@aria/image-alttext": ["@aria/image-alttext@workspace:riffs/.curated/image-alttext"],
 
-    "@aria/image-generator": ["@aria/image-generator@workspace:riffs/image-generator"],
+    "@aria/image-generator": ["@aria/image-generator@workspace:riffs/.curated/image-generator"],
 
-    "@aria/image-metadata": ["@aria/image-metadata@workspace:riffs/image-metadata"],
+    "@aria/image-metadata": ["@aria/image-metadata@workspace:riffs/.curated/image-metadata"],
 
-    "@aria/image-ocr": ["@aria/image-ocr@workspace:riffs/image-ocr"],
+    "@aria/image-ocr": ["@aria/image-ocr@workspace:riffs/.curated/image-ocr"],
 
-    "@aria/image-renamer": ["@aria/image-renamer@workspace:riffs/image-renamer"],
+    "@aria/image-renamer": ["@aria/image-renamer@workspace:riffs/.curated/image-renamer"],
 
-    "@aria/image-sanitiser": ["@aria/image-sanitiser@workspace:riffs/image-sanitiser"],
+    "@aria/image-sanitiser": ["@aria/image-sanitiser@workspace:riffs/.curated/image-sanitiser"],
 
-    "@aria/image-transcoder": ["@aria/image-transcoder@workspace:riffs/image-transcoder"],
+    "@aria/image-transcoder": ["@aria/image-transcoder@workspace:riffs/.curated/image-transcoder"],
 
-    "@aria/mindmap-converter": ["@aria/mindmap-converter@workspace:riffs/mindmap-converter"],
+    "@aria/mindmap-converter": ["@aria/mindmap-converter@workspace:riffs/.curated/mindmap-converter"],
 
-    "@aria/prompt-tracer": ["@aria/prompt-tracer@workspace:riffs/prompt-tracer"],
+    "@aria/prompt-tracer": ["@aria/prompt-tracer@workspace:riffs/.curated/prompt-tracer"],
 
-    "@aria/riff-auditor": ["@aria/riff-auditor@workspace:riffs/riff-auditor"],
+    "@aria/riff-auditor": ["@aria/riff-auditor@workspace:riffs/.curated/riff-auditor"],
 
-    "@aria/sharepoint-manager": ["@aria/sharepoint-manager@workspace:riffs/sharepoint-manager"],
+    "@aria/sharepoint-manager": ["@aria/sharepoint-manager@workspace:riffs/.curated/sharepoint-manager"],
 
-    "@aria/vector-indexer": ["@aria/vector-indexer@workspace:riffs/vector-indexer"],
+    "@aria/vector-indexer": ["@aria/vector-indexer@workspace:riffs/.curated/vector-indexer"],
 
     "@babel/helper-string-parser": ["@babel/helper-string-parser@7.29.7", "", {}, "sha512-Pb5ijPrZ89GDH8223L4UP8i6QApWxs04RbPQJTeWDV0/keR2E36MeKnyr6LYmUUvqRRI+Iv87SuF1W6ErINzYw=="],
 

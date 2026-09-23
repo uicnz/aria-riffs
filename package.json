@@ -6,8 +6,10 @@
   "private": true,
   "packageManager": "bun@1.4.2",
   "workspaces": [
-    "riffs/*"
-  ],
+        "riffs/.system/*",
+        "riffs/.curated/*",
+        "riffs/.experimental/*"
+    ],
   "overrides": {
     "smol-toml": "1.8.0"
   },
@@ -23,11 +25,11 @@
     "lint:fix": "biome lint --write riffs/ scripts/ vitest.config.ts vitest-setup.ts",
     "format": "biome format --write riffs/ scripts/ vitest.config.ts vitest-setup.ts",
     "format:check": "biome format riffs/ scripts/ vitest.config.ts vitest-setup.ts",
-    "format:yaml": "prettier --write --tab-width 4 'riffs/*/config.yaml'",
-    "format:yaml:check": "prettier --check --tab-width 4 'riffs/*/config.yaml'",
+    "format:yaml": "prettier --write --tab-width 4 'riffs/*/*/config.yaml'",
+    "format:yaml:check": "prettier --check --tab-width 4 'riffs/*/*/config.yaml'",
     "mdlint": "markdownlint-cli2",
     "mdlint:fix": "markdownlint-cli2 --fix",
-    "quality": "bun run check && bun run typecheck && bun run format:yaml:check && bun run mdlint && bun riffs/riff-auditor/src/cli.ts audit --strict",
+    "quality": "bun run check && bun run typecheck && bun run format:yaml:check && bun run mdlint && bun riffs/.curated/riff-auditor/src/cli.ts audit --strict",
     "dependencies:audit": "bun audit",
     "dependencies:outdated": "bun scripts/audit-dependency-currency.ts",
     "dependencies:outdated:direct": "bun outdated --recursive"

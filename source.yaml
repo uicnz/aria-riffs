@@ -1,0 +1,116 @@
+schema: aria.riff.source/v1
+sourceId: aria-official
+authorityId: aria-official
+sourceRepository: https://github.com/uicnz/aria-riffs
+publisher: uicnz
+curator: aria
+distributor: aria
+channel: stable
+rootKeyId: aria-riff-root-1
+delegatedKeyId: aria-riff-release-1
+manifestRevision: 1
+
+domain:
+  development:
+    label: Software Development
+    description: Audit, format, and inspect software and its tooling.
+    order: 10
+    categories:
+      auditing:
+        label: Auditing
+        description: Audit dependencies, structure, and conventions.
+        order: 10
+      git:
+        label: Git
+        description: Shape commits and repository history.
+        order: 20
+      prompts:
+        label: Prompts
+        description: Extract and compare agent system prompts.
+        order: 30
+
+  documents:
+    label: Documents
+    description: Convert, decompose, index, and search documents.
+    order: 20
+    categories:
+      conversion:
+        label: Conversion
+        description: Convert documents between authored formats.
+        order: 10
+      analysis:
+        label: Analysis
+        description: Decompose documents into structured components.
+        order: 20
+      search:
+        label: Search
+        description: Index documents for semantic and lexical search.
+        order: 30
+
+  images:
+    label: Images
+    description: Generate, describe, and process images.
+    order: 30
+    categories:
+      generation:
+        label: Generation
+        description: Generate images from text.
+        order: 10
+      description:
+        label: Description
+        description: Describe images with alt text and metadata.
+        order: 20
+      processing:
+        label: Processing
+        description: Extract text, rename, verify, and transcode image files.
+        order: 30
+
+  knowledge:
+    label: Knowledge
+    description: Organizational people and policy knowledge.
+    order: 40
+    categories:
+      people:
+        label: People
+        description: Staff directories and organizational structure.
+        order: 10
+      policy:
+        label: Policy
+        description: Policy documents and their search.
+        order: 20
+
+  utilities:
+    label: Utilities
+    description: File system and workplace service utilities.
+    order: 50
+    categories:
+      filesystem:
+        label: File System
+        description: Compare and inspect directories and files.
+        order: 10
+      sharepoint:
+        label: SharePoint
+        description: Work with SharePoint links and synchronized files.
+        order: 20
+
+assignments:
+  code-auditor: { domain: development, category: auditing, tags: [audit, dependencies, security] }
+  commit-formatter: { domain: development, category: git, tags: [commits, conventional-commits, git] }
+  dir-differ: { domain: utilities, category: filesystem, tags: [compare, directories, files] }
+  doc-converter: { domain: documents, category: conversion, tags: [conversion, docx, markdown] }
+  doc-decomposer: { domain: documents, category: analysis, tags: [analysis, decomposition, rfp] }
+  doc-indexer: { domain: documents, category: search, tags: [indexing, knowledge-graph, search] }
+  hr-policy: { domain: knowledge, category: policy, tags: [hr, policy, search] }
+  hr-staffer: { domain: knowledge, category: people, tags: [directory, hr, organization] }
+  image-alttext: { domain: images, category: description, tags: [accessibility, alt-text, images] }
+  image-generator: { domain: images, category: generation, tags: [gemini, generation, images] }
+  image-metadata: { domain: images, category: description, tags: [exif, images, metadata] }
+  image-ocr: { domain: images, category: processing, tags: [images, ocr, pdf] }
+  image-renamer: { domain: images, category: processing, tags: [filenames, images, renaming] }
+  image-sanitiser: { domain: images, category: processing, tags: [extensions, images, verification] }
+  image-transcoder: { domain: images, category: processing, tags: [conversion, images, resize] }
+  mindmap-converter: { domain: documents, category: conversion, tags: [freemind, markdown, opml] }
+  prompt-tracer: { domain: development, category: prompts, tags: [analysis, prompts, system-prompt] }
+  riff-auditor: { domain: development, category: auditing, tags: [audit, parity, riffs] }
+  sharepoint-manager: { domain: utilities, category: sharepoint, tags: [links, onedrive, sharepoint] }
+  vector-indexer: { domain: documents, category: search, tags: [embeddings, qdrant, vectors] }

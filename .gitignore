@@ -168,9 +168,9 @@ scratchpad.md
 
 # Build artifacts
 dist/
-riffs/*/dist/
-!riffs/*/dist/
-!riffs/*/dist/cli.js
+riffs/*/*/dist/
+!riffs/*/*/dist/
+!riffs/*/*/dist/cli.js
 build/artifacts/
 *.generated.ts
 # Stub generated file required for typecheck (small text data, not binary blobs)

@@ -1,0 +1,45 @@
+{
+    "name": "@aria/vector-indexer",
+    "version": "0.2.0",
+    "description": "Semantic vector indexing with embeddings and Qdrant",
+    "type": "module",
+    "packageManager": "bun@1.4.2",
+    "engines": {
+        "bun": ">=1.4.0",
+        "node": ">=26.0.0"
+    },
+    "main": "dist/cli.js",
+    "bin": {
+        "vector-indexer": "dist/cli.js"
+    },
+    "files": [
+        "dist/",
+        "src/",
+        "config.yaml",
+        "README.md",
+        "RIFF.md"
+    ],
+    "scripts": {
+        "build": "bun ../../../scripts/build-riff.ts",
+        "start": "bun src/cli.ts",
+        "index": "bun src/cli.ts index",
+        "search": "bun src/cli.ts search",
+        "collections": "bun src/cli.ts collections",
+        "check": "bun src/cli.ts check",
+        "typecheck": "tsc --noEmit -p tsconfig.json",
+        "test": "vitest run --coverage --coverage.reportsDirectory=../../coverage/vector-indexer --coverage.include='**/*.ts' test/"
+    },
+    "dependencies": {
+        "@qdrant/js-client-rest": "^1.19.0",
+        "ai": "^7.0.106",
+        "ai-sdk-ollama": "^4.3.0",
+        "commander": "^15.0.0",
+        "dotenv": "^18.0.0",
+        "glob": "^13.0.6",
+        "ora": "^9.4.1",
+        "pino": "^10.3.1",
+        "wink-bm25-text-search": "^3.1.2",
+        "yaml": "^2.9.1",
+        "zod": "^4.6.5"
+    }
+}

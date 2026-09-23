@@ -27,12 +27,16 @@ export default defineConfig({
 	plugins: [mdTextPlugin()],
 	test: {
 		environment: 'node',
-		include: ['riffs/**/test/**/*.test.ts'],
+		include: [
+			'riffs/.system/*/test/**/*.test.ts',
+			'riffs/.curated/*/test/**/*.test.ts',
+			'riffs/.experimental/*/test/**/*.test.ts',
+		],
 		coverage: {
 			provider: 'v8',
 			reporter: ['text', 'lcov', 'html'],
 			reportsDirectory: './coverage',
-			include: ['riffs/**/*.ts'],
+			include: ['riffs/.system/*/**/*.ts', 'riffs/.curated/*/**/*.ts', 'riffs/.experimental/*/**/*.ts'],
 			exclude: ['**/*.d.ts'],
 			// thresholds: {
 			//     branches: 60,

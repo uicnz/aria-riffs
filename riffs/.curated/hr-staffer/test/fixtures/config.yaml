@@ -1,0 +1,45 @@
+# Hr Staffer Test Configuration
+# This config is used for integration tests to avoid modifying production data
+
+hr-staffer:
+  # Centralized path configuration
+  paths:
+    input:
+      staff: 'riffs/.curated/hr-staffer/test/fixtures/minimal-org.csv'
+      chart: '~/.aria/db/hr-staffer/org-chart.md'
+      sections: '~/.aria/exports/cello/hr-staffer'
+    output:
+      chart: '/tmp/hr-staffer-test/output'
+      sections: '~/.aria/exports/cello/hr-staffer'
+    database:
+      file: '/tmp/hr-staffer-test-db/test.db'
+
+  # Output format toggles
+  output:
+    formats:
+      text: true
+      markdown: true
+      mermaid: true
+
+  # Display options
+  display:
+    includeTitle: true
+    includeDepartment: true
+    includeEmail: false
+    maxDepth: null
+
+  # Mermaid-specific options
+  mermaid:
+    breakDownTeams: []
+
+  # Database options
+  database:
+    enabled: true
+
+# Logging configuration (peer section)
+logging:
+  level: 'info'
+  verbose: false
+  file: '~/.aria/logs/hr-staffer-test.log'
+  maxFileSizeMb: 10
+  maxFiles: 7

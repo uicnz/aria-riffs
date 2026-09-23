@@ -1,0 +1,37 @@
+{
+    "name": "@aria/image-alttext",
+    "version": "0.2.0",
+    "description": "AI-generated image alt text for accessibility",
+    "type": "module",
+    "packageManager": "bun@1.4.2",
+    "engines": {
+        "bun": ">=1.4.0",
+        "node": ">=26.0.0"
+    },
+    "main": "dist/cli.js",
+    "bin": {
+        "image-alttext": "dist/cli.js"
+    },
+    "files": [
+        "dist/",
+        "src/",
+        "config.yaml",
+        "README.md",
+        "RIFF.md"
+    ],
+    "scripts": {
+        "build": "bun ../../../scripts/build-riff.ts",
+        "start": "bun src/cli.ts",
+        "process": "bun src/cli.ts process",
+        "analyze": "bun src/cli.ts analyze",
+        "typecheck": "tsc --noEmit -p tsconfig.json",
+        "test": "vitest run --coverage --coverage.reportsDirectory=../../coverage/image-alttext --coverage.include='**/*.ts' test/"
+    },
+    "dependencies": {
+        "commander": "^15.0.0",
+        "dotenv": "^18.0.0",
+        "pino": "^10.3.1",
+        "yaml": "^2.9.1",
+        "zod": "^4.6.5"
+    }
+}

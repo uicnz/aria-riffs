@@ -76,7 +76,7 @@
             "!**/*.js",
             "!**/*.mjs",
             "!**/*.cjs",
-            "!riffs/doc-indexer/src/viewer/libs"
+            "!riffs/.curated/doc-indexer/src/viewer/libs"
         ]
     },
     "overrides": [
